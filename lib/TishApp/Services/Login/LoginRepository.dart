@@ -19,12 +19,17 @@ class LoginRepository {
         // ignore: unnecessary_statements
         : null;
     Map<String, dynamic> jwtData = {};
+
     JwtDecoder.decode(jsonData['access_token'].toString())!
         .forEach((key, value) {
       jwtData[key] = value;
     });
-    print(jwtData);
+    var refreshToken = jsonData['refresh_token'];
+    print(refreshToken);
+    await localStorage.setItem('jwt', jsonData);
     await localStorage.setItem('name', jwtData['name'].toString());
+    await localStorage.setItem(
+        'refresh_token', jwtData['refresh-token'].toString());
     await localStorage.setItem('email', jwtData['email'].toString());
     await localStorage.setItem(
         'email_verified', jwtData['email_verified'].toString());

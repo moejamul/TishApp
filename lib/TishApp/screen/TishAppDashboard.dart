@@ -204,8 +204,7 @@ class FoodDashboardState extends State<FoodDashboard> {
                               padding: EdgeInsets.only(right: 16),
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                return Collection(
-                                    mCollectionList[index], index);
+                                return Item(mBakeryList[index]);
                               },
                             ),
                           ),
@@ -235,21 +234,8 @@ class FoodDashboardState extends State<FoodDashboard> {
                                   Place p = mBakeryList[index];
                                   return Item(p);
                                 },
-                              )
-                              // child: ListView.builder(
-                              //   scrollDirection: Axis.horizontal,
-                              //   itemCount: 1,
-                              //   padding: EdgeInsets.only(bottom: 4, right: 16),
-                              //   shrinkWrap: true,
-                              //   itemBuilder: (context, index) {
-                              //     for (var item in mBakeryList) {
-                              //       return Item(item, index++);
-                              //     }
-                              //   },
-                              // ),
-                              ),
-                          mViewAll(context, food_lbl_view_all_restaurants,
-                              onTap: () {
+                              )),
+                          mViewAll(context, 'View All Bakeries', onTap: () {
                             FoodViewRestaurants().launch(context);
                           }),
                         ],
@@ -264,16 +250,19 @@ class FoodDashboardState extends State<FoodDashboard> {
                         children: <Widget>[
                           heading(food_lbl_delivery_restaurants),
                           SizedBox(
-                            height: 250,
-                            // child: ListView.builder(
-                            //   scrollDirection: Axis.horizontal,
-                            //   padding: EdgeInsets.only(bottom: 4, right: 16),
-                            //   itemCount: mDeliveryList.length,
-                            //   shrinkWrap: true,
-                            //   itemBuilder: (context, index) {
-                            //     return Item(mDeliveryList[index], index);
-                            //   },
-                            // ),
+                            height:
+                                MediaQuery.of(context).size.width * 0.4 > 265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.only(bottom: 4, right: 16),
+                              itemCount: mBakeryList.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Item(mBakeryList[index]);
+                              },
+                            ),
                           ),
                           mViewAll(context, food_lbl_view_all_restaurants,
                               onTap: () {
@@ -291,16 +280,19 @@ class FoodDashboardState extends State<FoodDashboard> {
                         children: <Widget>[
                           heading(food_lbl_dine_out_restaurants),
                           SizedBox(
-                            height: 250,
-                            // child: ListView.builder(
-                            //   scrollDirection: Axis.horizontal,
-                            //   itemCount: mDineOutList.length,
-                            //   padding: EdgeInsets.only(bottom: 4, right: 16),
-                            //   shrinkWrap: true,
-                            //   itemBuilder: (context, index) {
-                            //     return Item(mDineOutList[index], index);
-                            //   },
-                            // ),
+                            height:
+                                MediaQuery.of(context).size.width * 0.4 > 265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: mBakeryList.length,
+                              padding: EdgeInsets.only(bottom: 4, right: 16),
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Item(mBakeryList[index]);
+                              },
+                            ),
                           ),
                           mViewAll(context, food_lbl_view_all_restaurants,
                               onTap: () {
@@ -318,7 +310,10 @@ class FoodDashboardState extends State<FoodDashboard> {
                         children: <Widget>[
                           heading(food_lbl_experience_your_favourite_cuisine),
                           SizedBox(
-                            height: 250,
+                            height:
+                                MediaQuery.of(context).size.width * 0.4 > 265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
                             child: ListView.builder(
                               scrollDirection: Axis.horizontal,
                               padding: EdgeInsets.only(right: 16),
@@ -343,16 +338,19 @@ class FoodDashboardState extends State<FoodDashboard> {
                         children: <Widget>[
                           heading(food_lbl_cafe),
                           SizedBox(
-                            height: 250,
-                            // child: ListView.builder(
-                            //   scrollDirection: Axis.horizontal,
-                            //   padding: EdgeInsets.only(bottom: 4, right: 16),
-                            //   itemCount: mCafeList.length,
-                            //   shrinkWrap: true,
-                            //   itemBuilder: (context, index) {
-                            //     return Item(mCafeList[index], index);
-                            //   },
-                            // ),
+                            height:
+                                MediaQuery.of(context).size.width * 0.4 > 265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.only(bottom: 4, right: 16),
+                              itemCount: mBakeryList.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Item(mBakeryList[index]);
+                              },
+                            ),
                           ),
                           mViewAll(context, food_lbl_view_all_restaurants,
                               onTap: () {
@@ -382,7 +380,6 @@ class FoodDashboardState extends State<FoodDashboard> {
     }
     setState(() {
       mBakeryList = mBakeryList;
-      print(mBakeryList);
     });
   }
 

@@ -11,8 +11,6 @@ class PlaceRepository {
     dynamic response = await _placeService.get(url);
     final jsonData = jsonDecode(response);
     Place place = Place.fromJson(jsonData);
-    print(jsonData);
-    print(place.title);
 
     return place;
   }

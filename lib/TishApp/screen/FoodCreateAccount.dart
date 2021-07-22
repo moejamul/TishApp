@@ -8,7 +8,7 @@ import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
 
-import 'FoodDashboard.dart';
+import 'TishAppDashboard.dart';
 
 class FoodCreateAccount extends StatefulWidget {
   static String tag = '/FoodCreateAccount';
