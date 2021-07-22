@@ -3,7 +3,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import 'TishApp/screen/FoodBookCart.dart';
-import 'TishApp/screen/FoodDashboard.dart';
+import 'TishApp/screen/TishAppDashboard.dart';
 import 'TishApp/screen/FoodDescription.dart';
 import 'TishApp/screen/FoodViewRestaurants.dart';
 import 'TishApp/screen/TishAppLogin.dart';

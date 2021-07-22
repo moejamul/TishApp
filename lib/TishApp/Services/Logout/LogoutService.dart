@@ -2,23 +2,27 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:localstorage/localstorage.dart';
 import 'package:meta/meta.dart';
 import '../../Settings/AppSettings.dart';
 
-class LoginService {
+class LogoutService {
   Settings settings = Settings();
+  LocalStorage _localStorage = LocalStorage('UserInfo');
 
-  Future<dynamic> loginService(String username, String password) async {
-    dynamic responseJson;
+  Future<bool> logoutService() async {
+    bool responseJson;
+    var accessToken = _localStorage.getItem('access_token');
+    var refreshtoken = _localStorage.getItem('jwt')['refresh_token'];
     try {
-      final response = await http.post(Uri.parse(settings.login_url), headers: {
+      final response = await http
+          .post(Uri.parse(settings.logout_url), headers: <String, String>{
+        "Authorization": "Bearer ${accessToken.toString()}",
         "Content-Type": "application/x-www-form-urlencoded",
       }, body: {
-        "username": username,
-        "password": password,
-        "grant_type": settings.grant_type_login,
-        "client_id": settings.client_id_login,
         "client_secret": settings.client_secret_login,
+        "client_id": settings.client_id_login,
+        "refresh_token": refreshtoken
       });
       responseJson = returnResponse(response);
     } on SocketException {
@@ -32,8 +36,8 @@ class LoginService {
   dynamic returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
-        dynamic responseJson = (response.body);
-        return responseJson;
+      case 204:
+        return true;
       case 400:
         throw Exception(response.body.toString());
       case 401:

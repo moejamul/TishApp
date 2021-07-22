@@ -7,11 +7,14 @@ import 'package:prokit_flutter/TishApp/screen/FoodFavourite.dart';
 import 'package:prokit_flutter/TishApp/screen/FoodLogin.dart';
 import 'package:prokit_flutter/TishApp/screen/FoodOrder.dart';
 import 'package:prokit_flutter/TishApp/screen/FoodProfile.dart';
+import 'package:prokit_flutter/TishApp/screen/TishAppLogin.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodImages.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
 import 'package:prokit_flutter/TishApp/utils/TishAppLocation.dart';
+import 'package:prokit_flutter/TishApp/viewmodel/authViewModel.dart';
+import 'package:provider/provider.dart';
 
 class FoodSideMenu extends StatefulWidget {
   @override
@@ -25,12 +28,18 @@ class FoodSideMenuState extends State<FoodSideMenu> {
       var gradientColor1, var gradientColor2, var icon, var value, var tags,
       {var pop = false}) {
     return GestureDetector(
-      onTap: () {
-        finish(context);
-        pop
-            ? Navigator.pop(context)
-            : Navigator.push(
-                context, MaterialPageRoute(builder: (context) => tags));
+      onTap: () async {
+        if (!pop) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => tags));
+        } else {
+          await Provider.of<AuthViewModel>(context, listen: false).Logout();
+          if (Provider.of<AuthViewModel>(context, listen: false)
+              .logout_response) {
+            print('out');
+            Navigator.pushReplacementNamed(context, '/login');
+          }
+        }
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 16),
@@ -132,7 +141,7 @@ class FoodSideMenuState extends State<FoodSideMenu> {
                           food_color_orange_gradient2,
                           Icons.settings_power,
                           food_lbl_logout,
-                          FoodLogIn(),
+                          LoginPage(),
                           pop: true),
                     ],
                   ),
