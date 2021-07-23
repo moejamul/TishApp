@@ -4,10 +4,10 @@ import 'package:localstorage/localstorage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/TishApp/screen/FoodAddAddress.dart';
 import 'package:prokit_flutter/TishApp/screen/FoodFavourite.dart';
-import 'package:prokit_flutter/TishApp/screen/FoodLogin.dart';
 import 'package:prokit_flutter/TishApp/screen/FoodOrder.dart';
 import 'package:prokit_flutter/TishApp/screen/FoodProfile.dart';
 import 'package:prokit_flutter/TishApp/screen/TishAppLogin.dart';
+import 'package:prokit_flutter/TishApp/screen/TishAppProfilePage.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodImages.dart';
 import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
@@ -135,7 +135,7 @@ class FoodSideMenuState extends State<FoodSideMenu> {
                           food_color_blue_gradient2,
                           Icons.person_outline,
                           food_lbl_profile,
-                          FoodProfile()),
+                          ProfilePage()),
                       mOption(
                           food_color_orange_gradient1,
                           food_color_orange_gradient2,

@@ -43,6 +43,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _entryField(String title, TextEditingController controller,
       {bool isPassword = false}) {
     return Container(
+      constraints: BoxConstraints(maxWidth: 550),
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,6 +106,7 @@ class _LoginPageState extends State<LoginPage> {
         }
       },
       child: Container(
+        constraints: BoxConstraints(maxWidth: 550),
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
@@ -131,6 +133,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _divider() {
     return Container(
+      constraints: BoxConstraints(maxWidth: 550),
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: <Widget>[
@@ -164,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _facebookButton() {
     return Container(
+      constraints: BoxConstraints(maxWidth: 550),
       height: 50,
       margin: EdgeInsets.symmetric(vertical: 20),
       decoration: BoxDecoration(
@@ -217,6 +221,7 @@ class _LoginPageState extends State<LoginPage> {
             context, MaterialPageRoute(builder: (context) => SignUpPage()));
       },
       child: Container(
+        constraints: BoxConstraints(maxWidth: 550),
         margin: EdgeInsets.symmetric(vertical: 20),
         padding: EdgeInsets.all(15),
         alignment: Alignment.bottomCenter,
@@ -298,6 +303,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 20),
                   _submitButton(),
                   Container(
+                    constraints: BoxConstraints(maxWidth: 550),
                     padding: EdgeInsets.symmetric(vertical: 10),
                     alignment: Alignment.centerRight,
                     child: Text('Forgot Password ?',
