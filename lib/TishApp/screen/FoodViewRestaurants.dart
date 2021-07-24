@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
 import 'package:prokit_flutter/TishApp/utils/FlutterSlider.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
 
 import 'FoodBookDetail.dart';
 import 'FoodRestaurantsDescription.dart';
 
-class FoodViewRestaurants extends StatefulWidget {
-  static String tag = '/FoodViewRestaurants';
+class TishAppViewRestaurants extends StatefulWidget {
+  static String tag = '/TishAppViewRestaurants';
 
   @override
-  FoodViewRestaurantsState createState() => FoodViewRestaurantsState();
+  TishAppViewRestaurantsState createState() => TishAppViewRestaurantsState();
 }
 
-class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
+class TishAppViewRestaurantsState extends State<TishAppViewRestaurants> {
   List<DataFilter> list = getAllData();
   List<DataFilter> list1 = getFilterData();
 
@@ -52,7 +52,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
       "Cafe",
       "Charcoal Chicken",
       "Chiness",
-      "Fast Food",
+      "Fast TishApp",
       "Juice",
       "Gujarati",
       "Salad",
@@ -74,7 +74,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
 
   @override
   Widget build(BuildContext context) {
-    //changeStatusColor(food_app_background);
+    //changeStatusColor(TishApp_app_background);
 
     mFilter() {
       return showModalBottomSheet(
@@ -91,7 +91,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(24),
                           topRight: Radius.circular(24)),
-                      color: food_white),
+                      color: TishApp_white),
                   height: MediaQuery.of(context).size.height,
                   padding: EdgeInsets.all(16),
                   child: SingleChildScrollView(
@@ -100,7 +100,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         SizedBox(height: 24),
-                        Text(food_lbl_by_price, style: primaryTextStyle()),
+                        Text(TishApp_by_price, style: primaryTextStyle()),
                         FlutterSlider(
                           values: [30, 420],
                           rangeSlider: true,
@@ -113,7 +113,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                           },
                         ),
                         SizedBox(height: 16),
-                        Text(food_lbl_cuisine, style: primaryTextStyle()),
+                        Text(TishApp_cuisine, style: primaryTextStyle()),
                         SizedBox(height: 16),
                         Wrap(
                           children: list
@@ -125,7 +125,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          color: food_colorPrimary,
+                                          color: TishApp_colorPrimary,
                                           boxShadow: defaultBoxShadow()),
                                       padding: EdgeInsets.all(8),
                                       message: e.name!,
@@ -139,8 +139,8 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(10)),
                                               color: e.isCheck
-                                                  ? food_colorPrimary
-                                                  : food_view_color),
+                                                  ? TishApp_colorPrimary
+                                                  : TishApp_view_color),
                                           margin: EdgeInsets.all(4),
                                           padding: EdgeInsets.all(8),
                                           child: Text(e.name!,
@@ -157,7 +157,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                               .toList(),
                         ),
                         SizedBox(height: 16),
-                        Text(food_lbl_rating, style: primaryTextStyle()),
+                        Text(TishApp_rating, style: primaryTextStyle()),
                         SizedBox(height: 16),
                         GridView.builder(
                           scrollDirection: Axis.vertical,
@@ -176,15 +176,15 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     color: mTime == index
-                                        ? food_colorPrimary
-                                        : food_view_color),
+                                        ? TishApp_colorPrimary
+                                        : TishApp_view_color),
                                 padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                 child: Text(
                                   mPeopleList[index],
                                   style: primaryTextStyle(
                                       color: mTime == index
-                                          ? food_white
-                                          : food_textColorPrimary),
+                                          ? TishApp_white
+                                          : TishApp_textColorPrimary),
                                 ).center(),
                               ),
                             );
@@ -197,7 +197,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                                   childAspectRatio: 2.0),
                         ),
                         SizedBox(height: 16),
-                        Text(food_lbl_more_filter, style: primaryTextStyle()),
+                        Text(TishApp_more_filter, style: primaryTextStyle()),
                         SizedBox(height: 16),
                         Wrap(
                           children: list1
@@ -209,7 +209,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          color: food_colorPrimary,
+                                          color: TishApp_colorPrimary,
                                           boxShadow: defaultBoxShadow()),
                                       padding: EdgeInsets.all(8),
                                       message: e.title!,
@@ -223,8 +223,8 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(10)),
                                               color: e.isCheck
-                                                  ? food_colorPrimary
-                                                  : food_view_color),
+                                                  ? TishApp_colorPrimary
+                                                  : TishApp_view_color),
                                           margin: EdgeInsets.all(4),
                                           padding: EdgeInsets.all(8),
                                           child: Text(e.title!,
@@ -253,9 +253,9 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                                   padding: EdgeInsets.only(top: 8, bottom: 8),
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          color: food_textColorPrimary),
+                                          color: TishApp_textColorPrimary),
                                       borderRadius: BorderRadius.circular(50)),
-                                  child: Text(food_lbl_cancel,
+                                  child: Text(TishApp_cancel,
                                           style: primaryTextStyle())
                                       .center(),
                                 ),
@@ -271,11 +271,11 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                                 child: Container(
                                   padding: EdgeInsets.only(top: 8, bottom: 8),
                                   decoration: BoxDecoration(
-                                      color: food_colorPrimary,
+                                      color: TishApp_colorPrimary,
                                       borderRadius: BorderRadius.circular(50)),
-                                  child: Text(food_lbl_filter,
+                                  child: Text(TishApp_filter,
                                           style: primaryTextStyle(
-                                              color: food_white))
+                                              color: TishApp_white))
                                       .center(),
                                 ),
                               ),
@@ -294,7 +294,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
     }
 
     return Scaffold(
-      backgroundColor: food_app_background,
+      backgroundColor: TishApp_app_background,
       appBar: appBarWidget(
         '',
         actions: [
@@ -321,7 +321,7 @@ class FoodViewRestaurantsState extends State<FoodViewRestaurants> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(food_lbl_lunch_in_delhi_ncr,
+                          Text(TishApp_lunch_in_delhi_ncr,
                               style: boldTextStyle(size: 20)),
                           SizedBox(height: 4),
                           mAddress(context),
@@ -365,7 +365,7 @@ class RestaurantsInfo extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        FoodRestaurantsDescription().launch(context);
+        TishAppRestaurantsDescription().launch(context);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 16),
@@ -390,47 +390,49 @@ class RestaurantsInfo extends StatelessWidget {
                     mRating(model!.rating),
                     SizedBox(width: 4),
                     Text(model!.review,
-                        style:
-                            primaryTextStyle(color: food_textColorSecondary)),
+                        style: primaryTextStyle(
+                            color: TishApp_textColorSecondary)),
                   ]),
                   SizedBox(height: 4),
                   Row(
                     children: <Widget>[
                       Text(model!.rs,
-                          style:
-                              primaryTextStyle(color: food_textColorSecondary)),
+                          style: primaryTextStyle(
+                              color: TishApp_textColorSecondary)),
                       SizedBox(width: 4),
                       Container(
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: food_view_color),
+                              shape: BoxShape.circle,
+                              color: TishApp_view_color),
                           width: 8,
                           height: 8),
                       SizedBox(width: 4),
                       Text(model!.sector,
-                          style:
-                              primaryTextStyle(color: food_textColorSecondary)),
+                          style: primaryTextStyle(
+                              color: TishApp_textColorSecondary)),
                       SizedBox(width: 4),
                       Container(
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: food_view_color),
+                              shape: BoxShape.circle,
+                              color: TishApp_view_color),
                           width: 8,
                           height: 8),
                       SizedBox(width: 4),
                       Text(model!.kms,
-                          style:
-                              primaryTextStyle(color: food_textColorSecondary)),
+                          style: primaryTextStyle(
+                              color: TishApp_textColorSecondary)),
                     ],
                   ),
                   Container(
                       margin: EdgeInsets.only(top: 16),
                       height: 0.5,
-                      color: food_view_color,
+                      color: TishApp_view_color,
                       width: width),
                 ],
               ),
             ),
-            mViewAll(context, food_lbl_book_a_table, onTap: () {
-              FoodBookDetail().launch(context);
+            mViewAll(context, TishApp_book_a_table, onTap: () {
+              TishAppBookDetail().launch(context);
             }),
           ],
         ),

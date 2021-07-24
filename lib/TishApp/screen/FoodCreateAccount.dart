@@ -2,28 +2,28 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
+import 'package:prokit_flutter/TishApp/model/TishAppModel.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
 
 import 'TishAppDashboard.dart';
 
-class FoodCreateAccount extends StatefulWidget {
-  static String tag = '/FoodCreateAccount';
+class TishAppCreateAccount extends StatefulWidget {
+  static String tag = '/TishAppCreateAccount';
 
   @override
-  FoodCreateAccountState createState() => FoodCreateAccountState();
+  TishAppCreateAccountState createState() => TishAppCreateAccountState();
 }
 
-class FoodCreateAccountState extends State<FoodCreateAccount> {
+class TishAppCreateAccountState extends State<TishAppCreateAccount> {
   late List<images> mList;
 
   @override
   void initState() {
     super.initState();
-    mList = addUserPhotosData();
+    mList = addUserPhotosData().cast<images>();
 
     setState(() {});
   }
@@ -33,7 +33,7 @@ class FoodCreateAccountState extends State<FoodCreateAccount> {
     var width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: food_white,
+      backgroundColor: TishApp_white,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +41,7 @@ class FoodCreateAccountState extends State<FoodCreateAccount> {
             Container(
               width: width,
               alignment: Alignment.topLeft,
-              color: food_white,
+              color: TishApp_white,
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
@@ -53,9 +53,9 @@ class FoodCreateAccountState extends State<FoodCreateAccount> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(food_lbl_create_your_account_and_nget_99_money,
+                Text(TishApp_create_your_account_and_nget_99_money,
                     style: boldTextStyle(size: 24), maxLines: 2),
-                Text(food_lbl_its_s_super_quick, style: primaryTextStyle()),
+                Text(TishApp_its_s_super_quick, style: primaryTextStyle()),
               ],
             ).paddingOnly(left: 16, right: 16),
             SizedBox(height: 30.0),
@@ -82,7 +82,7 @@ class FoodCreateAccountState extends State<FoodCreateAccount> {
               decoration: BoxDecoration(
                   color: white,
                   borderRadius: BorderRadius.circular(50),
-                  border: Border.all(color: food_colorPrimary)),
+                  border: Border.all(color: TishApp_colorPrimary)),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -91,7 +91,7 @@ class FoodCreateAccountState extends State<FoodCreateAccount> {
                       decoration: InputDecoration(
                           contentPadding: EdgeInsets.all(16.0),
                           isDense: true,
-                          hintText: food_hint_mobile_no,
+                          hintText: TishApp_hint_mobile_no,
                           border: InputBorder.none),
                     ),
                   ),
@@ -99,15 +99,15 @@ class FoodCreateAccountState extends State<FoodCreateAccount> {
                     flex: 1,
                     child: GestureDetector(
                       onTap: () {
-                        FoodDashboard().launch(context);
+                        TishAppDashboard().launch(context);
                       },
                       child: Container(
                         padding: EdgeInsets.all(14.0),
                         decoration: gradientBoxDecoration(
                             radius: 50,
-                            gradientColor1: food_color_blue_gradient1,
-                            gradientColor2: food_color_blue_gradient2),
-                        child: Icon(Icons.arrow_forward, color: food_white),
+                            gradientColor1: TishApp_color_blue_gradient1,
+                            gradientColor2: TishApp_color_blue_gradient2),
+                        child: Icon(Icons.arrow_forward, color: TishApp_white),
                       ),
                     ),
                   )

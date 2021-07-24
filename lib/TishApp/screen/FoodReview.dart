@@ -1,49 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
+import 'package:prokit_flutter/TishApp/model/TishAppModel.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
 
-import '../utils/FoodColors.dart';
+import '../utils/TishAppColors.dart';
 import 'FoodRestaurantsDescription.dart';
 
-class FoodReview extends StatefulWidget {
-  static String tag = '/FoodReview';
+class TishAppReview extends StatefulWidget {
+  static String tag = '/TishAppReview';
 
   @override
-  FoodReviewState createState() => FoodReviewState();
+  TishAppReviewState createState() => TishAppReviewState();
 }
 
-class FoodReviewState extends State<FoodReview> {
+class TishAppReviewState extends State<TishAppReview> {
   late List<ReviewModel> mReviewList;
 
   @override
   void initState() {
     super.initState();
-    mReviewList = addReviewData();
+    mReviewList = addReviewData().cast<ReviewModel>();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: food_white,
+      backgroundColor: TishApp_white,
       appBar: AppBar(),
       body: SafeArea(
         child: Column(
           children: <Widget>[
             16.height,
-            Container(
-              margin: EdgeInsets.only(left: 16, right: 16),
-              child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  itemCount: mReviewList.length,
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Review(mReviewList[index], index);
-                  }),
-            )
+            Container(margin: EdgeInsets.only(left: 16, right: 16), child: null
+                //  ListView.builder(
+                //     scrollDirection: Axis.vertical,
+                //     itemCount: mReviewList.length,
+                //     shrinkWrap: true,
+                //     physics: NeverScrollableScrollPhysics(),
+                //     itemBuilder: (context, index) {
+                //       return Review(mReviewList[index], index);
+                //     }
+                // ),
+                )
           ],
         ),
       ),

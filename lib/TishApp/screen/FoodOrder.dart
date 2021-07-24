@@ -3,19 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import '../utils/FoodColors.dart';
+import 'package:prokit_flutter/TishApp/model/TishAppModel.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
+import '../utils/TishAppColors.dart';
 
-class FoodOrder extends StatefulWidget {
-  static String tag = '/FoodOrder';
+class TishAppOrder extends StatefulWidget {
+  static String tag = '/TishAppOrder';
 
   @override
-  FoodOrderState createState() => FoodOrderState();
+  TishAppOrderState createState() => TishAppOrderState();
 }
 
-class FoodOrderState extends State<FoodOrder> {
-  late List<FoodDish> mList2;
+class TishAppOrderState extends State<TishAppOrder> {
+  late List<TishAppDish> mList2;
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class FoodOrderState extends State<FoodOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: food_white,
+      backgroundColor: TishApp_white,
       appBar: AppBar(),
       body: SafeArea(
         child: Column(
@@ -49,9 +50,9 @@ class FoodOrderState extends State<FoodOrder> {
 
 // ignore: must_be_immutable
 class Order extends StatelessWidget {
-  late FoodDish model;
+  late TishAppDish model;
 
-  Order(FoodDish model, int pos) {
+  Order(TishAppDish model, int pos) {
     this.model = model;
   }
 
@@ -76,7 +77,7 @@ class Order extends StatelessWidget {
                     children: <Widget>[
                       Text(model.name, style: primaryTextStyle()),
                       Text(model.price, style: primaryTextStyle()),
-                      //text("sd",textColor: food_textColorSecondary),
+                      //text("sd",textColor: TishApp_textColorSecondary),
                     ],
                   ),
                 )

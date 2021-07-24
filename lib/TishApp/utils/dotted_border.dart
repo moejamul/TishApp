@@ -3,7 +3,7 @@ library dotted_border;
 import 'package:flutter/material.dart';
 import 'package:path_drawing/path_drawing.dart';
 
-part 'food_dash_painter.dart';
+part 'TishApp_dash_painter.dart';
 
 /// Add a dotted border around any [child] widget. The [strokeWidth] property
 /// defines the width of the dashed border and [color] determines the stroke

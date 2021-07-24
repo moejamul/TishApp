@@ -1,80 +1,80 @@
 import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
 
-import 'FoodImages.dart';
+import 'TishAppImages.dart';
 
 List<DashboardCollections> addCollectionData() {
   List<DashboardCollections> collectionData = [];
   collectionData.add(
-      DashboardCollections("Gym Lover", food_ic_item4, "Starts from @E123"));
+      DashboardCollections("Gym Lover", TishApp_ic_item4, "Starts from @E123"));
+  collectionData.add(DashboardCollections(
+      "Live Music", TishApp_ic_item11, "Starts from @E123"));
   collectionData.add(
-      DashboardCollections("Live Music", food_ic_item11, "Starts from @E123"));
-  collectionData
-      .add(DashboardCollections("Friends", food_ic_item6, "Starts from @E123"));
+      DashboardCollections("Friends", TishApp_ic_item6, "Starts from @E123"));
   collectionData.add(
-      DashboardCollections("Gym Lover", food_ic_item4, "Starts from @E123"));
+      DashboardCollections("Gym Lover", TishApp_ic_item4, "Starts from @E123"));
   return collectionData;
 }
 
 List<Restaurants> addBakeryData() {
   List<Restaurants> bakeryData = [];
   bakeryData.add(Restaurants(
-      "Live Cake & Bakery Shop", 4, food_ic_popular2, "50 Reviews"));
+      "Live Cake & Bakery Shop", 4, TishApp_ic_popular2, "50 Reviews"));
   bakeryData.add(
-      Restaurants("Richie Rich Cake Shop", 2, food_ic_item12, "50 Reviews"));
+      Restaurants("Richie Rich Cake Shop", 2, TishApp_ic_item12, "50 Reviews"));
   bakeryData.add(Restaurants(
-      "American Dry Fruit Ice Cream", 5, food_ic_item1, "50 Reviews"));
-  bakeryData
-      .add(Restaurants("Cake & Bakery Shop", 4, food_ic_item13, "50 Reviews"));
+      "American Dry Fruit Ice Cream", 5, TishApp_ic_item1, "50 Reviews"));
+  bakeryData.add(
+      Restaurants("Cake & Bakery Shop", 4, TishApp_ic_item13, "50 Reviews"));
   return bakeryData;
 }
 
 List<Restaurants> addDeliveryRestaurantsData() {
   List<Restaurants> deliveryRestaurantsData = [];
   deliveryRestaurantsData.add(Restaurants(
-      "American Chinese cuisine", 4, food_ic_popular4, "50 Reviews"));
+      "American Chinese cuisine", 4, TishApp_ic_popular4, "50 Reviews"));
   deliveryRestaurantsData
-      .add(Restaurants("Bread", 2, food_ic_popular3, "50 Reviews"));
+      .add(Restaurants("Bread", 2, TishApp_ic_popular3, "50 Reviews"));
   deliveryRestaurantsData
-      .add(Restaurants("Restro Bistro", 5, food_ic_item1, "50 Reviews"));
+      .add(Restaurants("Restro Bistro", 5, TishApp_ic_item1, "50 Reviews"));
   deliveryRestaurantsData
-      .add(Restaurants("Hugs with mugs", 4, food_ic_item6, "50 Reviews"));
+      .add(Restaurants("Hugs with mugs", 4, TishApp_ic_item6, "50 Reviews"));
   return deliveryRestaurantsData;
 }
 
 List<Restaurants> addDineOutRestaurantsData() {
   List<Restaurants> dineOutRestaurantsData = [];
-  dineOutRestaurantsData.add(
-      Restaurants("Raise The Bar \nRooftTop", 4, food_ic_item13, "50 Reviews"));
   dineOutRestaurantsData.add(Restaurants(
-      "Destination Restro & Cafe", 2, food_ic_item14, "50 Reviews"));
+      "Raise The Bar \nRooftTop", 4, TishApp_ic_item13, "50 Reviews"));
+  dineOutRestaurantsData.add(Restaurants(
+      "Destination Restro & Cafe", 2, TishApp_ic_item14, "50 Reviews"));
   dineOutRestaurantsData
-      .add(Restaurants("Apple Dine", 5, food_ic_item15, "50 Reviews"));
+      .add(Restaurants("Apple Dine", 5, TishApp_ic_item15, "50 Reviews"));
 
   return dineOutRestaurantsData;
 }
 
 List<Restaurants> addCafeData() {
   List<Restaurants> cafeData = [];
-  cafeData
-      .add(Restaurants("Domesticated turkey", 4, food_ic_item2, "50 Reviews"));
   cafeData.add(
-      Restaurants("Germen Chocolate Cake", 2, food_ic_item6, "50 Reviews"));
-  cafeData.add(Restaurants("Tihar", 5, food_ic_item10, "50 Reviews"));
-  cafeData.add(Restaurants("Cafe klatch", 5, food_ic_item1, "50 Reviews"));
+      Restaurants("Domesticated turkey", 4, TishApp_ic_item2, "50 Reviews"));
+  cafeData.add(
+      Restaurants("Germen Chocolate Cake", 2, TishApp_ic_item6, "50 Reviews"));
+  cafeData.add(Restaurants("Tihar", 5, TishApp_ic_item10, "50 Reviews"));
+  cafeData.add(Restaurants("Cafe klatch", 5, TishApp_ic_item1, "50 Reviews"));
 
   return cafeData;
 }
 
 List<DashboardCollections> addCuisineData() {
   List<DashboardCollections> cuisineData = [];
+  cuisineData.add(
+      DashboardCollections("Italian", TishApp_ic_item6, "100+ Experience"));
   cuisineData
-      .add(DashboardCollections("Italian", food_ic_item6, "100+ Experience"));
+      .add(DashboardCollections("Goan", TishApp_ic_item4, "50+ Experience"));
   cuisineData
-      .add(DashboardCollections("Goan", food_ic_item4, "50+ Experience"));
+      .add(DashboardCollections("Chines", TishApp_ic_item11, "20+ Experience"));
   cuisineData
-      .add(DashboardCollections("Chines", food_ic_item11, "20+ Experience"));
-  cuisineData
-      .add(DashboardCollections("Indian", food_ic_item6, "100+ Experience"));
+      .add(DashboardCollections("Indian", TishApp_ic_item6, "100+ Experience"));
 
   return cuisineData;
 }
@@ -118,62 +118,64 @@ List<ViewRestaurants> addViewRestaurantsData() {
 //
 List<images> addViewImagesData() {
   List<images> viewData = [];
-  viewData.add(images(food_ic_item10));
-  viewData.add(images(food_ic_item2));
-  viewData.add(images(food_ic_item15));
-  viewData.add(images(food_ic_item12));
+  viewData.add(images(TishApp_ic_item10));
+  viewData.add(images(TishApp_ic_item2));
+  viewData.add(images(TishApp_ic_item15));
+  viewData.add(images(TishApp_ic_item12));
   return viewData;
 }
 
 List<images> addAmbiencePhotosData() {
   List<images> viewData = [];
-  viewData.add(images(food_ic_item2));
-  viewData.add(images(food_ic_item4));
-  viewData.add(images(food_ic_item10));
-  viewData.add(images(food_ic_item12));
+  viewData.add(images(TishApp_ic_item2));
+  viewData.add(images(TishApp_ic_item4));
+  viewData.add(images(TishApp_ic_item10));
+  viewData.add(images(TishApp_ic_item12));
   return viewData;
 }
 
 //
-List<images> addFoodPhotosData() {
+List<images> addTishAppPhotosData() {
   List<images> viewData = [];
-  viewData.add(images(food_ic_item4));
-  viewData.add(images(food_ic_item15));
-  viewData.add(images(food_ic_item11));
-  viewData.add(images(food_ic_item6));
+  viewData.add(images(TishApp_ic_item4));
+  viewData.add(images(TishApp_ic_item15));
+  viewData.add(images(TishApp_ic_item11));
+  viewData.add(images(TishApp_ic_item6));
   return viewData;
 }
 
 List<images> addUserPhotosData() {
   List<images> viewData = [];
-  viewData.add(images(food_ic_user1));
-  viewData.add(images(food_ic_user3));
-  viewData.add(images(food_ic_user4));
-  viewData.add(images(food_ic_user5));
+  viewData.add(images(TishApp_ic_user1));
+  viewData.add(images(TishApp_ic_user3));
+  viewData.add(images(TishApp_ic_user4));
+  viewData.add(images(TishApp_ic_user5));
   return viewData;
 }
 
 //
-List<FoodDish> addFoodDishData() {
-  List<FoodDish> dishData = [];
-  dishData.add(FoodDish(
-      "American Chinese cuisine", "Italian", "Veg", food_ic_item6, "\$50"));
-  dishData.add(FoodDish("NonVeg", "Goan", "NonVeg", food_ic_popular2, "\$50"));
-  dishData.add(FoodDish("Biscuit", "Chines", "Veg", food_ic_popular3, "\$50"));
-  dishData
-      .add(FoodDish("Cold Coffee", "Indian", "Veg", food_ic_item10, "\$50"));
+List<TishAppDish> addTishAppDishData() {
+  List<TishAppDish> dishData = [];
+  dishData.add(TishAppDish(
+      "American Chinese cuisine", "Italian", "Veg", TishApp_ic_item6, "\$50"));
+  dishData.add(
+      TishAppDish("NonVeg", "Goan", "NonVeg", TishApp_ic_popular2, "\$50"));
+  dishData.add(
+      TishAppDish("Biscuit", "Chines", "Veg", TishApp_ic_popular3, "\$50"));
+  dishData.add(
+      TishAppDish("Cold Coffee", "Indian", "Veg", TishApp_ic_item10, "\$50"));
 
   return dishData;
 }
 
-List<FoodDish> orderData() {
-  List<FoodDish> dishData = [];
-  dishData.add(FoodDish("American Chinese cuisine", "25 Jan 2019, 10:00 PM",
-      "Veg", food_ic_item6, "\$50"));
-  dishData.add(FoodDish("Bread", "20 May 2019, 08:00 PM, 10:00 PM", "Veg",
-      food_ic_item10, "\$50"));
-  dishData.add(FoodDish(
-      "Biscuit", "25 Jan 2019, 10:00 PM", "Veg", food_ic_item1, "\$50"));
+List<TishAppDish> orderData() {
+  List<TishAppDish> dishData = [];
+  dishData.add(TishAppDish("American Chinese cuisine", "25 Jan 2019, 10:00 PM",
+      "Veg", TishApp_ic_item6, "\$50"));
+  dishData.add(TishAppDish("Bread", "20 May 2019, 08:00 PM, 10:00 PM", "Veg",
+      TishApp_ic_item10, "\$50"));
+  dishData.add(TishAppDish(
+      "Biscuit", "25 Jan 2019, 10:00 PM", "Veg", TishApp_ic_item1, "\$50"));
 
   return dishData;
 }
@@ -181,9 +183,9 @@ List<FoodDish> orderData() {
 List<ReviewModel> addReviewData() {
   List<ReviewModel> reviewData = [];
   reviewData
-      .add(ReviewModel(food_ic_user1, "Very nice..", "3.0", "20 Aug 2019"));
+      .add(ReviewModel(TishApp_ic_user1, "Very nice..", "3.0", "20 Aug 2019"));
   reviewData
-      .add(ReviewModel(food_ic_user2, "Nice Dish ", "3.0", "20 Aug 2019"));
+      .add(ReviewModel(TishApp_ic_user2, "Nice Dish ", "3.0", "20 Aug 2019"));
 
   return reviewData;
 }
@@ -219,7 +221,7 @@ List<Filter> addCuisine() {
   filterData.add(Filter("Cafe"));
   filterData.add(Filter("Charcoal Chicken"));
   filterData.add(Filter("Chiness"));
-  filterData.add(Filter("Fast Food"));
+  filterData.add(Filter("Fast TishApp"));
   filterData.add(Filter("Juice"));
   filterData.add(Filter("Gujarati"));
   filterData.add(Filter("Salad"));
@@ -245,7 +247,7 @@ List<DataFilter> getAllData() {
   list.add(DataFilter(name: "Cafe"));
   list.add(DataFilter(name: "Charcoal Chicken"));
   list.add(DataFilter(name: "Chiness"));
-  list.add(DataFilter(name: "Fast Food"));
+  list.add(DataFilter(name: "Fast TishApp"));
   list.add(DataFilter(name: "Juice"));
   list.add(DataFilter(name: "Gujarati"));
   list.add(DataFilter(name: "Salad"));

@@ -3,24 +3,24 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodImages.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppImages.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
 
 import 'FoodDeliveryInfo.dart';
 
-class FoodPayment extends StatefulWidget {
-  static String tag = '/FoodPayment';
+class TishAppPayment extends StatefulWidget {
+  static String tag = '/TishAppPayment';
 
   @override
-  FoodPaymentState createState() => FoodPaymentState();
+  TishAppPaymentState createState() => TishAppPaymentState();
 }
 
-class FoodPaymentState extends State<FoodPayment> {
+class TishAppPaymentState extends State<TishAppPayment> {
   @override
   Widget build(BuildContext context) {
-    //changeStatusColor(food_app_background);
+    //changeStatusColor(TishApp_app_background);
     var width = MediaQuery.of(context).size.width;
 
     Widget mPaymentOption(var icon, var heading, var value, var valueColor) {
@@ -45,7 +45,7 @@ class FoodPaymentState extends State<FoodPayment> {
           Stack(
             alignment: Alignment.center,
             children: <Widget>[
-              Image.asset(food_ic_fab_back, width: width * 0.17),
+              Image.asset(TishApp_ic_fab_back, width: width * 0.17),
               Container(
                 child: CachedNetworkImage(
                     imageUrl: icon, width: width * 0.08, fit: BoxFit.contain),
@@ -59,10 +59,13 @@ class FoodPaymentState extends State<FoodPayment> {
     }
 
     return Scaffold(
-      backgroundColor: food_app_background,
-      bottomNavigationBar: bottomBillDetail(context, food_color_blue_gradient1,
-          food_color_blue_gradient2, food_delivery_info, onTap: () {
-        FoodDeliveryInfo().launch(context);
+      backgroundColor: TishApp_app_background,
+      bottomNavigationBar: bottomBillDetail(
+          context,
+          TishApp_color_blue_gradient1,
+          TishApp_color_blue_gradient2,
+          TishApp_delivery_info, onTap: () {
+        TishAppDeliveryInfo().launch(context);
       }),
       body: SafeArea(
         child: Column(
@@ -71,7 +74,7 @@ class FoodPaymentState extends State<FoodPayment> {
             Container(
               width: width,
               alignment: Alignment.topLeft,
-              color: food_white,
+              color: TishApp_white,
               child: IconButton(
                 icon: Icon(Icons.arrow_back),
                 onPressed: () {
@@ -90,26 +93,22 @@ class FoodPaymentState extends State<FoodPayment> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(food_lbl_payment,
-                              style: boldTextStyle(size: 18)),
+                          Text(TishApp_payment, style: boldTextStyle(size: 18)),
                           SizedBox(height: 8),
                           Row(
                             children: <Widget>[
                               Expanded(
                                   flex: 1,
-                                  child: mPaymentOption(
-                                      food_google_wallet,
-                                      food_lbl_google_wallet,
-                                      food_lbl_1799,
-                                      food_color_red)),
+                                  child: mPaymentOption(null, null,
+                                      TishApp_1799, TishApp_color_red)),
                               SizedBox(width: 16),
                               Expanded(
                                   flex: 1,
                                   child: mPaymentOption(
-                                      food_whatsapp,
-                                      food_lbl_whatsapp_payment,
-                                      food_lbl_connect,
-                                      food_textColorPrimary)),
+                                      TishApp_whatsapp,
+                                      TishApp_whatsapp_payment,
+                                      TishApp_connect,
+                                      TishApp_textColorPrimary)),
                             ],
                           ),
                           SizedBox(height: 8),
@@ -125,7 +124,7 @@ class FoodPaymentState extends State<FoodPayment> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(food_lbl_credit_cards.toUpperCase(),
+                          Text(TishApp_credit_cards.toUpperCase(),
                               style: primaryTextStyle()),
                           SizedBox(height: 16),
                           RichText(
@@ -135,16 +134,16 @@ class FoodPaymentState extends State<FoodPayment> {
                                   child: Padding(
                                     padding: EdgeInsets.only(right: 10),
                                     child: CachedNetworkImage(
-                                        imageUrl: food_ic_hdfc,
+                                        imageUrl: TishApp_ic_hdfc,
                                         height: width * 0.05,
                                         width: width * 0.05),
                                   ),
                                 ),
                                 TextSpan(
-                                    text: food_lbl__42xx_4523_xxxx_55xx,
+                                    text: TishApp__42xx_4523_xxxx_55xx,
                                     style: primaryTextStyle(
                                         size: 16,
-                                        color: food_textColorPrimary)),
+                                        color: TishApp_textColorPrimary)),
                               ],
                             ),
                           ),
@@ -162,9 +161,9 @@ class FoodPaymentState extends State<FoodPayment> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text(food_lbl_netbanking.toUpperCase(),
+                              Text(TishApp_netbanking.toUpperCase(),
                                   style: primaryTextStyle()),
-                              mViewAll(context, food_lbl_view_all_banks,
+                              mViewAll(context, TishApp_view_all_banks,
                                   onTap: () {
                                 //
                               }),
@@ -173,11 +172,11 @@ class FoodPaymentState extends State<FoodPayment> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              mNetBankingOption(food_ic_hdfc, food_lbl_hdfc),
-                              mNetBankingOption(food_ic_rbs, food_lbl_rbs),
-                              mNetBankingOption(food_ic_citi, food_lbl_citi),
+                              mNetBankingOption(TishApp_ic_hdfc, TishApp_hdfc),
+                              mNetBankingOption(TishApp_ic_rbs, TishApp_rbs),
+                              mNetBankingOption(TishApp_ic_citi, TishApp_citi),
                               mNetBankingOption(
-                                  food_ic_america, food_lbl_america),
+                                  TishApp_ic_america, TishApp_america),
                             ],
                           ),
                         ],

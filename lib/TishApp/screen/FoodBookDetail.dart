@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodImages.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppImages.dart';
+import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
 
-import '../utils/FoodColors.dart';
+import '../utils/TishAppColors.dart';
 
-class FoodBookDetail extends StatefulWidget {
-  static String tag = '/FoodBookDetail';
+class TishAppBookDetail extends StatefulWidget {
+  static String tag = '/TishAppBookDetail';
 
   @override
-  FoodBookDetailState createState() => FoodBookDetailState();
+  TishAppBookDetailState createState() => TishAppBookDetailState();
 }
 
-class FoodBookDetailState extends State<FoodBookDetail> {
+class TishAppBookDetailState extends State<TishAppBookDetail> {
   var mPeople = 0;
   var mTime = 0;
-  var mFood = 0;
-  var mPeopleList, mTimeList, mFoodList;
+  var mTishApp = 0;
+  var mPeopleList, mTimeList, mTishAppList;
   var now = new DateTime.now();
   var count = 1;
   var formatter = new DateFormat('dd  MMM');
@@ -30,7 +30,7 @@ class FoodBookDetailState extends State<FoodBookDetail> {
   void initState() {
     super.initState();
     mPeopleList = ["1", "2", "3", "4", "5+"];
-    mFoodList = ["Veg", "Non Veg"];
+    mTishAppList = ["Veg", "Non Veg"];
     mTimeList = [
       "07:00",
       "07:30",
@@ -48,7 +48,7 @@ class FoodBookDetailState extends State<FoodBookDetail> {
 
   @override
   Widget build(BuildContext context) {
-    //changeStatusColor(food_app_background);
+    //changeStatusColor(TishApp_app_background);
     var width = MediaQuery.of(context).size.width;
 
     final mPeopleInfo = Container(
@@ -70,14 +70,14 @@ class FoodBookDetailState extends State<FoodBookDetail> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: mPeople == index
-                      ? food_colorPrimary
-                      : food_colorPrimary_light),
+                      ? TishApp_colorPrimary
+                      : TishApp_colorPrimary_light),
               padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
               child: Text(mPeopleList[index],
                       style: primaryTextStyle(
                           color: mPeople == index
-                              ? food_white
-                              : food_textColorPrimary))
+                              ? TishApp_white
+                              : TishApp_textColorPrimary))
                   .center(),
             ),
           );
@@ -102,14 +102,14 @@ class FoodBookDetailState extends State<FoodBookDetail> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: mTime == index
-                    ? food_colorPrimary
-                    : food_colorPrimary_light),
+                    ? TishApp_colorPrimary
+                    : TishApp_colorPrimary_light),
             padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
             child: Text(mTimeList[index],
                     style: primaryTextStyle(
                         color: mTime == index
-                            ? food_white
-                            : food_textColorPrimary))
+                            ? TishApp_white
+                            : TishApp_textColorPrimary))
                 .center(),
           ),
         );
@@ -121,17 +121,17 @@ class FoodBookDetailState extends State<FoodBookDetail> {
           childAspectRatio: 2.0),
     );
 
-    final mFoodInfo = Container(
+    final mTishAppInfo = Container(
       height: width * 0.1,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: mFoodList.length,
+        itemCount: mTishAppList.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
               setState(() {
-                mFood = index;
+                mTishApp = index;
               });
             },
             child: Container(
@@ -139,15 +139,15 @@ class FoodBookDetailState extends State<FoodBookDetail> {
               margin: EdgeInsets.only(right: 16, top: 4),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: mFood == index
-                      ? food_colorPrimary
-                      : food_colorPrimary_light),
+                  color: mTishApp == index
+                      ? TishApp_colorPrimary
+                      : TishApp_colorPrimary_light),
               padding: EdgeInsets.fromLTRB(16, 0, 16, 0),
-              child: Text(mFoodList[index],
+              child: Text(mTishAppList[index],
                       style: primaryTextStyle(
-                          color: mFood == index
-                              ? food_white
-                              : food_textColorPrimary))
+                          color: mTishApp == index
+                              ? TishApp_white
+                              : TishApp_textColorPrimary))
                   .center(),
             ),
           );
@@ -156,7 +156,7 @@ class FoodBookDetailState extends State<FoodBookDetail> {
     );
 
     return Scaffold(
-      backgroundColor: food_app_background,
+      backgroundColor: TishApp_app_background,
       appBar: AppBar(),
       body: SafeArea(
         child: Column(
@@ -170,35 +170,35 @@ class FoodBookDetailState extends State<FoodBookDetail> {
                     children: <Widget>[
                       Align(
                         alignment: Alignment.topCenter,
-                        child: SvgPicture.asset(food_dinner_table,
+                        child: SvgPicture.asset(TishApp_dinner_table,
                             height: width * 0.4, width: width * 0.4),
                       ),
                       SizedBox(height: 16),
-                      Text(food_lbl_how_many_people, style: boldTextStyle()),
+                      Text(TishApp_how_many_people, style: boldTextStyle()),
                       SizedBox(height: 4),
                       mPeopleInfo,
                       SizedBox(height: 16),
-                      Text(food_lbl_reservation_date, style: boldTextStyle()),
+                      Text(TishApp_reservation_date, style: boldTextStyle()),
                       SizedBox(height: 4),
                       Text(formatted, style: primaryTextStyle()),
                       SizedBox(height: 16),
-                      Text(food_lbl_set_your_time, style: boldTextStyle()),
+                      Text(TishApp_set_your_time, style: boldTextStyle()),
                       SizedBox(height: 4),
                       mTimeInfo,
                       SizedBox(height: 16),
-                      Text(food_lbl_any_food_preference,
+                      Text(TishApp_any_TishApp_preference,
                           style: boldTextStyle()),
                       SizedBox(height: 4),
-                      mFoodInfo,
+                      mTishAppInfo,
                       SizedBox(height: 24),
                       Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.only(top: 10, bottom: 10),
                         decoration: BoxDecoration(
-                            color: food_colorPrimary,
+                            color: TishApp_colorPrimary,
                             borderRadius: BorderRadius.circular(50),
                             boxShadow: defaultBoxShadow()),
-                        child: Text(food_lbl_book_table,
+                        child: Text(TishApp_book_table,
                                 style: primaryTextStyle(color: white))
                             .center(),
                       ),
