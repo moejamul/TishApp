@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/viewmodel/authViewModel.dart';
+import 'package:TishApp/TishApp/viewmodel/authViewModel.dart';
 import 'package:provider/provider.dart';
 
 import 'TishAppLogin.dart';

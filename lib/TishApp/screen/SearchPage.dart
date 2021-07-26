@@ -1,4 +1,4 @@
-import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/screen/SearchPage.dart';
 import 'package:provider/provider.dart';
 
 import 'TishApp/screen/FoodBookCart.dart';
 import 'TishApp/screen/FoodDescription.dart';
 import 'TishApp/screen/FoodViewRestaurants.dart';
+import 'TishApp/screen/SearchPage.dart';
 import 'TishApp/screen/TishAppDashboard.dart';
 import 'TishApp/screen/TishAppLogin.dart';
 import 'TishApp/screen/TishAppSignUp.dart';
+import 'TishApp/screen/TishAppWelcomePage.dart';
 import 'TishApp/viewmodel/authViewModel.dart';
 import 'TishApp/viewmodel/PlaceViewModel.dart';
 
@@ -42,8 +43,8 @@ class TishApp extends StatelessWidget {
           '/description': (context) => TishAppDescription(),
         },
         title: 'TishApp',
-        // home: WelcomePage(),
-        home: TishAppDashboard(),
+        home: WelcomePage(),
+        // home: TishAppDashboard(),
         // home: SearchPage(),
         // home: ProfilePage(),
         builder: scrollBehaviour(),

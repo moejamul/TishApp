@@ -3,15 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/Components/SideMenu.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/model/TishAppModel.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppImages.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
-import 'package:prokit_flutter/TishApp/viewmodel/PlaceViewModel.dart';
+import 'package:TishApp/TishApp/Components/SideMenu.dart';
+import 'package:TishApp/TishApp/model/FoodModel.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:TishApp/TishApp/utils/TishAppImages.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
+import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:provider/provider.dart';
 
 import 'FoodBookCart.dart';
@@ -129,9 +129,7 @@ class TishAppDashboardState extends State<TishAppDashboard> {
         leading: IconButton(
           icon: Icon(Icons.menu),
           onPressed: () {
-            print('hello');
             _scaffoldKey.currentState!.openDrawer();
-            print('hello');
           },
         ),
         title: Center(

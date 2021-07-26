@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:prokit_flutter/TishApp/Services/Place/PlaceRepository.dart';
-import 'package:prokit_flutter/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/Services/Place/PlaceRepository.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
 
 class PlaceViewModel with ChangeNotifier {
   // ApiResponse _apiResponse = ApiResponse.loading('Fetching artist data');

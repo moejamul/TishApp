@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 
 import '../utils/TishAppColors.dart';
 

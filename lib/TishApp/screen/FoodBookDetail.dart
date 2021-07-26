@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppImages.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppImages.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
 
 import '../utils/TishAppColors.dart';
 

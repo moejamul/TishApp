@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppImages.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
+import 'package:TishApp/TishApp/model/FoodModel.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:TishApp/TishApp/utils/TishAppImages.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 
 import 'FoodBookDetail.dart';
 import 'FoodDescription.dart';

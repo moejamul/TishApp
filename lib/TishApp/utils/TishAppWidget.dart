@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/Components/BottomShowBar.dart';
-import 'package:prokit_flutter/TishApp/screen/FoodAddAddress.dart';
+import 'package:TishApp/TishApp/Components/BottomShowBar.dart';
+import 'package:TishApp/TishApp/screen/FoodAddAddress.dart';
 
 import 'TishAppColors.dart';
 import 'TishAppString.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/screen/FoodAddAddress.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/screen/FoodAddAddress.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
 
 class BottomShowBar extends StatefulWidget {
   const BottomShowBar({Key? key}) : super(key: key);

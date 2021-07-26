@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/model/TishAppModel.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:TishApp/TishApp/model/FoodModel.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
 
-import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
-import 'package:prokit_flutter/TishApp/utils/dotted_border.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
+import 'package:TishApp/TishApp/utils/dotted_border.dart';
 
 class TishAppCoupon extends StatefulWidget {
   static String tag = '/TishAppCoupon';

@@ -1,4 +1,4 @@
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
+import 'package:TishApp/TishApp/model/FoodModel.dart';
 
 import 'TishAppImages.dart';
 

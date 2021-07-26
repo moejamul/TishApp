@@ -2,17 +2,17 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/screen/FoodAddAddress.dart';
-import 'package:prokit_flutter/TishApp/screen/FoodFavourite.dart';
-import 'package:prokit_flutter/TishApp/screen/FoodOrder.dart';
-import 'package:prokit_flutter/TishApp/screen/TishAppLogin.dart';
-import 'package:prokit_flutter/TishApp/screen/TishAppProfilePage.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppImages.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppWidget.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppLocation.dart';
-import 'package:prokit_flutter/TishApp/viewmodel/authViewModel.dart';
+import 'package:TishApp/TishApp/screen/FoodAddAddress.dart';
+import 'package:TishApp/TishApp/screen/FoodFavourite.dart';
+import 'package:TishApp/TishApp/screen/FoodOrder.dart';
+import 'package:TishApp/TishApp/screen/TishAppLogin.dart';
+import 'package:TishApp/TishApp/screen/TishAppProfilePage.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppImages.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
+import 'package:TishApp/TishApp/utils/TishAppLocation.dart';
+import 'package:TishApp/TishApp/viewmodel/authViewModel.dart';
 import 'package:provider/provider.dart';
 
 class TishAppSideMenu extends StatefulWidget {
@@ -35,7 +35,6 @@ class TishAppSideMenuState extends State<TishAppSideMenu> {
           await Provider.of<AuthViewModel>(context, listen: false).Logout();
           if (Provider.of<AuthViewModel>(context, listen: false)
               .logout_response) {
-            print('out');
             Navigator.pushReplacementNamed(context, '/login');
           }
         }
@@ -94,16 +93,25 @@ class TishAppSideMenuState extends State<TishAppSideMenu> {
                       gradientColor2: TishApp_colorPrimary,
                       radius: 0),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       CircleAvatar(
                           backgroundImage:
                               CachedNetworkImageProvider(TishApp_ic_user1),
                           radius: 40),
-                      Text(_localStorage.getItem('name'),
-                          style: primaryTextStyle(color: TishApp_white)),
-                      Text(_localStorage.getItem('email'),
-                          style: primaryTextStyle(color: white))
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                          _localStorage.getItem('name') != null
+                              ? _localStorage.getItem('name')
+                              : "John Doe",
+                          style: primaryTextStyle(color: Colors.white)),
+                      Text(
+                          _localStorage.getItem('email') != null
+                              ? _localStorage.getItem('email')
+                              : "JohnDoe@hotmail.com",
+                          style: primaryTextStyle(color: Colors.white))
                     ],
                   ),
                 ),

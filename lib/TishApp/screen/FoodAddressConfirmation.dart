@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppColors.dart';
-import 'package:prokit_flutter/TishApp/utils/TishAppString.dart';
 
 import '../utils/TishAppImages.dart';
 import 'FoodAddAddress.dart';
@@ -152,7 +152,8 @@ class MapPageState extends State<MapPage> {
 }
 
 class Utils {
-  static String mapStyles = '''[
+  static String mapStyles =
+      '''[
   {
     "elementType": "geometry",
     "stylers": [
