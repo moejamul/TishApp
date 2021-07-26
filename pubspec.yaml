@@ -11,6 +11,8 @@ dependencies:
   provider:
   localstorage:
 
+  # connectivity: ^3.0.6
+
   # Base
   cupertino_icons: ^1.0.3
   nb_utils: ^4.2.11
@@ -27,7 +29,7 @@ dependencies:
 
   # IMAGES
   cached_network_image: ^3.0.0
-  image_picker: ^0.7.5
+  image_picker: ^0.8.2
   file_picker: ^3.0.1
 
   # AUTHENTICATION
