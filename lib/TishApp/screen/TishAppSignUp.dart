@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/viewmodel/authViewModel.dart';
+import 'package:TishApp/TishApp/viewmodel/authViewModel.dart';
 import 'package:provider/provider.dart';
 
 import 'TishAppLogin.dart';
@@ -116,6 +116,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 textColor: Colors.white,
                 fontSize: 16.0);
           }
+        } else {
+          Fluttertoast.showToast(
+              webBgColor: "linear-gradient(to right, #ff2196f3, #ff2196bf)",
+              msg: "Passwords do not match \n",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.BOTTOM,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0);
         }
       },
       child: Container(

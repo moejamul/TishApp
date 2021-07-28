@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:prokit_flutter/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
 
 import 'PlaceService.dart';
 

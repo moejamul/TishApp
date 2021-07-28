@@ -46,14 +46,14 @@ class images {
   images(this.image);
 }
 
-class FoodDish {
+class TishAppDish {
   var name;
   var type;
   var category;
   var image;
   var price;
 
-  FoodDish(this.name, this.type, this.category, this.image, this.price);
+  TishAppDish(this.name, this.type, this.category, this.image, this.price);
 }
 
 class ReviewModel {

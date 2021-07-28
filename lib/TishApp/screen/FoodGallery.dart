@@ -2,38 +2,38 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
 
-import '../utils/FoodColors.dart';
+import '../utils/TishAppColors.dart';
 
-class FoodGallery extends StatefulWidget {
-  static String tag = '/FoodGallery';
+class TishAppGallery extends StatefulWidget {
+  static String tag = '/TishAppGallery';
 
   @override
-  FoodGalleryState createState() => FoodGalleryState();
+  TishAppGalleryState createState() => TishAppGalleryState();
 }
 
-class FoodGalleryState extends State<FoodGallery> {
+class TishAppGalleryState extends State<TishAppGallery> {
   late List<images> mAmbienceList;
-  late List<images> mFoodList;
+  late List<images> mTishAppList;
   List<images>? mViewImagesList;
   late List<images> mUserPhotosList;
 
   @override
   void initState() {
     super.initState();
-    mAmbienceList = addAmbiencePhotosData();
-    mFoodList = addFoodPhotosData();
-    mViewImagesList = addViewImagesData();
-    mUserPhotosList = addUserPhotosData();
+    mAmbienceList = addAmbiencePhotosData().cast<images>();
+    mTishAppList = addTishAppPhotosData().cast<images>();
+    mViewImagesList = addViewImagesData().cast<images>();
+    mUserPhotosList = addUserPhotosData().cast<images>();
   }
 
   @override
   Widget build(BuildContext context) {
-    //changeStatusColor(food_app_background);
+    //changeStatusColor(TishApp_app_background);
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
@@ -45,7 +45,7 @@ class FoodGalleryState extends State<FoodGallery> {
                 color: Colors.white,
                 child: new SafeArea(
                   child: Container(
-                      color: food_app_background,
+                      color: TishApp_app_background,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
@@ -58,7 +58,7 @@ class FoodGalleryState extends State<FoodGallery> {
                             child: IconButton(
                               icon: Icon(
                                 Icons.arrow_back,
-                                color: food_icon_color,
+                                color: TishApp_icon_color,
                               ),
                               onPressed: () {
                                 Navigator.of(context).pop();
@@ -73,36 +73,36 @@ class FoodGalleryState extends State<FoodGallery> {
                               labelPadding: EdgeInsets.only(left: 16, right: 0),
                               indicatorWeight: 3.3,
                               indicatorSize: TabBarIndicatorSize.label,
-                              indicatorColor: food_colorAccent,
-                              labelColor: food_textColorPrimary,
+                              indicatorColor: TishApp_colorAccent,
+                              labelColor: TishApp_textColorPrimary,
                               isScrollable: true,
-                              unselectedLabelColor: food_textColorSecondary,
+                              unselectedLabelColor: TishApp_textColorSecondary,
                               tabs: [
                                 Container(
                                   padding: EdgeInsets.all(8.0),
                                   child: Text(
-                                    food_lbl_all_photo,
+                                    TishApp_all_photo,
                                     style: boldTextStyle(size: 16),
                                   ),
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(8.0),
                                   child: Text(
-                                    food_lbl_ambience,
+                                    TishApp_ambience,
                                     style: boldTextStyle(size: 16),
                                   ),
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(8.0),
                                   child: Text(
-                                    food_lbl_food,
+                                    TishApp_TishApp,
                                     style: boldTextStyle(size: 16),
                                   ),
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(8.0),
                                   child: Text(
-                                    food_lbl_user_photos,
+                                    TishApp_user_photos,
                                     style: boldTextStyle(size: 16),
                                   ),
                                 )
@@ -118,12 +118,12 @@ class FoodGalleryState extends State<FoodGallery> {
               children: <Widget>[
                 SingleChildScrollView(
                   child: Container(
-                    color: food_app_background,
+                    color: TishApp_app_background,
                     margin: EdgeInsets.only(left: 10, right: 10),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(food_lbl_ambience, style: primaryTextStyle()),
+                          Text(TishApp_ambience, style: primaryTextStyle()),
                           SizedBox(
                             height: 8,
                           ),
@@ -144,7 +144,7 @@ class FoodGalleryState extends State<FoodGallery> {
                           SizedBox(
                             height: 24,
                           ),
-                          Text(food_lbl_food, style: primaryTextStyle()),
+                          Text(TishApp_TishApp, style: primaryTextStyle()),
                           SizedBox(
                             height: 8,
                           ),
@@ -157,13 +157,13 @@ class FoodGalleryState extends State<FoodGallery> {
                                     crossAxisCount: 3,
                                     crossAxisSpacing: 10,
                                     mainAxisSpacing: 10),
-                            itemCount: mFoodList.length,
+                            itemCount: mTishAppList.length,
                             itemBuilder: (context, index) {
-                              return Media(mFoodList[index], index);
+                              return Media(mTishAppList[index], index);
                             },
                           ),
                           SizedBox(height: 24),
-                          Text(food_lbl_user_photos, style: primaryTextStyle()),
+                          Text(TishApp_user_photos, style: primaryTextStyle()),
                           SizedBox(height: 8),
                           GridView.builder(
                             shrinkWrap: true,
@@ -207,9 +207,9 @@ class FoodGalleryState extends State<FoodGallery> {
                         crossAxisCount: 3,
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10),
-                    itemCount: mFoodList.length,
+                    itemCount: mTishAppList.length,
                     itemBuilder: (context, index) {
-                      return Media(mFoodList[index], index);
+                      return Media(mTishAppList[index], index);
                     },
                   ),
                 ),

@@ -1,26 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 
-import '../utils/FoodColors.dart';
+import '../utils/TishAppColors.dart';
 
-class FoodAddAddress extends StatefulWidget {
-  static String tag = '/FoodAddAddress';
+class TishAppAddAddress extends StatefulWidget {
+  static String tag = '/TishAppAddAddress';
 
   @override
-  FoodAddAddressState createState() => FoodAddAddressState();
+  TishAppAddAddressState createState() => TishAppAddAddressState();
 }
 
-class FoodAddAddressState extends State<FoodAddAddress> {
+class TishAppAddAddressState extends State<TishAppAddAddress> {
   String? _selectedLocation = 'Home';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: food_white,
+      backgroundColor: TishApp_white,
       appBar: AppBar(),
       body: SafeArea(
         child: Column(
@@ -31,27 +31,30 @@ class FoodAddAddressState extends State<FoodAddAddress> {
                   margin: EdgeInsets.all(16),
                   child: Column(
                     children: <Widget>[
-                      foodEditTextStyle(food_hint_full_name),
+                      TishAppEditTextStyle(TishApp_hint_full_name),
                       SizedBox(height: 16),
                       Row(
                         children: <Widget>[
                           Expanded(
-                              child: foodEditTextStyle(food_hint_pin_code)),
+                              child:
+                                  TishAppEditTextStyle(TishApp_hint_pin_code)),
                           SizedBox(width: 16),
-                          Expanded(child: foodEditTextStyle(food_hint_city)),
+                          Expanded(
+                              child: TishAppEditTextStyle(TishApp_hint_city)),
                         ],
                       ),
                       SizedBox(height: 16),
                       Row(
                         children: <Widget>[
-                          Expanded(child: foodEditTextStyle(food_hint_state)),
+                          Expanded(
+                              child: TishAppEditTextStyle(TishApp_hint_state)),
                           SizedBox(width: 16),
                           Expanded(
                             child: Container(
                               padding: EdgeInsets.only(left: 16, right: 16),
                               decoration: BoxDecoration(
                                   border: Border.all(
-                                    color: food_view_color,
+                                    color: TishApp_view_color,
                                     width: 1,
                                   ),
                                   borderRadius:
@@ -67,7 +70,7 @@ class FoodAddAddressState extends State<FoodAddAddress> {
                                     child: Text(value,
                                         style: primaryTextStyle(
                                             size: 16,
-                                            color: food_textColorSecondary)),
+                                            color: TishApp_textColorSecondary)),
                                   );
                                 }).toList(),
                                 onChanged: (newValue) {
@@ -81,19 +84,19 @@ class FoodAddAddressState extends State<FoodAddAddress> {
                         ],
                       ),
                       SizedBox(height: 16),
-                      foodEditTextStyle(food_hint_address),
+                      TishAppEditTextStyle(TishApp_hint_address),
                       SizedBox(height: 16),
-                      foodEditTextStyle(food_hint_mobile_no),
+                      TishAppEditTextStyle(TishApp_hint_mobile_no),
                       SizedBox(height: 16),
                       Container(
                         width: MediaQuery.of(context).size.width,
                         padding: EdgeInsets.only(top: 10, bottom: 10),
                         decoration: BoxDecoration(
-                            color: food_colorPrimary,
+                            color: TishApp_colorPrimary,
                             borderRadius: BorderRadius.circular(50),
                             boxShadow: defaultBoxShadow()),
-                        child: Text(food_lbl_add_address,
-                                style: primaryTextStyle(color: food_white))
+                        child: Text(TishApp_add_address,
+                                style: primaryTextStyle(color: TishApp_white))
                             .center(),
                       )
                     ],

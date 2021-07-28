@@ -2,33 +2,34 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
+import 'package:TishApp/TishApp/model/FoodModel.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 
-class FoodFavourite extends StatefulWidget {
-  static String tag = '/FoodFavourite';
+class TishAppFavourite extends StatefulWidget {
+  static String tag = '/TishAppFavourite';
 
   @override
-  FoodFavouriteState createState() => FoodFavouriteState();
+  TishAppFavouriteState createState() => TishAppFavouriteState();
 }
 
-class FoodFavouriteState extends State<FoodFavourite> {
-  late List<FoodDish> mList1;
+class TishAppFavouriteState extends State<TishAppFavourite> {
+  late List<TishAppDish> mList1;
 
   @override
   void initState() {
     super.initState();
-    mList1 = addFoodDishData();
+    mList1 = addTishAppDishData();
   }
 
   @override
   Widget build(BuildContext context) {
-    //changeStatusColor(food_app_background);
+    //changeStatusColor(TishApp_app_background);
     return Scaffold(
-      backgroundColor: food_app_background,
+      backgroundColor: TishApp_app_background,
       appBar: AppBar(),
       body: SafeArea(
           child: Column(
@@ -58,9 +59,9 @@ class FoodFavouriteState extends State<FoodFavourite> {
 
 // ignore: must_be_immutable
 class Favourite extends StatelessWidget {
-  late FoodDish model;
+  late TishAppDish model;
 
-  Favourite(FoodDish model, int pos) {
+  Favourite(TishAppDish model, int pos) {
     this.model = model;
   }
 
@@ -91,7 +92,7 @@ class Favourite extends StatelessWidget {
               children: <Widget>[
                 Text(model.name, style: primaryTextStyle(), maxLines: 1),
                 Text(model.type,
-                    style: primaryTextStyle(color: food_textColorSecondary)),
+                    style: primaryTextStyle(color: TishApp_textColorSecondary)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[Text(model.price), Quantitybtn()],

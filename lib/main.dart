@@ -3,9 +3,10 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:provider/provider.dart';
 
 import 'TishApp/screen/FoodBookCart.dart';
-import 'TishApp/screen/TishAppDashboard.dart';
 import 'TishApp/screen/FoodDescription.dart';
 import 'TishApp/screen/FoodViewRestaurants.dart';
+import 'TishApp/screen/SearchPage.dart';
+import 'TishApp/screen/TishAppDashboard.dart';
 import 'TishApp/screen/TishAppLogin.dart';
 import 'TishApp/screen/TishAppSignUp.dart';
 import 'TishApp/screen/TishAppWelcomePage.dart';
@@ -35,13 +36,17 @@ class TishApp extends StatelessWidget {
         routes: {
           '/login': (context) => LoginPage(),
           '/signup': (context) => SignUpPage(),
-          '/dashboard': (context) => FoodDashboard(),
-          '/foodCart': (context) => FoodBookCart(),
-          '/viewRestaurants': (context) => FoodViewRestaurants(),
-          '/description': (context) => FoodDescription(),
+          '/search': (context) => SearchPage(),
+          '/dashboard': (context) => TishAppDashboard(),
+          '/TishAppCart': (context) => TishAppBookCart(),
+          '/viewRestaurants': (context) => TishAppViewRestaurants(),
+          '/description': (context) => TishAppDescription(),
         },
         title: 'TishApp',
         home: WelcomePage(),
+        // home: TishAppDashboard(),
+        // home: SearchPage(),
+        // home: ProfilePage(),
         builder: scrollBehaviour(),
       ),
     );

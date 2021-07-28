@@ -2,25 +2,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodImages.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppImages.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 
-class FoodProfile extends StatefulWidget {
-  static String tag = '/FoodProfile';
+class TishAppProfile extends StatefulWidget {
+  static String tag = '/TishAppProfile';
 
   @override
-  FoodProfileState createState() => FoodProfileState();
+  TishAppProfileState createState() => TishAppProfileState();
 }
 
-class FoodProfileState extends State<FoodProfile> {
+class TishAppProfileState extends State<TishAppProfile> {
   @override
   Widget build(BuildContext context) {
-    //changeStatusColor(food_app_background);
+    //changeStatusColor(TishApp_app_background);
     String? _selectedLocation = 'Female';
     return Scaffold(
-      backgroundColor: food_white,
+      backgroundColor: TishApp_white,
       appBar: AppBar(),
       body: SafeArea(
         child: Column(
@@ -35,12 +35,12 @@ class FoodProfileState extends State<FoodProfile> {
                       children: <Widget>[
                         CircleAvatar(
                             backgroundImage:
-                                CachedNetworkImageProvider(food_ic_user1),
+                                CachedNetworkImageProvider(TishApp_ic_user1),
                             radius: 50),
                         Container(
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: food_white),
+                              shape: BoxShape.circle, color: TishApp_white),
                           width: 30,
                           height: 30,
                           child: Container(
@@ -59,11 +59,12 @@ class FoodProfileState extends State<FoodProfile> {
                           Row(
                             children: <Widget>[
                               Expanded(
-                                  child:
-                                      foodEditTextStyle(food_hint_first_name)),
+                                  child: TishAppEditTextStyle(
+                                      TishApp_hint_first_name)),
                               SizedBox(width: 16),
                               Expanded(
-                                  child: foodEditTextStyle(food_hint_last_name))
+                                  child: TishAppEditTextStyle(
+                                      TishApp_hint_last_name))
                             ],
                           ),
                           SizedBox(height: 16),
@@ -71,7 +72,7 @@ class FoodProfileState extends State<FoodProfile> {
                             padding: EdgeInsets.only(left: 16, right: 16),
                             decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: food_view_color,
+                                  color: TishApp_view_color,
                                   width: 1,
                                 ),
                                 borderRadius:
@@ -96,18 +97,18 @@ class FoodProfileState extends State<FoodProfile> {
                             )),
                           ),
                           SizedBox(height: 16),
-                          foodEditTextStyle(food_hint_mobile_no),
+                          TishAppEditTextStyle(TishApp_hint_mobile_no),
                           SizedBox(height: 16),
-                          foodEditTextStyle(food_hint_email),
+                          TishAppEditTextStyle(TishApp_hint_email),
                           SizedBox(height: 16),
                           Container(
                             width: MediaQuery.of(context).size.width,
                             padding: EdgeInsets.only(top: 10, bottom: 10),
                             decoration: BoxDecoration(
-                                color: food_colorPrimary,
+                                color: TishApp_colorPrimary,
                                 borderRadius: BorderRadius.circular(50),
                                 boxShadow: defaultBoxShadow()),
-                            child: Text(food_lbl_save_profile.toUpperCase(),
+                            child: Text(TishApp_save_profile.toUpperCase(),
                                 style: primaryTextStyle(color: white)),
                           )
                         ],

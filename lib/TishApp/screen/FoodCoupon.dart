@@ -1,22 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
+import 'package:TishApp/TishApp/model/FoodModel.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
 
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
-import 'package:prokit_flutter/TishApp/utils/dotted_border.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
+import 'package:TishApp/TishApp/utils/dotted_border.dart';
 
-class FoodCoupon extends StatefulWidget {
-  static String tag = '/FoodCoupon';
+class TishAppCoupon extends StatefulWidget {
+  static String tag = '/TishAppCoupon';
 
   @override
-  FoodCouponState createState() => FoodCouponState();
+  TishAppCouponState createState() => TishAppCouponState();
 }
 
-class FoodCouponState extends State<FoodCoupon> {
+class TishAppCouponState extends State<TishAppCoupon> {
   late List<Coupons> mList;
 
   @override
@@ -27,10 +28,10 @@ class FoodCouponState extends State<FoodCoupon> {
 
   @override
   Widget build(BuildContext context) {
-    //changeStatusColor(food_app_background);
+    //changeStatusColor(TishApp_app_background);
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: food_app_background,
+      backgroundColor: TishApp_app_background,
       body: SafeArea(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +40,7 @@ class FoodCouponState extends State<FoodCoupon> {
             onPressed: () {
               finish(context);
             },
-            icon: Icon(Icons.arrow_back, color: food_textColorPrimary),
+            icon: Icon(Icons.arrow_back, color: TishApp_textColorPrimary),
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -48,11 +49,11 @@ class FoodCouponState extends State<FoodCoupon> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(food_lbl_apply_coupons, style: boldTextStyle(size: 24)),
+                  Text(TishApp_apply_coupons, style: boldTextStyle(size: 24)),
                   SizedBox(height: 16),
                   Container(
                     decoration: BoxDecoration(
-                        color: food_colorPrimary,
+                        color: TishApp_colorPrimary,
                         boxShadow: defaultBoxShadow(),
                         borderRadius: BorderRadius.circular(50)),
                     child: Row(
@@ -63,7 +64,7 @@ class FoodCouponState extends State<FoodCoupon> {
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.all(14.0),
                               isDense: true,
-                              hintText: food_lbl_enter_apply_code,
+                              hintText: TishApp_enter_apply_code,
                               border: InputBorder.none,
                             ),
                           ),
@@ -76,10 +77,12 @@ class FoodCouponState extends State<FoodCoupon> {
                                 padding: EdgeInsets.all(12.0),
                                 decoration: gradientBoxDecoration(
                                     radius: 50,
-                                    gradientColor1: food_color_blue_gradient1,
-                                    gradientColor2: food_color_blue_gradient2),
+                                    gradientColor1:
+                                        TishApp_color_blue_gradient1,
+                                    gradientColor2:
+                                        TishApp_color_blue_gradient2),
                                 child: Icon(Icons.arrow_forward,
-                                    color: food_white),
+                                    color: TishApp_white),
                               ),
                             ))
                       ],
@@ -90,17 +93,17 @@ class FoodCouponState extends State<FoodCoupon> {
                     children: <Widget>[
                       Container(
                         height: 0.6,
-                        color: food_view_color,
+                        color: TishApp_view_color,
                         width: width * 0.1,
                         margin: EdgeInsets.only(right: 8),
                       ),
-                      Text(food_lbl_or_use_your_mobile_email.toUpperCase(),
+                      Text(TishApp_or_use_your_mobile_email.toUpperCase(),
                               style: primaryTextStyle(
-                                  size: 14, color: food_textColorSecondary))
+                                  size: 14, color: TishApp_textColorSecondary))
                           .center(),
                       Container(
                         height: 0.6,
-                        color: food_view_color,
+                        color: TishApp_view_color,
                         width: width * 0.1,
                         margin: EdgeInsets.only(left: 8),
                       ),
@@ -141,7 +144,7 @@ class Coupon extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           DottedBorder(
-            color: food_colorAccent,
+            color: TishApp_colorAccent,
             strokeWidth: 1,
             padding: EdgeInsets.all(2),
             radius: Radius.circular(20),
@@ -149,9 +152,9 @@ class Coupon extends StatelessWidget {
               //borderRadius: BorderRadius.all(Radius.circular(10)),
               child: Container(
                 width: width * 0.3,
-                color: food_color_light_primary,
+                color: TishApp_color_light_primary,
                 child: Text(model.offer,
-                        style: primaryTextStyle(color: food_colorAccent))
+                        style: primaryTextStyle(color: TishApp_colorAccent))
                     .center(),
               ),
             ),
@@ -161,11 +164,11 @@ class Coupon extends StatelessWidget {
           ),
           Text(model.couponsName, style: primaryTextStyle(size: 18)),
           Text(model.info,
-                  style: primaryTextStyle(color: food_textColorSecondary))
+                  style: primaryTextStyle(color: TishApp_textColorSecondary))
               .center(),
           Container(
             height: 0.5,
-            color: food_view_color,
+            color: TishApp_view_color,
             width: width,
             margin: EdgeInsets.only(top: 16, bottom: 16),
           )

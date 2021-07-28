@@ -1,30 +1,32 @@
 import 'dart:async';
 
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
 
-import '../utils/FoodImages.dart';
+import '../utils/TishAppImages.dart';
 import 'FoodAddAddress.dart';
 
-class FoodAddressConfirmation extends StatefulWidget {
-  static String tag = '/FoodAddressConfirmation';
+class TishAppAddressConfirmation extends StatefulWidget {
+  static String tag = '/TishAppAddressConfirmation';
 
   @override
-  FoodAddressConfirmationState createState() => FoodAddressConfirmationState();
+  TishAppAddressConfirmationState createState() =>
+      TishAppAddressConfirmationState();
 }
 
-class FoodAddressConfirmationState extends State<FoodAddressConfirmation> {
+class TishAppAddressConfirmationState
+    extends State<TishAppAddressConfirmation> {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
-    //changeStatusColor(food_app_background);
+    //changeStatusColor(TishApp_app_background);
 
     return Scaffold(
-      backgroundColor: food_view_color,
+      backgroundColor: TishApp_view_color,
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -39,21 +41,20 @@ class FoodAddressConfirmationState extends State<FoodAddressConfirmation> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(24),
                         topRight: Radius.circular(24)),
-                    color: food_white),
+                    color: TishApp_white),
                 padding: EdgeInsets.all(16),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(food_lbl_set_delivery_information.toUpperCase(),
+                    Text(TishApp_set_delivery_information.toUpperCase(),
                         style: primaryTextStyle(size: 18)),
-                    Text(food_lbl_location,
-                        style: secondaryTextStyle(size: 14)),
+                    Text(TishApp_location, style: secondaryTextStyle(size: 14)),
                     SizedBox(height: 4),
-                    Text(food_lbl_address_dashboard, style: primaryTextStyle()),
+                    Text(TishApp_address_dashboard, style: primaryTextStyle()),
                     Container(
                       height: 0.5,
-                      color: food_view_color,
+                      color: TishApp_view_color,
                       width: width,
                       margin: EdgeInsets.only(top: 4, bottom: 16),
                     ),
@@ -63,14 +64,14 @@ class FoodAddressConfirmationState extends State<FoodAddressConfirmation> {
                           flex: 1,
                           child: GestureDetector(
                             onTap: () {
-                              FoodAddAddress().launch(context);
+                              TishAppAddAddress().launch(context);
                             },
                             child: Container(
                               padding: EdgeInsets.only(top: 4, bottom: 4),
                               decoration: BoxDecoration(
-                                  color: food_textColorPrimary,
+                                  color: TishApp_textColorPrimary,
                                   borderRadius: BorderRadius.circular(50)),
-                              child: Text(food_lbl_add_more_details,
+                              child: Text(TishApp_add_more_details,
                                       style: primaryTextStyle())
                                   .center(),
                             ),
@@ -82,10 +83,10 @@ class FoodAddressConfirmationState extends State<FoodAddressConfirmation> {
                           child: Container(
                             padding: EdgeInsets.only(top: 4, bottom: 4),
                             decoration: BoxDecoration(
-                                border: Border.all(color: food_colorPrimary),
+                                border: Border.all(color: TishApp_colorPrimary),
                                 borderRadius: BorderRadius.circular(50),
                                 color: white),
-                            child: Text(food_lbl_confirm_location,
+                            child: Text(TishApp_confirm_location,
                                     style: primaryTextStyle(color: white))
                                 .center(),
                           ),
@@ -121,7 +122,7 @@ class MapPageState extends State<MapPage> {
 
   void setCustomMapPin() async {
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), food_ic_map);
+        ImageConfiguration(devicePixelRatio: 2.5), TishApp_ic_map);
   }
 
   @override
@@ -151,7 +152,8 @@ class MapPageState extends State<MapPage> {
 }
 
 class Utils {
-  static String mapStyles = '''[
+  static String mapStyles =
+      '''[
   {
     "elementType": "geometry",
     "stylers": [

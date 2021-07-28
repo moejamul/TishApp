@@ -1,7 +1,7 @@
+import 'package:TishApp/TishApp/Services/Login/LoginRepository.dart';
+import 'package:TishApp/TishApp/Services/Logout/LogoutRepository.dart';
+import 'package:TishApp/TishApp/Services/Register/RegisterRepository.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:prokit_flutter/TishApp/Services/Login/LoginRepository.dart';
-import 'package:prokit_flutter/TishApp/Services/Logout/LogoutRepository.dart';
-import 'package:prokit_flutter/TishApp/Services/Register/RegisterRepository.dart';
 
 class AuthViewModel with ChangeNotifier {
   // ApiResponse _apiResponse = ApiResponse.loading('Fetching artist data');

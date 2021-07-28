@@ -3,30 +3,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:prokit_flutter/TishApp/model/FoodModel.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodColors.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodDataGenerator.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodImages.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodString.dart';
-import 'package:prokit_flutter/TishApp/utils/FoodWidget.dart';
+import 'package:TishApp/TishApp/model/FoodModel.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/utils/TishAppColors.dart';
+import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
+import 'package:TishApp/TishApp/utils/TishAppImages.dart';
+import 'package:TishApp/TishApp/utils/TishAppString.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 
 import 'FoodBookCart.dart';
 
-class FoodDescription extends StatefulWidget {
-  static String tag = '/FoodDescription';
+class TishAppDescription extends StatefulWidget {
+  static String tag = '/TishAppDescription';
 
   @override
-  FoodDescriptionState createState() => FoodDescriptionState();
+  TishAppDescriptionState createState() => TishAppDescriptionState();
 }
 
-class FoodDescriptionState extends State<FoodDescription> {
-  late List<FoodDish> mList1;
-  late List<FoodDish> mList2;
+class TishAppDescriptionState extends State<TishAppDescription> {
+  late List<TishAppDish> mList1;
+  late List<TishAppDish> mList2;
 
   @override
   void initState() {
     super.initState();
-    mList1 = addFoodDishData();
+    mList1 = addTishAppDishData();
     mList2 = orderData();
   }
 
@@ -52,7 +53,7 @@ class FoodDescriptionState extends State<FoodDescription> {
     Widget mVegOption(var value, var iconColor) {
       return Row(
         children: <Widget>[
-          Image.asset(food_c_type, color: iconColor, width: 18, height: 18),
+          Image.asset(TishApp_c_type, color: iconColor, width: 18, height: 18),
           SizedBox(width: 8),
           Text(value, style: primaryTextStyle()),
         ],
@@ -61,7 +62,7 @@ class FoodDescriptionState extends State<FoodDescription> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: food_app_background,
+        backgroundColor: TishApp_app_background,
         body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
@@ -78,7 +79,7 @@ class FoodDescriptionState extends State<FoodDescription> {
                       finish(context);
                     }),
                 backgroundColor:
-                    innerBoxIsScrolled ? food_white : food_colorPrimary,
+                    innerBoxIsScrolled ? TishApp_white : TishApp_colorPrimary,
                 actionsIconTheme: IconThemeData(opacity: 0.0),
                 title: Container(
                   height: 60,
@@ -103,7 +104,7 @@ class FoodDescriptionState extends State<FoodDescription> {
                   background: Container(
                     height: expandHeight,
                     child: CachedNetworkImage(
-                      imageUrl: food_ic_popular3,
+                      imageUrl: TishApp_ic_popular3,
                       height: expandHeight,
                       fit: BoxFit.fill,
                     ),
@@ -127,39 +128,41 @@ class FoodDescriptionState extends State<FoodDescription> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(food_lbl_burger,
+                          Text(TishApp_burger,
                               style: primaryTextStyle(size: 18)),
-                          totalRatting(food_lbl_order_rating),
+                          totalRatting(TishApp_order_rating),
                           SizedBox(height: 8),
                           Row(
                             children: <Widget>[
                               Container(
                                 decoration: gradientBoxDecoration(
-                                    gradientColor1: food_color_blue_gradient1,
-                                    gradientColor2: food_color_blue_gradient2),
+                                    gradientColor1:
+                                        TishApp_color_blue_gradient1,
+                                    gradientColor2:
+                                        TishApp_color_blue_gradient2),
                                 padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
                                 margin: EdgeInsets.only(right: 10),
-                                child: Text(food_lbl_offer,
+                                child: Text(TishApp_offer,
                                     style: primaryTextStyle(
                                         size: 14, color: white)),
                               ),
-                              Text(food_lbl_save_14_on_each_night,
+                              Text(TishApp_save_14_on_each_night,
                                   style: primaryTextStyle(
-                                      color: food_textColorSecondary))
+                                      color: TishApp_textColorSecondary))
                             ],
                           ),
                           SizedBox(height: 8),
-                          Divider(height: 0.5, color: food_view_color),
+                          Divider(height: 0.5, color: TishApp_view_color),
                           SizedBox(height: 8),
                           Row(
                             children: <Widget>[
                               Expanded(
                                   child: mVegOption(
-                                      food_lbl_veg_only, food_view_color),
+                                      TishApp_veg_only, TishApp_view_color),
                                   flex: 1),
                               Expanded(
                                   child: mVegOption(
-                                      food_lbl_non_veg_only, food_color_red),
+                                      TishApp_non_veg_only, TishApp_color_red),
                                   flex: 2),
                             ],
                           )
@@ -175,8 +178,8 @@ class FoodDescriptionState extends State<FoodDescription> {
                             boxShadow: defaultBoxShadow(), color: white),
                         child: Row(
                           children: <Widget>[
-                            SvgPicture.asset(food_ic_comass,
-                                color: food_colorPrimary,
+                            SvgPicture.asset(TishApp_ic_comass,
+                                color: TishApp_colorPrimary,
                                 width: width * 0.08,
                                 height: width * 0.08),
                             SizedBox(width: 10),
@@ -185,9 +188,9 @@ class FoodDescriptionState extends State<FoodDescription> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
-                                      food_lbl_delivery_by_yumfood_with_online_tracking,
+                                      TishApp_delivery_by_yumTishApp_with_online_tracking,
                                       style: boldTextStyle()),
-                                  Text(food_lbl_est_food_delivery_time,
+                                  Text(TishApp_est_TishApp_delivery_time,
                                       style: primaryTextStyle()),
                                 ],
                               ),
@@ -203,7 +206,7 @@ class FoodDescriptionState extends State<FoodDescription> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(food_lbl_what_people_love_here),
+                          mHeading(TishApp_what_people_love_here),
                           SizedBox(height: 16),
                           Container(
                             margin: EdgeInsets.only(left: 16, right: 16),
@@ -235,7 +238,7 @@ class FoodDescriptionState extends State<FoodDescription> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(food_lbl_what_people_love_here),
+                          mHeading(TishApp_what_people_love_here),
                           SizedBox(height: 16),
                           ListView.builder(
                             scrollDirection: Axis.vertical,
@@ -272,19 +275,19 @@ class FoodDescriptionState extends State<FoodDescription> {
                           margin: EdgeInsets.only(bottom: 10),
                           padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
                           decoration: gradientBoxDecoration(
-                              gradientColor1: food_color_blue_gradient1,
-                              gradientColor2: food_color_blue_gradient2,
+                              gradientColor1: TishApp_color_blue_gradient1,
+                              gradientColor2: TishApp_color_blue_gradient2,
                               radius: 40),
-                          child: Text(food_lbl_view_menu,
+                          child: Text(TishApp_view_menu,
                               style: primaryTextStyle(color: white)),
                         ),
                       ),
                       bottomBillDetail(
                           context,
-                          food_color_green_gradient1,
-                          food_color_green_gradient2,
-                          food_lbl_order_now, onTap: () {
-                        FoodBookCart().launch(context);
+                          TishApp_color_green_gradient1,
+                          TishApp_color_green_gradient2,
+                          TishApp_order_now, onTap: () {
+                        TishAppBookCart().launch(context);
                       }),
                     ],
                   ),
@@ -300,9 +303,9 @@ class FoodDescriptionState extends State<FoodDescription> {
 
 // ignore: must_be_immutable
 class ItemList extends StatelessWidget {
-  late FoodDish model;
+  late TishAppDish model;
 
-  ItemList(FoodDish model, int pos) {
+  ItemList(TishAppDish model, int pos) {
     this.model = model;
   }
 
@@ -337,14 +340,14 @@ class ItemList extends StatelessWidget {
                       WidgetSpan(
                           child: Padding(
                               padding: EdgeInsets.only(right: 4),
-                              child: Image.asset(food_c_type,
-                                  color: food_colorAccent,
+                              child: Image.asset(TishApp_c_type,
+                                  color: TishApp_colorAccent,
                                   width: 16,
                                   height: 16))),
                       TextSpan(
                           text: model.name,
                           style: primaryTextStyle(
-                              size: 16, color: food_textColorPrimary)),
+                              size: 16, color: TishApp_textColorPrimary)),
                     ],
                   ),
                 ),
@@ -361,9 +364,9 @@ class ItemList extends StatelessWidget {
 
 // ignore: must_be_immutable
 class ItemGrid extends StatelessWidget {
-  late FoodDish model;
+  late TishAppDish model;
 
-  ItemGrid(FoodDish model, int pos) {
+  ItemGrid(TishAppDish model, int pos) {
     this.model = model;
   }
 
@@ -393,7 +396,7 @@ class ItemGrid extends StatelessWidget {
                 Text(model.name, style: primaryTextStyle(), maxLines: 1),
                 Text(model.type,
                     style: primaryTextStyle(
-                        color: food_textColorSecondary, size: 14)),
+                        color: TishApp_textColorSecondary, size: 14)),
                 SizedBox(height: 4),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -467,7 +470,7 @@ dialogContent(BuildContext context) {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text("Fast Food", style: primaryTextStyle()),
+                Text("Fast TishApp", style: primaryTextStyle()),
                 Text("12/-", style: primaryTextStyle()),
               ],
             ),

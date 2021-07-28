@@ -227,7 +227,7 @@
       ]
     },
     {
-      "name": "Food Recipe",
+      "name": "TishApp Recipe",
       "title_name": "Theme 3 Screens",
       "type": "",
       "darkThemeSupported": true,
@@ -2030,7 +2030,7 @@
     "show_cover": true,
     "sub_kits": [
       {
-        "name": "Food",
+        "name": "TishApp",
         "type": "",
         "icon": "/app_ic_bottom_navigation.png",
         "tag": "/Dashboard1"
@@ -2117,10 +2117,10 @@
         "tag": "/ShophopSplash"
       },
       {
-        "name": "Food App",
+        "name": "TishApp App",
         "type": "",
         "icon": "/app_ic_bottom_navigation.png",
-        "tag": "/FoodWalkThrough"
+        "tag": "/TishAppWalkThrough"
       },
       {
         "name": "Grocery",
