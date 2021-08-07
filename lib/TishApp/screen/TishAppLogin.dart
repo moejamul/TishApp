@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:TishApp/TishApp/viewmodel/authViewModel.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'TishAppSignUp.dart';
+
+LocalStorage _localStorage = LocalStorage('UserInfo');
 
 class LoginPage extends StatefulWidget {
   LoginPage();
@@ -18,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
   bool busy = false;
   bool done = false;
+  bool? _rememberMeVal = false;
 
   Widget _backButton() {
     return InkWell(
@@ -56,6 +61,13 @@ class _LoginPageState extends State<LoginPage> {
             height: 10,
           ),
           TextField(
+              onChanged: (value) {
+                if (_rememberMeVal.toString() == 'true') {
+                  title == 'Password'
+                      ? null
+                      : _localStorage.setItem('username', value);
+                }
+              },
               controller: controller,
               obscureText: isPassword,
               decoration: InputDecoration(
@@ -166,50 +178,61 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _facebookButton() {
-    return Container(
-      constraints: BoxConstraints(maxWidth: 550),
-      height: 50,
-      margin: EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xff1959a9),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(5),
-                    topLeft: Radius.circular(5)),
+    return GestureDetector(
+      onTap: () async {
+        const url =
+            'https://dev.codepickles.com:8443/auth/realms/TishApp/broker/facebook/token';
+        if (await canLaunch(url)) {
+          await launch(url);
+        } else {
+          throw 'Could not launch $url';
+        }
+      },
+      child: Container(
+        constraints: BoxConstraints(maxWidth: 550),
+        height: 50,
+        margin: EdgeInsets.symmetric(vertical: 20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              flex: 1,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xff1959a9),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(5),
+                      topLeft: Radius.circular(5)),
+                ),
+                alignment: Alignment.center,
+                child: Text('f',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                        fontWeight: FontWeight.w400)),
               ),
-              alignment: Alignment.center,
-              child: Text('f',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400)),
             ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xff2872ba),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(5),
-                    topRight: Radius.circular(5)),
+            Expanded(
+              flex: 5,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0xff2872ba),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(5),
+                      topRight: Radius.circular(5)),
+                ),
+                alignment: Alignment.center,
+                child: Text('Log in with Facebook',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w400)),
               ),
-              alignment: Alignment.center,
-              child: Text('Log in with Facebook',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400)),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -275,15 +298,26 @@ class _LoginPageState extends State<LoginPage> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Email id", nameController),
+        _entryField("Email/Username", nameController),
         _entryField("Password", passwordController, isPassword: true),
       ],
     );
   }
 
+  void fillFields() async {
+    await _localStorage.ready;
+    nameController.text = await _localStorage.getItem('username') != null
+        ? _localStorage.getItem('username')
+        : '';
+    _rememberMeVal = await _localStorage.getItem('checkBoxVal');
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    fillFields();
     return Scaffold(
         body: Container(
       height: height,
@@ -300,6 +334,25 @@ class _LoginPageState extends State<LoginPage> {
                   _title(),
                   SizedBox(height: 50),
                   _emailPasswordWidget(),
+                  SizedBox(height: 20),
+                  Container(
+                    constraints: BoxConstraints(maxWidth: 550),
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    alignment: Alignment.centerLeft,
+                    child: Row(
+                      children: [
+                        Checkbox(
+                            value: _rememberMeVal,
+                            onChanged: (value) {
+                              setState(() {
+                                _rememberMeVal = value;
+                              });
+                              _localStorage.setItem('checkBoxVal', value);
+                            }),
+                        Text('Remember Me')
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 20),
                   _submitButton(),
                   Container(
