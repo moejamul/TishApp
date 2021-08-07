@@ -114,6 +114,8 @@ class TishAppDashboardState extends State<TishAppDashboard> {
                 Text(
                   subHeading,
                   style: primaryTextStyle(color: TishApp_white, size: 12),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             )),

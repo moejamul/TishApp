@@ -8,6 +8,7 @@ import 'TishApp/screen/FoodViewRestaurants.dart';
 import 'TishApp/screen/SearchPage.dart';
 import 'TishApp/screen/TishAppDashboard.dart';
 import 'TishApp/screen/TishAppLogin.dart';
+import 'TishApp/screen/TishAppProfilePage.dart';
 import 'TishApp/screen/TishAppSignUp.dart';
 import 'TishApp/screen/TishAppWelcomePage.dart';
 import 'TishApp/viewmodel/authViewModel.dart';

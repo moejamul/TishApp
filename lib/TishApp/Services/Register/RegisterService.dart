@@ -23,7 +23,7 @@ class RegisterService {
       responseJson = jsonDecode(returnResponse(response));
       String accessToken = responseJson['access_token'];
       var temp = {
-        "username": '$firstName $lastName',
+        "username": '$firstName',
         "enabled": 'true',
         "emailVerified": 'true',
         "firstName": firstName,

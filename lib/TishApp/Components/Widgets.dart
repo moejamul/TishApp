@@ -12,7 +12,19 @@ Widget ProfilePicture(
           child: Image.asset(file),
           radius: 100,
         ),
-        Icon(Icons.remove)
+        PopupMenuButton(
+          itemBuilder: (BuildContext bc) => [
+            PopupMenuItem(child: Text("New Chat"), value: "/newchat"),
+            PopupMenuItem(
+                child: Text("New Group Chat"), value: "/new-group-chat"),
+            PopupMenuItem(child: Text("Settings"), value: "/settings"),
+          ],
+          onSelected: (route) {
+            print(route.toString());
+            // Note You must create respective pages for navigation
+            Navigator.pushNamed(context, route.toString());
+          },
+        ),
       ],
     ),
   );

@@ -3,8 +3,6 @@ import 'package:TishApp/TishApp/Services/Place/PlaceRepository.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 
 class PlaceViewModel with ChangeNotifier {
-  // ApiResponse _apiResponse = ApiResponse.loading('Fetching artist data');
-
   late Place _place =
       Place(completed: 'null', id: 'null', title: 'test title', userId: 'null');
 
