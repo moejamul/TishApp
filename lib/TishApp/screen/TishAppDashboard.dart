@@ -16,7 +16,6 @@ import 'package:provider/provider.dart';
 
 import 'FoodBookCart.dart';
 import 'FoodDescription.dart';
-import 'FoodViewRestaurants.dart';
 
 class Collection extends StatelessWidget {
   late DashboardCollections model;
@@ -29,9 +28,7 @@ class Collection extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () {
-        TishAppViewRestaurants().launch(context);
-      },
+      onTap: () {},
       child: Container(
         margin: EdgeInsets.only(left: 16),
         child: Stack(
@@ -159,112 +156,78 @@ class TishAppDashboardState extends State<TishAppDashboard> {
             children: <Widget>[
               Container(
                   color: TishApp_white,
-                  child: Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          Container(
-                            decoration: BoxDecoration(
-                                boxShadow: defaultBoxShadow(), color: white),
-                            padding: EdgeInsets.all(16),
-                            child: Column(
-                              children: <Widget>[
-                                mAddress(context),
-                                SizedBox(height: 16),
-                                // search(context),
-                                // SizedBox(height: 16),
-                                Row(
-                                  children: <Widget>[
-                                    topGradient(
-                                        TishApp_color_blue_gradient1,
-                                        TishApp_color_blue_gradient2,
-                                        TishApp_cloche,
-                                        'View Restaurants',
-                                        'Search for your favorite restaurant',
-                                        redirectTo: '/TishAppCart'),
-                                    SizedBox(width: 10),
-                                    topGradient(
-                                        TishApp_color_orange_gradient1,
-                                        TishApp_color_orange_gradient2,
-                                        TishApp_ic_table,
-                                        TishApp_book_a_table,
-                                        TishApp_may_take_upto_3_mins,
-                                        redirectTo: '/viewRestaurants'),
-                                  ],
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: defaultBoxShadow(), color: white),
+                          padding: EdgeInsets.all(16),
+                          child: Column(
+                            children: <Widget>[
+                              mAddress(context),
+                              SizedBox(height: 16),
+                              // search(context),
+                              // SizedBox(height: 16),
+                              Row(
+                                children: <Widget>[
+                                  topGradient(
+                                      TishApp_color_blue_gradient1,
+                                      TishApp_color_blue_gradient2,
+                                      TishApp_cloche,
+                                      'View Restaurants',
+                                      'Search for your favorite restaurant',
+                                      redirectTo: '/TishAppCart'),
+                                  SizedBox(width: 10),
+                                  topGradient(
+                                      TishApp_color_orange_gradient1,
+                                      TishApp_color_orange_gradient2,
+                                      TishApp_ic_table,
+                                      TishApp_book_a_table,
+                                      TishApp_may_take_upto_3_mins,
+                                      redirectTo: '/viewRestaurants'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: defaultBoxShadow(), color: white),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              heading(TishApp_get_inspired_by_collections),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.width *
+                                            0.4 >
+                                        265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: mBakeryList.length,
+                                  padding: EdgeInsets.only(right: 16),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Item(mBakeryList[index]);
+                                  },
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(height: 16),
+                            ],
                           ),
-                          SizedBox(height: 16),
-                          Container(
-                            decoration: BoxDecoration(
-                                boxShadow: defaultBoxShadow(), color: white),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                heading(TishApp_get_inspired_by_collections),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.width *
-                                              0.4 >
-                                          265
-                                      ? MediaQuery.of(context).size.width * 0.4
-                                      : 265,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: mBakeryList.length,
-                                    padding: EdgeInsets.only(right: 16),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Item(mBakeryList[index]);
-                                    },
-                                  ),
-                                ),
-                                SizedBox(height: 16),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Container(
-                            decoration: BoxDecoration(
-                                boxShadow: defaultBoxShadow(), color: white),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                heading(TishApp_cake_ice_cream_and_bakery),
-                                SizedBox(
-                                    height: MediaQuery.of(context).size.width *
-                                                0.4 >
-                                            265
-                                        ? MediaQuery.of(context).size.width *
-                                            0.4
-                                        : 265,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      padding:
-                                          EdgeInsets.only(bottom: 4, right: 16),
-                                      shrinkWrap: true,
-                                      itemCount: mBakeryList.length,
-                                      itemBuilder: (context, index) {
-                                        Place p = mBakeryList[index];
-                                        return Item(p);
-                                      },
-                                    )),
-                                mViewAll(context, 'View All Bakeries',
-                                    onTap: () {
-                                  TishAppViewRestaurants().launch(context);
-                                }),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 16),
-                          Container(
-                            decoration: BoxDecoration(
-                                boxShadow: defaultBoxShadow(), color: white),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                heading(TishApp_delivery_restaurants),
-                                SizedBox(
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: defaultBoxShadow(), color: white),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              heading(TishApp_cake_ice_cream_and_bakery),
+                              SizedBox(
                                   height: MediaQuery.of(context).size.width *
                                               0.4 >
                                           265
@@ -274,117 +237,140 @@ class TishAppDashboardState extends State<TishAppDashboard> {
                                     scrollDirection: Axis.horizontal,
                                     padding:
                                         EdgeInsets.only(bottom: 4, right: 16),
+                                    shrinkWrap: true,
                                     itemCount: mBakeryList.length,
-                                    shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      return Item(mBakeryList[index]);
+                                      Place p = mBakeryList[index];
+                                      return Item(p);
                                     },
-                                  ),
-                                ),
-                                mViewAll(context, TishApp_view_all_restaurants,
-                                    onTap: () {
-                                  TishAppViewRestaurants().launch(context);
-                                }),
-                              ],
-                            ),
+                                  )),
+                              mViewAll(context, 'View All Bakeries',
+                                  onTap: () {}),
+                            ],
                           ),
-                          SizedBox(height: 16),
-                          Container(
-                            decoration: BoxDecoration(
-                                boxShadow: defaultBoxShadow(), color: white),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                heading(TishApp_dine_out_restaurants),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.width *
-                                              0.4 >
-                                          265
-                                      ? MediaQuery.of(context).size.width * 0.4
-                                      : 265,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: mBakeryList.length,
-                                    padding:
-                                        EdgeInsets.only(bottom: 4, right: 16),
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Item(mBakeryList[index]);
-                                    },
-                                  ),
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: defaultBoxShadow(), color: white),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              heading(TishApp_delivery_restaurants),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.width *
+                                            0.4 >
+                                        265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  padding:
+                                      EdgeInsets.only(bottom: 4, right: 16),
+                                  itemCount: mBakeryList.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Item(mBakeryList[index]);
+                                  },
                                 ),
-                                mViewAll(context, TishApp_view_all_restaurants,
-                                    onTap: () {
-                                  TishAppViewRestaurants().launch(context);
-                                }),
-                              ],
-                            ),
+                              ),
+                              mViewAll(context, TishApp_view_all_restaurants,
+                                  onTap: () {}),
+                            ],
                           ),
-                          SizedBox(height: 16),
-                          Container(
-                            decoration: BoxDecoration(
-                                boxShadow: defaultBoxShadow(), color: white),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                heading(
-                                    TishApp_experience_your_favourite_cuisine),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.width *
-                                              0.4 >
-                                          265
-                                      ? MediaQuery.of(context).size.width * 0.4
-                                      : 265,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    padding: EdgeInsets.only(right: 16),
-                                    itemCount: mExperienceList.length,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Collection(
-                                          mExperienceList[index], index);
-                                    },
-                                  ),
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: defaultBoxShadow(), color: white),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              heading(TishApp_dine_out_restaurants),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.width *
+                                            0.4 >
+                                        265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: mBakeryList.length,
+                                  padding:
+                                      EdgeInsets.only(bottom: 4, right: 16),
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Item(mBakeryList[index]);
+                                  },
                                 ),
-                                SizedBox(height: 16),
-                              ],
-                            ),
+                              ),
+                              mViewAll(context, TishApp_view_all_restaurants,
+                                  onTap: () {}),
+                            ],
                           ),
-                          SizedBox(height: 16),
-                          Container(
-                            decoration: BoxDecoration(
-                                boxShadow: defaultBoxShadow(), color: white),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                heading(TishApp_cafe),
-                                SizedBox(
-                                  height: MediaQuery.of(context).size.width *
-                                              0.4 >
-                                          265
-                                      ? MediaQuery.of(context).size.width * 0.4
-                                      : 265,
-                                  child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    padding:
-                                        EdgeInsets.only(bottom: 4, right: 16),
-                                    itemCount: mBakeryList.length,
-                                    shrinkWrap: true,
-                                    itemBuilder: (context, index) {
-                                      return Item(mBakeryList[index]);
-                                    },
-                                  ),
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: defaultBoxShadow(), color: white),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              heading(
+                                  TishApp_experience_your_favourite_cuisine),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.width *
+                                            0.4 >
+                                        265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  padding: EdgeInsets.only(right: 16),
+                                  itemCount: mExperienceList.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Collection(
+                                        mExperienceList[index], index);
+                                  },
                                 ),
-                                mViewAll(context, TishApp_view_all_restaurants,
-                                    onTap: () {
-                                  TishAppViewRestaurants().launch(context);
-                                }),
-                              ],
-                            ),
+                              ),
+                              SizedBox(height: 16),
+                            ],
                           ),
-                          SizedBox(height: 16),
-                        ],
-                      ),
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: defaultBoxShadow(), color: white),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              heading(TishApp_cafe),
+                              SizedBox(
+                                height: MediaQuery.of(context).size.width *
+                                            0.4 >
+                                        265
+                                    ? MediaQuery.of(context).size.width * 0.4
+                                    : 265,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  padding:
+                                      EdgeInsets.only(bottom: 4, right: 16),
+                                  itemCount: mBakeryList.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return Item(mBakeryList[index]);
+                                  },
+                                ),
+                              ),
+                              mViewAll(context, TishApp_view_all_restaurants,
+                                  onTap: () {}),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                      ],
                     ),
                   ))
             ],
@@ -396,7 +382,7 @@ class TishAppDashboardState extends State<TishAppDashboard> {
 
   Future<void> getPlace() async {
     await Provider.of<PlaceViewModel>(context, listen: false)
-        .fetchPlaceData('4');
+        .fetchPlaceData("/Places");
     var _place = Provider.of<PlaceViewModel>(context, listen: false).place;
     for (int i = 0; i < 5; i++) {
       mBakeryList.add(_place);
@@ -481,13 +467,13 @@ class Item extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(model.title.toString(),
+                  Text(model.Name.toString(),
                       style: primaryTextStyle(), maxLines: 2),
                   Row(
                     children: <Widget>[
-                      mRating(model.id.toString()),
+                      mRating(model.Place_ID.toString()),
                       Text(
-                        model.userId.toString(),
+                        model.Place_Type_ID.toString(),
                         style: primaryTextStyle(
                             color: TishApp_textColorSecondary, size: 14),
                       ),

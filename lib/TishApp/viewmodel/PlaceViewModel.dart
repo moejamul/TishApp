@@ -3,8 +3,13 @@ import 'package:TishApp/TishApp/Services/Place/PlaceRepository.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 
 class PlaceViewModel with ChangeNotifier {
-  late Place _place =
-      Place(completed: 'null', id: 'null', title: 'test title', userId: 'null');
+  late Place _place = Place(
+      Location: 'null',
+      Place_ID: 'null',
+      Name: 'test title',
+      Description: 'null',
+      Created_at: 'null',
+      Place_Type_ID: 'null');
 
   Future<void> fetchPlaceData(String value) async {
     try {

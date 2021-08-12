@@ -1,4 +1,14 @@
 class Settings {
+  static const String _backend_protocol = 'https';
+  static const String _backend_domain_name = 'localhost';
+  static const String _backend_port_number = '5001';
+  static const String _backend_url = _backend_protocol +
+      '://' +
+      _backend_domain_name +
+      ':' +
+      _backend_port_number +
+      '/api';
+
   static const String _Realm_Name = 'TishApp';
   static const String _domain_name = 'dev.codepickles.com';
   static const String _port_number = '8443';
@@ -54,5 +64,9 @@ class Settings {
 
   String get client_secret_login {
     return _client_secret_login;
+  }
+
+  String get backend_url {
+    return _backend_url;
   }
 }

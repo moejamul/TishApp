@@ -1,10 +1,14 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:TishApp/TishApp/viewmodel/authViewModel.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'TishAppSignUp.dart';
 
@@ -62,11 +66,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
           TextField(
               onChanged: (value) {
-                if (_rememberMeVal.toString() == 'true') {
-                  title == 'Password'
-                      ? null
-                      : _localStorage.setItem('username', value);
-                }
+                // if (_rememberMeVal.toString() == 'true') {
+                //   title == 'Password'
+                //       ? null
+                //       : _localStorage.setItem('username', value);
+                // }
               },
               controller: controller,
               obscureText: isPassword,
@@ -180,12 +184,21 @@ class _LoginPageState extends State<LoginPage> {
   Widget _facebookButton() {
     return GestureDetector(
       onTap: () async {
-        const url =
-            'https://dev.codepickles.com:8443/auth/realms/TishApp/broker/facebook/token';
-        if (await canLaunch(url)) {
-          await launch(url);
-        } else {
-          throw 'Could not launch $url';
+        print('pressed');
+        final LoginResult result = await FacebookAuth.instance.login();
+        if (result.status == LoginStatus.success) {
+          // you are logged
+          final AccessToken accessToken = result.accessToken!;
+          print(accessToken.toJson());
+          print(accessToken.token);
+          dynamic UserInfo = await http.get(Uri.parse(
+              'https://graph.facebook.com/me?fields=id,name,first_name,last_name,email,picture,name_format,middle_name,short_name&access_token=' +
+                  accessToken.token +
+                  ''));
+          dynamic temp = jsonDecode(UserInfo.body);
+          _localStorage.setItem('email', temp['email']);
+          _localStorage.setItem('name', temp['name']);
+          Navigator.pushReplacementNamed(context, '/dashboard');
         }
       },
       child: Container(
@@ -304,20 +317,20 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void fillFields() async {
-    await _localStorage.ready;
-    nameController.text = await _localStorage.getItem('username') != null
-        ? _localStorage.getItem('username')
-        : '';
-    _rememberMeVal = await _localStorage.getItem('checkBoxVal');
-    setState(() {});
-  }
+  // void fillFields() async {
+  //   await _localStorage.ready;
+  //   nameController.text = await _localStorage.getItem('username') != null
+  //       ? _localStorage.getItem('username')
+  //       : '';
+  //   // _rememberMeVal = await _localStorage.getItem('checkBoxVal');
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    fillFields();
+    // fillFields();
     return Scaffold(
         body: Container(
       height: height,
