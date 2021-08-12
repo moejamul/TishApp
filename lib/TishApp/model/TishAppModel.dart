@@ -1,76 +1,180 @@
 // TODO add TishApp entity models
 
-// class Place {
-//   var name;
-//   var image;
-//   var rating;
-//   var review;
-
-//   Place({this.name, this.rating, this.image, this.review});
-
-//   factory Place.fromJson(Map<String, dynamic> json) {
-//     return Place(
-//       name: json['name'],
-//       image: json['image'],
-//       rating: json['rating'],
-//       review: json['review'],
-//     );
-//   }
-// }
-
 class Place {
-  var userId;
-  var id;
-  var title;
-  var completed;
+  var Place_ID;
+  var Name;
+  var Location;
+  var Description;
+  var Created_at;
+  var Place_Type_ID;
 
-  Place({this.userId, this.title, this.id, this.completed});
+  Place(
+      {this.Place_ID,
+      this.Name,
+      this.Location,
+      this.Description,
+      this.Created_at,
+      this.Place_Type_ID});
 
   factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      userId: json['userId'],
-      id: json['id'],
-      title: json['title'],
-      completed: json['completed'],
+      Place_ID: json['Place_ID'],
+      Name: json['Name'],
+      Location: json['Location'],
+      Description: json['Description'],
+      Created_at: json['Created_at'],
+      Place_Type_ID: json['Type'],
     );
   }
 }
 
-class ViewPlace {
-  var name;
-  List<images> image;
-  var rating;
-  var review;
-  var rs;
-  var sector;
-  var kms;
-  var offer;
-  var info;
+class Place_Type {
+  var Place_Type_ID;
+  var Type;
+  Place_Type({this.Place_Type_ID, this.Type});
 
-  ViewPlace(
-    this.name,
-    this.image,
-    this.rating,
-    this.review,
-    this.rs,
-    this.sector,
-    this.kms,
-    this.offer,
-    this.info,
-  );
+  factory Place_Type.fromJson(Map<String, dynamic> json) {
+    return Place_Type(
+      Place_Type_ID: json['Place_Type_ID'],
+      Type: json['Type'],
+    );
+  }
 }
 
-class images {
-  var image;
+class Place_Badge {
+  var Badge_ID;
+  var Place_ID;
+  var Earned_at;
+  Place_Badge({this.Badge_ID, this.Place_ID, this.Earned_at});
 
-  images(this.image);
+  factory Place_Badge.fromJson(Map<String, dynamic> json) {
+    return Place_Badge(
+        Badge_ID: json['Badge_ID'],
+        Place_ID: json['Place_ID'],
+        Earned_at: json['Earned_at']);
+  }
 }
 
-class ReviewModel {
-  var review;
-  var rate;
-  var image;
-  var duration;
+class Badge {
+  var Badge_ID;
+  var Icon;
+  var Badge_Type_ID;
 
-  ReviewModel(this.image, this.review, this.rate, this.duration);
+  Badge({this.Badge_ID, this.Icon, this.Badge_Type_ID});
+
+  factory Badge.fromJson(Map<String, dynamic> json) {
+    return Badge(
+        Badge_ID: json['Badge_ID'],
+        Icon: json['Icon'],
+        Badge_Type_ID: json['Badge_Type_ID']);
+  }
+}
+
+class Badge_Type {
+  var Badge_Type_ID;
+  var Type;
+
+  Badge_Type({this.Badge_Type_ID, this.Type});
+
+  factory Badge_Type.fromJson(Map<String, dynamic> json) {
+    return Badge_Type(Badge_Type_ID: json['Badge_Type_ID'], Type: json['Type']);
+  }
+}
+
+class User_Badge {
+  var Badge_ID;
+  var User_ID;
+  var Earned_At;
+
+  User_Badge({this.Badge_ID, this.User_ID, this.Earned_At});
+
+  factory User_Badge.fromJson(Map<String, dynamic> json) {
+    return User_Badge(
+        Badge_ID: json['Badge_ID'],
+        User_ID: json['User_ID'],
+        Earned_At: json['Earned_At']);
+  }
+}
+
+class User_Favorite_Places {
+  var User_ID;
+  var Place_ID;
+
+  User_Favorite_Places({this.User_ID, this.Place_ID});
+
+  factory User_Favorite_Places.fromJson(Map<String, dynamic> json) {
+    return User_Favorite_Places(
+        User_ID: json['User_ID'], Place_ID: json['Place_ID']);
+  }
+}
+
+class User {
+  var Username;
+  var Email;
+  var User_ID;
+
+  User({this.Username, this.Email, this.User_ID});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+        Username: json['BadUsernamege_ID'],
+        Email: json['Email'],
+        User_ID: json['User_ID']);
+  }
+}
+
+class Review {
+  var Review_ID;
+  var Message;
+  var Rating;
+  var Created_At;
+  var Updated_At;
+  var Reviewed_Place_ID;
+  var User_ID;
+
+  Review(
+      {this.Review_ID,
+      this.Message,
+      this.Rating,
+      this.Created_At,
+      this.Updated_At,
+      this.Reviewed_Place_ID,
+      this.User_ID});
+
+  factory Review.fromJson(Map<String, dynamic> json) {
+    return Review(
+        Review_ID: json['Review_ID'],
+        Message: json['Message'],
+        Rating: json['Rating'],
+        Created_At: json['Created_At'],
+        Updated_At: json['Updated_At'],
+        Reviewed_Place_ID: json['Reviewed_Place_ID'],
+        User_ID: json['User_ID']);
+  }
+}
+
+class Media {
+  var Media_ID;
+  var Media_Type_ID;
+  var Place_ID;
+
+  Media({this.Media_ID, this.Media_Type_ID, this.Place_ID});
+
+  factory Media.fromJson(Map<String, dynamic> json) {
+    return Media(
+        Media_ID: json['Media_ID'],
+        Media_Type_ID: json['Media_Type_ID'],
+        Place_ID: json['Place_ID']);
+  }
+}
+
+class Media_Type {
+  var Media_Type_ID;
+  var Type;
+
+  Media_Type({this.Media_Type_ID, this.Type});
+
+  factory Media_Type.fromJson(Map<String, dynamic> json) {
+    return Media_Type(Media_Type_ID: json['Media_Type_ID'], Type: json['Type']);
+  }
 }
