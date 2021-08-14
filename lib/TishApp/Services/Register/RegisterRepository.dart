@@ -1,9 +1,6 @@
-import 'package:localstorage/localstorage.dart';
-
 import 'RegisterService.dart';
 
 class RegisterRepository {
-  LocalStorage localStorage = LocalStorage('UserInfo');
   RegisterService _registerService = RegisterService();
 
   // ignore: non_constant_identifier_names

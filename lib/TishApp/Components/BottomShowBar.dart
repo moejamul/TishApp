@@ -63,7 +63,7 @@ class _BottomShowBarState extends State<BottomShowBar> {
               GestureDetector(
                 onTap: () async {
                   Location location = new Location();
-                  location.getLocation().then((value) => {
+                  await location.getLocation().then((value) => {
                         AddressList.add(ListTile(
                           title: Text(
                               'Longitude: ${value.longitude} || Latitude: ${value.latitude}'),

@@ -2,7 +2,9 @@ import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({Key? key}) : super(key: key);
+  // final String url;
+  // const SearchPage({required this.url});
+  const SearchPage();
 
   @override
   _SearchPageState createState() => _SearchPageState();
