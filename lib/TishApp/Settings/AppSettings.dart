@@ -1,7 +1,7 @@
 class Settings {
-  static const String _backend_protocol = 'https';
-  static const String _backend_domain_name = 'localhost';
-  static const String _backend_port_number = '5001';
+  static const String _backend_protocol = 'http';
+  static const String _backend_domain_name = '192.168.1.107';
+  static const String _backend_port_number = '9877';
   static const String _backend_url = _backend_protocol +
       '://' +
       _backend_domain_name +
@@ -27,7 +27,7 @@ class Settings {
       'https://$_domain_name:$_port_number/auth/admin/realms/$_Realm_Name/users';
   static const String _logout_url =
       'https://$_domain_name:$_port_number/auth/realms/$_Realm_Name/protocol/openid-connect/logout';
-
+  static const String _save_User_In_DB_url = "$_backend_url/Users";
   Settings();
 
   String get grant_type_login {
@@ -68,5 +68,9 @@ class Settings {
 
   String get backend_url {
     return _backend_url;
+  }
+
+  String get save_User_In_DB_url {
+    return _save_User_In_DB_url;
   }
 }

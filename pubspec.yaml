@@ -10,9 +10,13 @@ dependencies:
     sdk: flutter
   provider:
   localstorage:
-  flutter_facebook_auth: ^3.5.0
+  # flutter_facebook_auth: ^3.5.0
   universal_platform: ^1.0.0+1
   dio: ^4.0.0
+  oauth2: ^2.0.0
+  shared_preferences:
+  http_interceptor: ^1.0.1
+  jwt_decode: ^0.3.1
 
   # connectivity: ^3.0.6
 
@@ -64,39 +68,13 @@ dependencies:
   animations: ^2.0.0
   lottie: ^1.0.1
   liquid_swipe: ^2.1.0
-  clippy_flutter: ^2.0.0-nullsafety.1
   flutter_reaction_button: ^1.0.8
-  showcaseview: ^1.0.0
-  fl_chart: ^0.36.1
-  syncfusion_flutter_charts: ^19.1.67
-
-  # VIDEOS
-  video_player: ^2.1.4
-
-  # NOTIFICATION
-  flutter_local_notifications: ^5.0.0+4
-
-  #Dimond kit
-  sleek_circular_slider: ^2.0.0
-  sliding_up_panel: ^2.0.0+1
-
-  # Cloud Storage #
-  expandable_bottom_sheet: ^1.0.0+2
-  multi_image_picker: ^4.8.00
-
-  #clustering_google_maps: ^0.1.2
-  #image_picker_gallery_camera: 0.1.6
 
   flutter_localizations:
     sdk: flutter
 
   #Temporary  disable duo to late of null safety
-  #charts_flutter: ^0.10.0
-  #geocoder: 0.2.1
-  #geohash: ^0.2.1
-  #razorpay_flutter: ^1.2.5
-  #snaplist: 0.1.8
-  #lipsum: 1.0.1
+
   collection: ^1.15.0-nullsafety.4
 
 dev_dependencies:
@@ -110,6 +88,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - images/imageTest.jpeg
     - assets/
     - assets/integrations/lang/
     - assets/shophop_data/

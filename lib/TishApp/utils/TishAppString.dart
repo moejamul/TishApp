@@ -13,7 +13,7 @@ const TishApp_experience_your_favourite_cuisine =
     "experience your favourite cuisine";
 const TishApp_view_all_restaurants = "View All Restaurants";
 const TishApp_View_All_User_reviews = "View All User reviews";
-const TishApp_get_inspired_by_collections = "Get inspired by collections";
+const TishApp_we_suggest_these_places = "We Suggest These Places";
 const TishApp_cake_ice_cream_and_bakery = "Cake, Ice cream and Bakery";
 const TishApp_TishApp_order = "TishApp Order";
 const TishApp_find_near_by_restaurants = "Find near by restaurants";

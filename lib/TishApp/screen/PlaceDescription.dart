@@ -1,3 +1,4 @@
+import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,25 +11,45 @@ import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
 import 'package:TishApp/TishApp/utils/TishAppImages.dart';
 import 'package:TishApp/TishApp/utils/TishAppString.dart';
 import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
+import 'package:provider/provider.dart';
 
 import 'FoodBookCart.dart';
 
+int Place_ID = 0;
+
 class TishAppDescription extends StatefulWidget {
   static String tag = '/TishAppDescription';
+
+  TishAppDescription(int id) {
+    Place_ID = id;
+  }
 
   @override
   TishAppDescriptionState createState() => TishAppDescriptionState();
 }
 
 class TishAppDescriptionState extends State<TishAppDescription> {
-  late List<TishAppDish> mList1;
-  late List<TishAppDish> mList2;
+  Place _place = Place(
+      Name: "null",
+      Created_at: "null",
+      Description: "null",
+      Location: "null",
+      Place_ID: "null",
+      Place_Type_ID: "null");
+
+  void getPlace(int id) async {
+    await Provider.of<PlaceViewModel>(context, listen: false).fetchOne(id).then(
+        (value) => {
+              this._place =
+                  Provider.of<PlaceViewModel>(context, listen: false).place
+            });
+    setState(() {});
+  }
 
   @override
   void initState() {
     super.initState();
-    mList1 = addTishAppDishData();
-    mList2 = orderData();
+    getPlace(Place_ID);
   }
 
   @override
@@ -128,8 +149,7 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(TishApp_burger,
-                              style: primaryTextStyle(size: 18)),
+                          Text(_place.Name, style: primaryTextStyle(size: 18)),
                           totalRatting(TishApp_order_rating),
                           SizedBox(height: 8),
                           Row(
@@ -208,50 +228,10 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                         children: <Widget>[
                           mHeading(TishApp_what_people_love_here),
                           SizedBox(height: 16),
-                          Container(
-                            margin: EdgeInsets.only(left: 16, right: 16),
-                            child: GridView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              scrollDirection: Axis.vertical,
-                              gridDelegate:
-                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      crossAxisSpacing: 16,
-                                      childAspectRatio: 0.72,
-                                      mainAxisSpacing: 16),
-                              itemCount: mList1.length,
-                              padding: EdgeInsets.only(bottom: 16),
-                              itemBuilder: (context, index) {
-                                return ItemGrid(mList1[index], index);
-                              },
-                            ),
-                          ),
-                          SizedBox(height: 16),
                         ],
                       ),
                     ),
                     SizedBox(height: 16),
-                    Container(
-                      decoration: BoxDecoration(
-                          boxShadow: defaultBoxShadow(), color: white),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          mHeading(TishApp_what_people_love_here),
-                          SizedBox(height: 16),
-                          ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: mList2.length,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return ItemList(mList2[index], index);
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),

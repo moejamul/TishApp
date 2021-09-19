@@ -1,3 +1,4 @@
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:flutter/material.dart';
 
 Widget ProfilePicture(
@@ -74,6 +75,50 @@ Widget HorizontalRowItem() {
   );
 }
 
+Widget HorizontalRowPlaceItem(Place p) {
+  return Card(
+    child: Column(
+      children: [
+        Placeholder(
+          fallbackHeight: 125,
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          width: 160,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    p.Name,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    p.Place_ID.toString(),
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                p.Description,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 4,
+              )
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 Widget HorizontalRow() {
   return Container(
       margin: EdgeInsets.symmetric(vertical: 20.0),
@@ -82,4 +127,25 @@ Widget HorizontalRow() {
           shrinkWrap: true,
           scrollDirection: Axis.horizontal,
           children: List.generate(10, (index) => HorizontalRowItem())));
+}
+
+Widget HorizontalRowPlace(BuildContext context, List<Place> list) {
+  print(list.length);
+  return Container(
+      height: 150,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(vertical: 20.0),
+      child: list.length == 0
+          ? ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 6,
+              itemBuilder: (context, index) {
+                return Container(
+                  color: Colors.grey,
+                  child: Text("list[index].Name"),
+                );
+              })
+          : Row(
+              children: [Spacer(), Text("No Favorite places"), Spacer()],
+            ));
 }

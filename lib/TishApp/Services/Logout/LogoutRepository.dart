@@ -13,6 +13,8 @@ class LogoutRepository {
   Future<bool> LogoutRepo() async {
     bool response = await _LogoutService.logoutService();
     response ? _localStorage.clear() : null;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('IsLoggedIn', false);
     return response;
   }
 }

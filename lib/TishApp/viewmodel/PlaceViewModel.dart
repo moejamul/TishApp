@@ -3,18 +3,30 @@ import 'package:TishApp/TishApp/Services/Place/PlaceRepository.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 
 class PlaceViewModel with ChangeNotifier {
+  late List<Place> _placeList = [];
   late Place _place = Place(
-      Location: 'null',
-      Place_ID: 'null',
-      Name: 'test title',
-      Description: 'null',
       Created_at: 'null',
+      Description: 'null',
+      Location: 'null',
+      Name: 'null',
+      Place_ID: 'null',
       Place_Type_ID: 'null');
 
-  Future<void> fetchPlaceData(String value) async {
+  Future<void> fetchAll() async {
     try {
-      Place _places = await PlaceRepository().fetchPlaceList(value);
-      setSelectedPlace(_places);
+      List<Place> response = await PlaceRepository().fetchAllPlace();
+      setSelectedPlaceList(response);
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
+  }
+
+  Future<void> fetchOne(int id) async {
+    try {
+      Place response = await PlaceRepository().fetchOnePlace(id);
+      print("response =>>>> $response");
+      setSelectedPlace(response);
     } catch (e) {
       print(e);
     }
@@ -26,7 +38,16 @@ class PlaceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  void setSelectedPlaceList(List<Place> place) {
+    this._placeList = place;
+    notifyListeners();
+  }
+
   Place get place {
     return _place;
+  }
+
+  List<Place> get placeList {
+    return _placeList;
   }
 }

@@ -18,12 +18,12 @@ class Place {
 
   factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      Place_ID: json['Place_ID'],
-      Name: json['Name'],
-      Location: json['Location'],
-      Description: json['Description'],
-      Created_at: json['Created_at'],
-      Place_Type_ID: json['Type'],
+      Place_ID: json['place_ID'],
+      Name: json['name'],
+      Location: json['location'],
+      Description: json['description'],
+      Created_at: json['created_at'],
+      Place_Type_ID: json['type'],
     );
   }
 }
@@ -35,8 +35,8 @@ class Place_Type {
 
   factory Place_Type.fromJson(Map<String, dynamic> json) {
     return Place_Type(
-      Place_Type_ID: json['Place_Type_ID'],
-      Type: json['Type'],
+      Place_Type_ID: json['place_Type_ID'],
+      Type: json['type'],
     );
   }
 }
@@ -49,9 +49,9 @@ class Place_Badge {
 
   factory Place_Badge.fromJson(Map<String, dynamic> json) {
     return Place_Badge(
-        Badge_ID: json['Badge_ID'],
-        Place_ID: json['Place_ID'],
-        Earned_at: json['Earned_at']);
+        Badge_ID: json['badge_ID'],
+        Place_ID: json['place_ID'],
+        Earned_at: json['earned_at']);
   }
 }
 
@@ -64,9 +64,9 @@ class Badge {
 
   factory Badge.fromJson(Map<String, dynamic> json) {
     return Badge(
-        Badge_ID: json['Badge_ID'],
-        Icon: json['Icon'],
-        Badge_Type_ID: json['Badge_Type_ID']);
+        Badge_ID: json['badge_ID'],
+        Icon: json['icon'],
+        Badge_Type_ID: json['badge_Type_ID']);
   }
 }
 

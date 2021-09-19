@@ -1,6 +1,10 @@
 import 'package:TishApp/TishApp/Components/Widgets.dart';
+import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -10,6 +14,17 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  List<Place> PlaceList = [];
+  late SharedPreferences prefs;
+
+  Future<void> getPlace() async {
+    await Provider.of<PlaceViewModel>(context, listen: false).fetchAll();
+    var _placeList =
+        await Provider.of<PlaceViewModel>(context, listen: false).placeList;
+    PlaceList.addAll(_placeList);
+    setState(() {});
+  }
+
   Widget AboutText(double width, double height) {
     return Column(
       children: [
@@ -92,56 +107,45 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   var image = '';
+
+  Future<void> init() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  @override
+  void initState() {
+    init();
+    getPlace();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(
-        leading: InkWell(
-          onTap: () {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.arrow_back,
-          ),
-        ),
-        actions: [
-          InkWell(
-            onTap: () async {
-              final ImagePicker _picker = ImagePicker();
-              // Pick an image
-              // await _picker
-              //     .pickImage(source: ImageSource.gallery)
-              //     .then((value) => image = value!.path);
-              setState(() {
-                image = image;
-              });
-            },
-            child: Icon(
-              Icons.add_a_photo,
-            ),
-          ),
-        ],
-      ),
       body: Center(
         child: Container(
           width: width * 0.95,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  height: width * 0.05,
+                // SizedBox(
+                //   height: width * 0.05,
+                // ),
+                // ProfilePicture(
+                //     width: width,
+                //     height: height,
+                //     context: context,
+                //     file: image),
+                // SizedBox(
+                //   height: width * 0.05,
+                // ),
+                // UpgradeToProButton(width: width),
+                Center(
+                  child: Text(prefs.getString('name')!.toString()),
                 ),
-                ProfilePicture(
-                    width: width,
-                    height: height,
-                    context: context,
-                    file: image),
-                SizedBox(
-                  height: width * 0.05,
-                ),
-                UpgradeToProButton(width: width),
                 SizedBox(
                   height: width * 0.05,
                 ),
@@ -157,7 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   'Favorites',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                HorizontalRow()
+                HorizontalRowPlace(context, PlaceList)
               ],
             ),
           ),

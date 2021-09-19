@@ -33,7 +33,7 @@ class RegisterService {
           {"type": "password", "value": password, "temporary": "false"}
         ]
       };
-      final data = jsonEncode(temp);
+      var data = jsonEncode(temp);
       final responseRegister = await http.post(Uri.parse(settings.Register_url),
           headers: {
             'Authorization': 'Bearer $accessToken',
@@ -41,12 +41,35 @@ class RegisterService {
             "accept": "application/json",
           },
           body: data);
+      await AddToDB(firstName, lastName, email, accessToken);
       result = returnResponse(responseRegister);
     } on SocketException {
       print("ERROR");
       throw Exception('No Internet Connection');
     }
     return true;
+  }
+
+  Future<bool> AddToDB(String firstName, String lastName, String email,
+      String accessToken) async {
+    try {
+      var temp = {
+        "Username": '$firstName $lastName',
+        "Email": email,
+      };
+      var data = jsonEncode(temp);
+      final responseRegister =
+          await http.post(Uri.parse(settings.save_User_In_DB_url),
+              headers: {
+                'Authorization': 'Bearer $accessToken',
+                "content-type": "application/json",
+                "accept": "application/json",
+              },
+              body: data);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @visibleForTesting
