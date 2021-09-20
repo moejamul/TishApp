@@ -12,11 +12,11 @@ dependencies:
   localstorage:
   # flutter_facebook_auth: ^3.5.0
   universal_platform: ^1.0.0+1
-  dio: ^4.0.0
   oauth2: ^2.0.0
   shared_preferences:
   http_interceptor: ^1.0.1
   jwt_decode: ^0.3.1
+  dio: ^4.0.0-prev2
 
   # connectivity: ^3.0.6
 

@@ -36,6 +36,7 @@ void main() async {
 }
 
 class TishApp extends StatelessWidget {
+  final GlobalKey<NavigatorState> navigator = new GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -68,6 +69,7 @@ class TishApp extends StatelessWidget {
         // home: SearchPage(),
         // home: ProfilePage(),
         builder: scrollBehaviour(),
+        navigatorKey: navigator,
       ),
     );
   }

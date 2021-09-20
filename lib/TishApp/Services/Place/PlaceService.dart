@@ -1,25 +1,21 @@
 import 'dart:convert';
-import 'dart:io';
+
 import 'package:TishApp/TishApp/Services/httpInterceptor.dart';
 import 'package:TishApp/TishApp/Settings/AppSettings.dart';
+import 'package:TishApp/TishApp/Settings/DioSettings.dart';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart';
-import 'package:http_interceptor/http_interceptor.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:meta/meta.dart';
-import 'package:oauth2/oauth2.dart' as oauth2;
-import 'package:http/http.dart' as http;
 
 class PlaceService {
   Settings settings = Settings();
   final String _baseUrl = Settings().backend_url;
 
   Future<dynamic> getAll() async {
-    dynamic responseJson;
-    Client client = InterceptedClient.build(interceptors: [
-      HttpInterceptor(),
-    ]);
+    var responseJson;
+    Dio dio = await DioSettings.getDio();
     try {
-      final response = await client.get(Uri.parse(_baseUrl + '/Places'));
+      final response = await dio.get((_baseUrl + '/Places'));
       print(response.statusCode);
       responseJson = returnResponse(response);
     } on Exception catch (e) {
@@ -31,10 +27,20 @@ class PlaceService {
   Future<dynamic> getOne(int id) async {
     dynamic responseJson;
     try {
-      Client client = InterceptedClient.build(interceptors: [
-        HttpInterceptor(),
-      ]);
-      final response = await client.get(Uri.parse(_baseUrl + '/Places/$id'));
+      Dio dio = await DioSettings.getDio();
+      final response = await dio.get((_baseUrl + '/Places/$id'));
+      responseJson = returnResponse(response);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+    return responseJson;
+  }
+
+  Future<dynamic> getByType(String type) async {
+    dynamic responseJson;
+    try {
+      Dio dio = await DioSettings.getDio();
+      final response = await dio.get((_baseUrl + '/Places/Type/$type'));
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());
@@ -43,10 +49,10 @@ class PlaceService {
   }
 
   @visibleForTesting
-  dynamic returnResponse(http.Response response) {
+  dynamic returnResponse(var response) {
     switch (response.statusCode) {
       case 200:
-        dynamic responseJson = (response.body);
+        dynamic responseJson = (response.data);
         return responseJson;
       case 400:
         throw Exception(response.body.toString());

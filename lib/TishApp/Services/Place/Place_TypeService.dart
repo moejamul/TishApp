@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:TishApp/TishApp/Services/httpInterceptor.dart';
 import 'package:TishApp/TishApp/Settings/AppSettings.dart';
+import 'package:TishApp/TishApp/Settings/DioSettings.dart';
+import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 import 'package:http_interceptor/http/http.dart';
 import 'package:localstorage/localstorage.dart';
@@ -16,14 +18,11 @@ class Place_TypeService {
   var headers;
 
   Future<dynamic> get() async {
-    dynamic responseJson;
+    var responseJson;
+    Dio dio = await DioSettings.getDio();
     try {
-      Client client = InterceptedClient.build(interceptors: [
-        HttpInterceptor(),
-      ]);
       print(_baseUrl + '/Place_Type');
-      final response = await client.get(Uri.parse(_baseUrl + '/Place_Type'));
-      print(response.statusCode);
+      final response = await dio.get((_baseUrl + '/Place_Type'));
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());
@@ -32,10 +31,10 @@ class Place_TypeService {
   }
 
   @visibleForTesting
-  dynamic returnResponse(http.Response response) {
+  dynamic returnResponse(var response) {
     switch (response.statusCode) {
       case 200:
-        dynamic responseJson = (response.body);
+        dynamic responseJson = (response.data);
         return responseJson;
       case 400:
         throw Exception(response.body.toString());

@@ -10,8 +10,8 @@ class PlaceRepository {
   Future<List<Place>> fetchAllPlace() async {
     List<Place> list = [];
     dynamic response = await _placeService.getAll();
-    final jsonData = await jsonDecode(response);
-    for (var item in jsonData) {
+    print(response);
+    for (var item in response) {
       Place place = Place.fromJson(item);
       list.add(place);
     }
@@ -20,8 +20,17 @@ class PlaceRepository {
 
   Future<Place> fetchOnePlace(int id) async {
     dynamic response = await _placeService.getOne(id);
-    final jsonData = await jsonDecode(response);
-    Place place = Place.fromJson(jsonData);
+    Place place = Place.fromJson(response);
     return place;
+  }
+
+  Future<List<Place>> fetchPlaceByType(String type) async {
+    List<Place> list = [];
+    dynamic response = await _placeService.getByType(type);
+    for (var item in response) {
+      Place place = Place.fromJson(item);
+      list.add(place);
+    }
+    return list;
   }
 }

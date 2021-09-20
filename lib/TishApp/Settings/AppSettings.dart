@@ -1,6 +1,6 @@
 class Settings {
   static const String _backend_protocol = 'http';
-  static const String _backend_domain_name = '192.168.1.107';
+  static const String _backend_domain_name = '10.0.2.2';
   static const String _backend_port_number = '9877';
   static const String _backend_url = _backend_protocol +
       '://' +

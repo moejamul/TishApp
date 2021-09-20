@@ -33,12 +33,26 @@ class PlaceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<List<Place>> fetchByType(String type) async {
+    try {
+      List<Place> response = await PlaceRepository().fetchPlaceByType(type);
+      print("response =>>>> $response");
+      setSelectedPlaceList(response);
+      return response;
+    } catch (e) {
+      print(e);
+    }
+    notifyListeners();
+    return [];
+  }
+
   void setSelectedPlace(Place place) {
     this._place = place;
     notifyListeners();
   }
 
   void setSelectedPlaceList(List<Place> place) {
+    this._placeList = [];
     this._placeList = place;
     notifyListeners();
   }

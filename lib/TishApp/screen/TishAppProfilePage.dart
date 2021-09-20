@@ -115,7 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
     init();
-    getPlace();
+    // getPlace();
     super.initState();
   }
 

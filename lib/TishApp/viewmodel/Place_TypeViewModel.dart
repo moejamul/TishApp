@@ -18,6 +18,7 @@ class Place_TypeViewModel with ChangeNotifier {
   }
 
   void setSelectedPlace_Type(List<Place_Type> _place_type_List) {
+    this._place_type_List = [];
     this._place_type_List.addAll(_place_type_List);
     notifyListeners();
   }
