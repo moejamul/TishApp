@@ -273,6 +273,7 @@ Widget totalRatting(var value) {
   return SizedBox(
     height: 10,
     child: ListView.builder(
+        shrinkWrap: true,
         scrollDirection: Axis.horizontal,
         itemCount: 5,
         itemBuilder: (context, index) {

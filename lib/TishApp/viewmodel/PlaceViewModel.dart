@@ -10,6 +10,7 @@ class PlaceViewModel with ChangeNotifier {
       Location: 'null',
       Name: 'null',
       Place_ID: 'null',
+      reviews: [],
       Place_Type_ID: 'null');
 
   Future<void> fetchAll() async {

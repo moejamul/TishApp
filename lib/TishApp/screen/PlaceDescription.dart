@@ -169,16 +169,21 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                       height: 250,
                       child: this.widget.place.medias.length != 0
                           ? ListView.builder(
-                              itemCount: 5,
+                              itemCount: this.widget.place.medias.length,
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Image.network(
-                                      this.widget.place.medias[0].toString(),
-                                      color: TishApp_colorPrimary,
+                                      this
+                                          .widget
+                                          .place
+                                          .medias[index]
+                                          .toString(),
                                       height: 250),
+                                  // child: Text(
+                                  //     this.widget.place.medias[0].toString()),
                                 );
                               })
                           : Center(child: Text("No images available")),
@@ -192,13 +197,6 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                             boxShadow: defaultBoxShadow(), color: white),
                         child: Row(
                           children: <Widget>[
-                            // this.widget.place.medias != []
-                            //     ? Image.network(
-                            //         this.widget.place.medias[0].toString(),
-                            //         color: TishApp_colorPrimary,
-                            //         width: width * 0.08,
-                            //         height: width * 0.08)
-                            //     : Text("No images"),
                             SizedBox(width: 10),
                             Expanded(
                               child: Column(
@@ -235,21 +233,96 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                       decoration: BoxDecoration(
                           boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          SizedBox(
-                            height: 70 * 10,
-                            child: ListView.builder(
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: 10,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: ListTile(
-                                      title: Text("Comment $index"),
-                                    ),
-                                  );
-                                }),
-                          )
+                          this.widget.place.reviews.length != 0
+                              ? ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: this.widget.place.reviews.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Container(
+                                        child: Row(
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    CircleAvatar(),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 12.0),
+                                                      child: Text(
+                                                        "Joseph",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: Row(
+                                                    children: [
+                                                      totalRatting(this
+                                                          .widget
+                                                          .place
+                                                          .reviews
+                                                          .elementAt(index)
+                                                          .Rating),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 8.0),
+                                                        child: Text(this
+                                                            .widget
+                                                            .place
+                                                            .reviews
+                                                            .elementAt(index)
+                                                            .Updated_At
+                                                            .toString()
+                                                            .split("T")[0]),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 12.0),
+                                                  child: Container(
+                                                    width: width - 24,
+                                                    child: Text(
+                                                      this
+                                                          .widget
+                                                          .place
+                                                          .reviews
+                                                          .elementAt(index)
+                                                          .Message
+                                                          .toString()
+                                                          .trim(),
+                                                      maxLines: 5,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  })
+                              : Center(child: Text("No Reviews Available"))
                         ],
                       ),
                     )

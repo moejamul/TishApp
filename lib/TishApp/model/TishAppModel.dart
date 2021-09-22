@@ -6,7 +6,10 @@ class Place {
   var Location;
   var Description;
   var Created_at;
+  var Updated_at;
   var Place_Type_ID;
+  // var reviews;
+  List<dynamic> reviews;
   var medias;
 
   Place(
@@ -15,17 +18,26 @@ class Place {
       this.Location,
       this.Description,
       this.Created_at,
+      this.Updated_at,
       this.Place_Type_ID,
+      // this.reviews,
+      required this.reviews,
       this.medias});
 
   factory Place.fromJson(Map<String, dynamic> json) {
+    // for (var item in json['reviews']) {
+    //   print(item['message']);
+    // }
     return Place(
         Place_ID: json['place_ID'],
         Name: json['name'],
         Location: json['location'],
         Description: json['description'],
         Created_at: json['created_at'],
+        Updated_at: json['updated_at'],
         Place_Type_ID: json['type'],
+        reviews: (json['reviews'].map((e) => Review.fromJson(e))).toList(),
+        // reviews: json['reviews'],
         medias: json['medias']);
   }
 }
@@ -144,14 +156,15 @@ class Review {
       this.User_ID});
 
   factory Review.fromJson(Map<String, dynamic> json) {
-    return Review(
-        Review_ID: json['Review_ID'],
-        Message: json['Message'],
-        Rating: json['Rating'],
-        Created_At: json['Created_At'],
-        Updated_At: json['Updated_At'],
-        Reviewed_Place_ID: json['Reviewed_Place_ID'],
-        User_ID: json['User_ID']);
+    Review temp = Review(
+        Review_ID: json['review_ID'],
+        Message: json['message'],
+        Rating: json['rating'],
+        Created_At: json['created_at'].toString(),
+        Updated_At: json['updated_at'].toString(),
+        Reviewed_Place_ID: json['reviewed_Place_ID'],
+        User_ID: json['user_ID']);
+    return temp;
   }
 }
 
