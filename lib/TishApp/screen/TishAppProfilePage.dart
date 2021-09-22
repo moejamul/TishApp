@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:TishApp/TishApp/Components/Widgets.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
@@ -16,6 +18,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   List<Place> PlaceList = [];
   late SharedPreferences prefs;
+  String name = "";
 
   Future<void> getPlace() async {
     await Provider.of<PlaceViewModel>(context, listen: false).fetchAll();
@@ -108,15 +111,16 @@ class _ProfilePageState extends State<ProfilePage> {
 
   var image = '';
 
-  Future<void> init() async {
-    prefs = await SharedPreferences.getInstance();
-  }
-
   @override
   void initState() {
     init();
-    // getPlace();
     super.initState();
+  }
+
+  init() async {
+    prefs = await SharedPreferences.getInstance();
+    name = prefs.getString('name')!.toString();
+    setState(() {});
   }
 
   @override
@@ -144,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 // ),
                 // UpgradeToProButton(width: width),
                 Center(
-                  child: Text(prefs.getString('name')!.toString()),
+                  child: Text(name),
                 ),
                 SizedBox(
                   height: width * 0.05,

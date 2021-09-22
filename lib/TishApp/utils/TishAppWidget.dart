@@ -255,17 +255,33 @@ class QuantitybtnState extends State<Quantitybtn> {
 }
 
 Widget totalRatting(var value) {
-  return Row(
-    children: <Widget>[
-      Icon(Icons.radio_button_checked, color: TishApp_colorAccent, size: 16),
-      Icon(Icons.radio_button_checked, color: TishApp_colorAccent, size: 16),
-      Icon(Icons.radio_button_checked, color: TishApp_colorAccent, size: 16),
-      Icon(Icons.radio_button_unchecked, color: TishApp_colorAccent, size: 16),
-      Icon(Icons.radio_button_unchecked, color: TishApp_colorAccent, size: 16),
-      SizedBox(width: 4),
-      Text(value,
-          style: primaryTextStyle(color: TishApp_textColorSecondary, size: 14))
-    ],
+  // return Row(
+  //   children: <Widget>[
+  //     Icon(Icons.radio_button_checked, color: TishApp_colorAccent, size: 16),
+  //     Icon(Icons.radio_button_checked, color: TishApp_colorAccent, size: 16),
+  //     Icon(Icons.radio_button_checked, color: TishApp_colorAccent, size: 16),
+  //     Icon(Icons.radio_button_unchecked, color: TishApp_colorAccent, size: 16),
+  //     Icon(Icons.radio_button_unchecked, color: TishApp_colorAccent, size: 16),
+  //     SizedBox(width: 4),
+  //     Text(value,
+  //         style: primaryTextStyle(color: TishApp_textColorSecondary, size: 14))
+  //   ],
+  // );
+  value -= 0.7;
+  // value = double.parse(value.toString()).toInt();
+
+  return SizedBox(
+    height: 10,
+    child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return index <= value
+              ? Icon(Icons.radio_button_checked,
+                  color: TishApp_colorAccent, size: 16)
+              : Icon(Icons.radio_button_unchecked,
+                  color: TishApp_colorAccent, size: 16);
+        }),
   );
 }
 

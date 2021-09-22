@@ -15,41 +15,20 @@ import 'package:provider/provider.dart';
 
 import 'FoodBookCart.dart';
 
-int Place_ID = 0;
-
 class TishAppDescription extends StatefulWidget {
+  Place place;
   static String tag = '/TishAppDescription';
 
-  TishAppDescription(int id) {
-    Place_ID = id;
-  }
+  TishAppDescription({required this.place}) {}
 
   @override
   TishAppDescriptionState createState() => TishAppDescriptionState();
 }
 
 class TishAppDescriptionState extends State<TishAppDescription> {
-  Place _place = Place(
-      Name: "null",
-      Created_at: "null",
-      Description: "null",
-      Location: "null",
-      Place_ID: "null",
-      Place_Type_ID: "null");
-
-  void getPlace(int id) async {
-    await Provider.of<PlaceViewModel>(context, listen: false).fetchOne(id).then(
-        (value) => {
-              this._place =
-                  Provider.of<PlaceViewModel>(context, listen: false).place
-            });
-    setState(() {});
-  }
-
   @override
   void initState() {
     super.initState();
-    getPlace(Place_ID);
   }
 
   @override
@@ -74,7 +53,8 @@ class TishAppDescriptionState extends State<TishAppDescription> {
     Widget mVegOption(var value, var iconColor) {
       return Row(
         children: <Widget>[
-          Image.asset(TishApp_c_type, color: iconColor, width: 18, height: 18),
+          Image.asset('images/imageTest.jpeg',
+              color: iconColor, width: 18, height: 18),
           SizedBox(width: 8),
           Text(value, style: primaryTextStyle()),
         ],
@@ -92,6 +72,7 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                 floating: true,
                 forceElevated: innerBoxIsScrolled,
                 pinned: true,
+                centerTitle: true,
                 titleSpacing: 0,
                 leading: IconButton(
                     icon: Icon(Icons.arrow_back,
@@ -109,14 +90,7 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Row(
-                          children: <Widget>[],
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.search,
-                              color: innerBoxIsScrolled ? blackColor : white),
-                          onPressed: () {},
-                        ),
+                        Text(this.widget.place.Name),
                       ],
                     ),
                   ),
@@ -124,8 +98,8 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                 flexibleSpace: FlexibleSpaceBar(
                   background: Container(
                     height: expandHeight,
-                    child: CachedNetworkImage(
-                      imageUrl: TishApp_ic_popular3,
+                    child: Image.asset(
+                      'images/imageTest.jpeg',
                       height: expandHeight,
                       fit: BoxFit.fill,
                     ),
@@ -149,8 +123,10 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(_place.Name, style: primaryTextStyle(size: 18)),
-                          totalRatting(TishApp_order_rating),
+                          Text(this.widget.place.Name,
+                              style: primaryTextStyle(size: 18)),
+                          // totalRatting(TishApp_order_rating),
+                          totalRatting(4.7),
                           SizedBox(height: 8),
                           Row(
                             children: <Widget>[
@@ -189,6 +165,24 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 250,
+                      child: this.widget.place.medias.length != 0
+                          ? ListView.builder(
+                              itemCount: 5,
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.network(
+                                      this.widget.place.medias[0].toString(),
+                                      color: TishApp_colorPrimary,
+                                      height: 250),
+                                );
+                              })
+                          : Center(child: Text("No images available")),
+                    ),
                     GestureDetector(
                       onTap: () {},
                       child: Container(
@@ -198,10 +192,13 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                             boxShadow: defaultBoxShadow(), color: white),
                         child: Row(
                           children: <Widget>[
-                            SvgPicture.asset(TishApp_ic_comass,
-                                color: TishApp_colorPrimary,
-                                width: width * 0.08,
-                                height: width * 0.08),
+                            // this.widget.place.medias != []
+                            //     ? Image.network(
+                            //         this.widget.place.medias[0].toString(),
+                            //         color: TishApp_colorPrimary,
+                            //         width: width * 0.08,
+                            //         height: width * 0.08)
+                            //     : Text("No images"),
                             SizedBox(width: 10),
                             Expanded(
                               child: Column(
@@ -219,19 +216,43 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16),
+                    SizedBox(height: 30),
                     Container(
+                      width: width,
                       decoration: BoxDecoration(
                           boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          mHeading(TishApp_what_people_love_here),
+                          mHeading("Comments"),
                           SizedBox(height: 16),
                         ],
                       ),
                     ),
                     SizedBox(height: 16),
+                    Container(
+                      width: width,
+                      decoration: BoxDecoration(
+                          boxShadow: defaultBoxShadow(), color: white),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 70 * 10,
+                            child: ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: 10,
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ListTile(
+                                      title: Text("Comment $index"),
+                                    ),
+                                  );
+                                }),
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),
@@ -300,8 +321,8 @@ class ItemList extends StatelessWidget {
         children: <Widget>[
           ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            child: CachedNetworkImage(
-              imageUrl: model.image,
+            child: Image.asset(
+              'images/imageTest.jpeg',
               width: width * 0.2,
               height: width * 0.2,
               fit: BoxFit.fill,
@@ -320,7 +341,7 @@ class ItemList extends StatelessWidget {
                       WidgetSpan(
                           child: Padding(
                               padding: EdgeInsets.only(right: 4),
-                              child: Image.asset(TishApp_c_type,
+                              child: Image.asset('images/imageTest.jpeg',
                                   color: TishApp_colorAccent,
                                   width: 16,
                                   height: 16))),
@@ -361,8 +382,8 @@ class ItemGrid extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-            child: CachedNetworkImage(
-              imageUrl: model.image,
+            child: Image.asset(
+              'images/imageTest.jpeg',
               width: width,
               height: width * 0.3,
               fit: BoxFit.fill,

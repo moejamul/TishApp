@@ -7,6 +7,7 @@ class Place {
   var Description;
   var Created_at;
   var Place_Type_ID;
+  var medias;
 
   Place(
       {this.Place_ID,
@@ -14,17 +15,18 @@ class Place {
       this.Location,
       this.Description,
       this.Created_at,
-      this.Place_Type_ID});
+      this.Place_Type_ID,
+      this.medias});
 
   factory Place.fromJson(Map<String, dynamic> json) {
     return Place(
-      Place_ID: json['place_ID'],
-      Name: json['name'],
-      Location: json['location'],
-      Description: json['description'],
-      Created_at: json['created_at'],
-      Place_Type_ID: json['type'],
-    );
+        Place_ID: json['place_ID'],
+        Name: json['name'],
+        Location: json['location'],
+        Description: json['description'],
+        Created_at: json['created_at'],
+        Place_Type_ID: json['type'],
+        medias: json['medias']);
   }
 }
 

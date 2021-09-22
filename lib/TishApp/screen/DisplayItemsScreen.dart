@@ -2,6 +2,8 @@ import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:flutter/material.dart';
 
+import 'PlaceDescription.dart';
+
 class DisplayItemScreen extends StatefulWidget {
   final String type;
   const DisplayItemScreen({required this.type});
@@ -25,7 +27,14 @@ class _DisplayItemScreenState extends State<DisplayItemScreen> {
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TishAppDescription(
+                                      place: snapshot.data!.elementAt(index),
+                                    )));
+                      },
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Container(

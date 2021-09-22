@@ -1,3 +1,4 @@
+import 'package:TishApp/TishApp/Components/T5SliderWidget.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:TishApp/TishApp/viewmodel/Place_TypeViewModel.dart';
@@ -48,12 +49,74 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    List<Widget> list = [];
     return Scaffold(
       body: ListView(
         children: [
           FutureBuilder(
               future: getPlace(),
               builder: (context, AsyncSnapshot<List<Place>?> snapshot) {
+                if (snapshot.data != null) {
+                  for (Place item in snapshot.data!) {
+                    Widget temp = GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TishAppDescription(
+                                      place: item,
+                                    )));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Center(
+                            child: Container(
+                          constraints:
+                              BoxConstraints(maxHeight: 250, maxWidth: 350),
+                          height: height,
+                          width: width * 0.85,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                decoration:
+                                    BoxDecoration(shape: BoxShape.circle),
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  'images/imageTest.jpeg',
+                                  height: 250,
+                                  width: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                    Colors.transparent.withOpacity(0.6),
+                                    Colors.black.withOpacity(0.1),
+                                    Colors.transparent.withOpacity(0.6),
+                                  ]),
+                                ),
+                              ),
+                              Container(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      '${item.Name}',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22.0),
+                                    ),
+                                  )),
+                            ],
+                          ),
+                        )),
+                      ),
+                    );
+                    list.add(temp);
+                  }
+                }
                 if (snapshot.connectionState == ConnectionState.done) {
                   if (snapshot.hasError) {
                     return Text('${snapshot.error}' + "CHECK YOUR INTERNET");
@@ -62,62 +125,12 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(60)),
                     height: 250,
-                    child: ListView.builder(
-                        shrinkWrap: true,
+                    child: PageView.builder(
+                        allowImplicitScrolling: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.length,
+                        itemCount: 1,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          TishAppDescription(index)));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Center(
-                                  child: Container(
-                                constraints: BoxConstraints(
-                                    maxHeight: 250, maxWidth: 250),
-                                height: height,
-                                width: width * 0.85,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration:
-                                          BoxDecoration(shape: BoxShape.circle),
-                                      alignment: Alignment.center,
-                                      child: Image.asset(
-                                        'images/imageTest.jpeg',
-                                        height: 250,
-                                        width: double.infinity,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(colors: [
-                                          Colors.black.withOpacity(0.1),
-                                          Colors.black.withOpacity(0.1),
-                                        ]),
-                                      ),
-                                    ),
-                                    Container(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          '${snapshot.data!.elementAt(index).Name} $index',
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 22.0),
-                                        )),
-                                  ],
-                                ),
-                              )),
-                            ),
-                          );
+                          return T5CarouselSlider(items: list);
                         }),
                   );
                 } else
@@ -125,6 +138,7 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                     child: const CircularProgressIndicator(),
                   );
               }),
+          Divider(),
           FutureBuilder(
               future: getPlaceType(),
               builder: (context, AsyncSnapshot<List<Place_Type>?> snapshot) {
@@ -195,7 +209,88 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
           TextButton(
             onPressed: () {},
             child: Text("Show More"),
-          )
+          ),
+          Divider(),
+          FutureBuilder(
+              future: getPlace(),
+              builder: (context, AsyncSnapshot<List<Place>?> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return Text('${snapshot.error}' + "CHECK YOUR INTERNET");
+                  }
+                  snapshot.data!.shuffle();
+                  return Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(60)),
+                    height: (250 * snapshot.data!.length).toDouble() + 100,
+                    child: ListView.builder(
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TishAppDescription(
+                                            place:
+                                                snapshot.data!.elementAt(index),
+                                          )));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: Container(
+                                constraints: BoxConstraints(
+                                    maxHeight: 250, maxWidth: 250),
+                                height: height,
+                                width: width * 0.85,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration:
+                                          BoxDecoration(shape: BoxShape.circle),
+                                      alignment: Alignment.center,
+                                      child: Image.asset(
+                                        'images/imageTest.jpeg',
+                                        height: 250,
+                                        width: double.infinity,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(colors: [
+                                          Colors.transparent.withOpacity(0.6),
+                                          Colors.black.withOpacity(0.1),
+                                          Colors.transparent.withOpacity(0.6),
+                                        ]),
+                                      ),
+                                    ),
+                                    Container(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            '${snapshot.data!.elementAt(index).Name} $index',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 22.0),
+                                          ),
+                                        )),
+                                  ],
+                                ),
+                              )),
+                            ),
+                          );
+                        }),
+                  );
+                } else
+                  return Center(
+                    child: const CircularProgressIndicator(),
+                  );
+              }),
         ],
       ),
     );
