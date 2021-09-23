@@ -265,8 +265,8 @@ class _T5CarouselSliderState extends State<T5CarouselSlider>
   Widget build(BuildContext context) {
     return getWrapper(CarouselSlider(
       options: CarouselOptions(
-        enlargeCenterPage: true,
-        viewportFraction: 0.8,
+        enlargeCenterPage: this.widget.enlargeCenterPage,
+        viewportFraction: this.widget.viewportFraction.toDouble(),
       ),
       items: widget.items!.map((i) {
         return Container(

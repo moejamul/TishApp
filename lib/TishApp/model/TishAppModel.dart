@@ -7,7 +7,7 @@ class Place {
   var Description;
   var Created_at;
   var Updated_at;
-  var Place_Type_ID;
+  Place_Type place_type;
   // var reviews;
   List<dynamic> reviews;
   var medias;
@@ -19,26 +19,24 @@ class Place {
       this.Description,
       this.Created_at,
       this.Updated_at,
-      this.Place_Type_ID,
+      required this.place_type,
       // this.reviews,
       required this.reviews,
       this.medias});
 
   factory Place.fromJson(Map<String, dynamic> json) {
-    // for (var item in json['reviews']) {
-    //   print(item['message']);
-    // }
-    return Place(
+    Place temp = Place(
         Place_ID: json['place_ID'],
         Name: json['name'],
         Location: json['location'],
         Description: json['description'],
         Created_at: json['created_at'],
         Updated_at: json['updated_at'],
-        Place_Type_ID: json['type'],
+        place_type: Place_Type.fromJson(json['place_Type']),
         reviews: (json['reviews'].map((e) => Review.fromJson(e))).toList(),
         // reviews: json['reviews'],
         medias: json['medias']);
+    return temp;
   }
 }
 
