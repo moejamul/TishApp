@@ -342,3 +342,9 @@ Widget bottomBillDetail(
     ),
   );
 }
+
+Widget Function(BuildContext, String)? placeholderWidgetFn() =>
+    (_, s) => placeholderWidget();
+
+Widget placeholderWidget() => Container(
+    height: 20, width: 20, child: Center(child: CircularProgressIndicator()));

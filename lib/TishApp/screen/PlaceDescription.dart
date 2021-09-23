@@ -1,3 +1,5 @@
+import 'package:TishApp/TishApp/Components/Widgets.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,7 +12,6 @@ import 'package:TishApp/TishApp/utils/TishAppColors.dart';
 import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
 import 'package:TishApp/TishApp/utils/TishAppImages.dart';
 import 'package:TishApp/TishApp/utils/TishAppString.dart';
-import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 import 'package:provider/provider.dart';
 
 import 'FoodBookCart.dart';
@@ -26,9 +27,15 @@ class TishAppDescription extends StatefulWidget {
 }
 
 class TishAppDescriptionState extends State<TishAppDescription> {
+  double rating = 0;
   @override
   void initState() {
     super.initState();
+
+    for (var item in this.widget.place.reviews) {
+      rating += double.parse(item.Rating.toString());
+    }
+    if (rating != 0) rating /= this.widget.place.reviews.length;
   }
 
   @override
@@ -50,11 +57,10 @@ class TishAppDescriptionState extends State<TishAppDescription> {
           ));
     }
 
-    Widget mVegOption(var value, var iconColor) {
+    Widget BadgeWidget(var value, var iconColor) {
       return Row(
         children: <Widget>[
-          Image.asset('images/imageTest.jpeg',
-              color: iconColor, width: 18, height: 18),
+          Image.asset('images/imageTest.jpeg', width: 18, height: 18),
           SizedBox(width: 8),
           Text(value, style: primaryTextStyle()),
         ],
@@ -123,10 +129,47 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(this.widget.place.Name,
-                              style: primaryTextStyle(size: 18)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(this.widget.place.Name,
+                                  style: primaryTextStyle(size: 18)),
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: this.widget.place.averageReviews == 0
+                                      ? Colors.grey
+                                      : Colors.green[700],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0,
+                                      right: 8.0,
+                                      top: 2.0,
+                                      bottom: 2.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        '${this.widget.place.averageReviews == 0 ? '-' : this.widget.place.averageReviews}',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15.0),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.white,
+                                        size: 15,
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           // totalRatting(TishApp_order_rating),
-                          totalRatting(4.7),
+                          totalRatting(this.widget.place.averageReviews),
                           SizedBox(height: 8),
                           Row(
                             children: <Widget>[
@@ -150,17 +193,20 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                           SizedBox(height: 8),
                           Divider(height: 0.5, color: TishApp_view_color),
                           SizedBox(height: 8),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                  child: mVegOption(
-                                      TishApp_veg_only, TishApp_view_color),
-                                  flex: 1),
-                              Expanded(
-                                  child: mVegOption(
-                                      TishApp_non_veg_only, TishApp_color_red),
-                                  flex: 2),
-                            ],
+                          SizedBox(
+                            height: 20,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: 4,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 12.0, right: 12.0),
+                                  child: BadgeWidget(
+                                      "Badge $index", TishApp_view_color),
+                                );
+                              },
+                            ),
                           )
                         ],
                       ),
@@ -174,17 +220,18 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.network(
-                                      this
-                                          .widget
-                                          .place
-                                          .medias[index]
-                                          .toString(),
-                                      height: 250),
-                                  // child: Text(
-                                  //     this.widget.place.medias[0].toString()),
-                                );
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: CachedNetworkImage(
+                                        imageUrl: this
+                                            .widget
+                                            .place
+                                            .medias[index]
+                                            .toString(),
+                                        placeholder: placeholderWidgetFn()));
+                                // child: Image.network(
+                                //   this.widget.place.medias[index].toString(),
+                                //   height: 250,
+                                // ),                                );
                               })
                           : Center(child: Text("No images available")),
                     ),
@@ -220,21 +267,28 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                       decoration: BoxDecoration(
                           boxShadow: defaultBoxShadow(), color: white),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          mHeading("Comments"),
-                          SizedBox(height: 16),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 16),
-                    Container(
-                      width: width,
-                      decoration: BoxDecoration(
-                          boxShadow: defaultBoxShadow(), color: white),
-                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          mHeading("Comments"),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 12.0, left: 12.0, right: 12.0),
+                            child: Row(
+                              children: [
+                                CircleAvatar(),
+                                Expanded(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(12.0),
+                                  child: TextField(
+                                    maxLines: null,
+                                    maxLength: 255,
+                                    decoration:
+                                        InputDecoration(hintText: 'Comment'),
+                                  ),
+                                ))
+                              ],
+                            ),
+                          ),
                           this.widget.place.reviews.length != 0
                               ? ListView.builder(
                                   shrinkWrap: true,

@@ -97,6 +97,7 @@ flutter:
     - images/app/ic_rate_app.png
     - images/TishApp/
     - assets/medium/mediumhtmlpage.html
+    - images/grey.jpg
 
     - assets/integrations/map_point.json
     - assets/defaultTheme/

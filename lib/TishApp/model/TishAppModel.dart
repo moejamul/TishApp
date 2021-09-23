@@ -8,7 +8,7 @@ class Place {
   var Created_at;
   var Updated_at;
   Place_Type place_type;
-  // var reviews;
+  var averageReviews;
   List<dynamic> reviews;
   var medias;
 
@@ -20,11 +20,17 @@ class Place {
       this.Created_at,
       this.Updated_at,
       required this.place_type,
+      this.averageReviews,
       // this.reviews,
       required this.reviews,
       this.medias});
 
   factory Place.fromJson(Map<String, dynamic> json) {
+    double rating = 0;
+    for (var item in json['reviews']) {
+      rating += double.parse(item['rating'].toString());
+    }
+    if (rating != 0) rating /= json['reviews'].length;
     Place temp = Place(
         Place_ID: json['place_ID'],
         Name: json['name'],
@@ -34,6 +40,7 @@ class Place {
         Updated_at: json['updated_at'],
         place_type: Place_Type.fromJson(json['place_Type']),
         reviews: (json['reviews'].map((e) => Review.fromJson(e))).toList(),
+        averageReviews: rating,
         // reviews: json['reviews'],
         medias: json['medias']);
     return temp;

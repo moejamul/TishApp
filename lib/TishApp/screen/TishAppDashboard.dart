@@ -49,7 +49,8 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
 
   int generateRandomNumber(int lower, int higher) {
     Random random = new Random();
-    return random.nextInt(higher) + lower;
+    int temp = random.nextInt(higher);
+    return temp;
   }
 
   @override
@@ -58,7 +59,7 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
     double width = MediaQuery.of(context).size.width;
     List<Widget> list = [];
     return Scaffold(
-      backgroundColor: Color.fromRGBO(248, 248, 248, 1),
+      backgroundColor: Colors.white,
       body: ListView(
         children: [
           Padding(
@@ -289,14 +290,14 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-                        double rating = 0;
-                        for (var item
-                            in snapshot.data!.elementAt(index).reviews) {
-                          rating += double.parse(item.Rating.toString());
-                        }
-                        if (rating != 0)
-                          rating /=
-                              snapshot.data!.elementAt(index).reviews.length;
+                        // double rating = 0;
+                        // for (var item
+                        //     in snapshot.data!.elementAt(index).reviews) {
+                        //   rating += double.parse(item.Rating.toString());
+                        // }
+                        // if (rating != 0)
+                        //   rating /=
+                        //       snapshot.data!.elementAt(index).reviews.length;
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -399,7 +400,9 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             4),
-                                                    color: rating == 0
+                                                    color: snapshot.data![index]
+                                                                .averageReviews ==
+                                                            0
                                                         ? Colors.grey
                                                         : Colors.green[700],
                                                   ),
@@ -416,7 +419,7 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                                                               .spaceEvenly,
                                                       children: [
                                                         Text(
-                                                          '${rating == 0 ? '-' : rating}',
+                                                          '${snapshot.data![index].averageReviews == 0 ? '-' : snapshot.data![index].averageReviews}',
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,
