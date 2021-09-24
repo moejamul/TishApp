@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
-class PlaceService {
+class User_Favorite_PlacesService {
   Settings settings = Settings();
   final String _baseUrl = Settings().backend_url;
 
@@ -14,7 +14,7 @@ class PlaceService {
     var responseJson;
     Dio dio = await DioSettings.getDio();
     try {
-      final response = await dio.get((_baseUrl + '/Places'));
+      final response = await dio.get((_baseUrl + '/User_Favorite_Places'));
       print(response.statusCode);
       responseJson = returnResponse(response);
     } on Exception catch (e) {
@@ -27,19 +27,7 @@ class PlaceService {
     dynamic responseJson;
     try {
       Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/Places/$id'));
-      responseJson = returnResponse(response);
-    } on Exception catch (e) {
-      print(e.toString());
-    }
-    return responseJson;
-  }
-
-  Future<dynamic> getByType(String type) async {
-    dynamic responseJson;
-    try {
-      Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/Places/Type/$type'));
+      final response = await dio.get((_baseUrl + '/User_Favorite_Places/$id'));
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());

@@ -16,11 +16,6 @@ class DioSettings {
 
     dio.interceptors.add(
         InterceptorsWrapper(onRequest: (RequestOptions options, handler) async {
-      options.headers["Authorization"] =
-          "Bearer ${prefs.getString("access_token")}";
-      options.headers["Content-Type"] = "application/json";
-      return handler.next(options);
-    }, onResponse: (response, handler) async {
       // DateTime now = new DateTime.now();
       // int current = now.millisecondsSinceEpoch ~/ 1000;
       // if ((current - prefs.getInt('tokenStartTime')!.toInt()) >
@@ -41,6 +36,11 @@ class DioSettings {
       // } else {
       //   return handler.next(response);
       // }
+      options.headers["Authorization"] =
+          "Bearer ${prefs.getString("access_token")}";
+      options.headers["Content-Type"] = "application/json";
+      return handler.next(options);
+    }, onResponse: (response, handler) async {
       return handler.next(response);
     }, onError: (error, handler) {
       print(error.response!.statusCode.toString());

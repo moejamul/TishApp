@@ -13,7 +13,6 @@ class PlaceRepository {
     for (var item in response) {
       Place place = Place.fromJson(item);
       list.add(place);
-      // print(place.Updated_at);
     }
     return list;
   }

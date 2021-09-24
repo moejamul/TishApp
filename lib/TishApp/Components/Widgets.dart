@@ -1,3 +1,4 @@
+import 'package:TishApp/TishApp/Components/T5SliderWidget.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:flutter/material.dart';
 
@@ -129,23 +130,41 @@ Widget HorizontalRow() {
           children: List.generate(10, (index) => HorizontalRowItem())));
 }
 
-Widget HorizontalRowPlace(BuildContext context, List<Place> list) {
+Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
   print(list.length);
   return Container(
       height: 150,
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(vertical: 20.0),
-      child: list.length == 0
-          ? ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: 6,
-              itemBuilder: (context, index) {
-                return Container(
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 1,
+          itemBuilder: (context, index) {
+            List<Widget> WidgetList = [];
+            for (var item in list) {
+              Widget temp = Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: 250,
                   color: Colors.grey,
-                  child: Text("list[index].Name"),
-                );
-              })
-          : Row(
-              children: [Spacer(), Text("No Favorite places"), Spacer()],
-            ));
+                  child: Center(child: Text(item.place['name'])),
+                ),
+              );
+              WidgetList.add(temp);
+            }
+            return T5CarouselSlider(
+              items: WidgetList,
+              enableInfiniteScroll: false,
+              enlargeCenterPage: false,
+              viewportFraction: 0.7,
+            );
+            // return Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Container(
+            //     width: 250,
+            //     color: Colors.grey,
+            //     child: Text(list[index].Name),
+            //   ),
+            // );
+          }));
 }

@@ -115,15 +115,14 @@ class User_Badge {
   }
 }
 
-class User_Favorite_Places {
+class UserFavoritePlaces {
   var User_ID;
-  var Place_ID;
+  var place;
 
-  User_Favorite_Places({this.User_ID, this.Place_ID});
+  UserFavoritePlaces({this.User_ID, required this.place});
 
-  factory User_Favorite_Places.fromJson(Map<String, dynamic> json) {
-    return User_Favorite_Places(
-        User_ID: json['User_ID'], Place_ID: json['Place_ID']);
+  factory UserFavoritePlaces.fromJson(Map<String, dynamic> json) {
+    return UserFavoritePlaces(User_ID: json['user'], place: json['place']);
   }
 }
 

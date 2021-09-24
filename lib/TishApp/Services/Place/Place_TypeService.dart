@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:TishApp/TishApp/Services/httpInterceptor.dart';
 import 'package:TishApp/TishApp/Settings/AppSettings.dart';
 import 'package:TishApp/TishApp/Settings/DioSettings.dart';
 import 'package:dio/dio.dart';

@@ -267,6 +267,7 @@ class _T5CarouselSliderState extends State<T5CarouselSlider>
       options: CarouselOptions(
         enlargeCenterPage: this.widget.enlargeCenterPage,
         viewportFraction: this.widget.viewportFraction.toDouble(),
+        enableInfiniteScroll: this.widget.enableInfiniteScroll,
       ),
       items: widget.items!.map((i) {
         return Container(

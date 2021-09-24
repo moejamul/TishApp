@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:TishApp/TishApp/Components/Widgets.dart';
+import 'package:TishApp/TishApp/Services/Place/UserFavoritePlacesRepository.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:flutter/material.dart';
@@ -16,16 +17,20 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  List<Place> PlaceList = [];
   late SharedPreferences prefs;
   String name = "";
 
-  Future<void> getPlace() async {
+  Future<List<Place>> getPlace() async {
     await Provider.of<PlaceViewModel>(context, listen: false).fetchAll();
     var _placeList =
         await Provider.of<PlaceViewModel>(context, listen: false).placeList;
-    PlaceList.addAll(_placeList);
-    setState(() {});
+    return _placeList;
+  }
+
+  Future<List<UserFavoritePlaces>> getFavoritePlaces() async {
+    var list =
+        await User_Favorite_PlacesRepository().fetchAllUser_Favorite_Places();
+    return list;
   }
 
   Widget AboutText(double width, double height) {
@@ -165,7 +170,42 @@ class _ProfilePageState extends State<ProfilePage> {
                   'Favorites',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
-                HorizontalRowPlace(context, PlaceList)
+                FutureBuilder(
+                    future: getFavoritePlaces(),
+                    builder: (context,
+                        AsyncSnapshot<List<UserFavoritePlaces>> snapshot) {
+                      if (!snapshot.data!.isEmpty) {
+                        if (snapshot.connectionState == ConnectionState.done) {
+                          if (snapshot.hasError) {
+                            return Text(
+                                '${snapshot.error}' + "CHECK YOUR INTERNET");
+                          }
+                          return Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(60)),
+                            height: 250,
+                            child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 1,
+                                itemBuilder: (context, index) {
+                                  return HorizontalRowPlace(
+                                      context, snapshot.data!);
+                                }),
+                          );
+                        } else {
+                          return Center(
+                              child: const CircularProgressIndicator());
+                        }
+                      } else {
+                        return Row(
+                          children: [
+                            Spacer(),
+                            Text("No Favorite places"),
+                            Spacer()
+                          ],
+                        );
+                      }
+                    })
               ],
             ),
           ),
