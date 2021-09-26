@@ -16,6 +16,20 @@ class User_Favorite_PlacesRepository {
     return list;
   }
 
+  Future<List<UserFavoritePlaces>> fetchUser_Favorite_PlacesByEmail() async {
+    List<UserFavoritePlaces> list = [];
+    dynamic response = await _User_Favorite_PlacesService.getByEmail();
+    for (var item in response['favorite_Places']) {
+      if (item['place'] == null) {
+        continue;
+      }
+      print(item);
+      UserFavoritePlaces UserFavoritePlace = UserFavoritePlaces.fromJson(item);
+      list.add(UserFavoritePlace);
+    }
+    return list;
+  }
+
   Future<UserFavoritePlaces> fetchOneUser_Favorite_Places(int id) async {
     dynamic response = await _User_Favorite_PlacesService.getOne(id);
     UserFavoritePlaces UserFavoritePlace =

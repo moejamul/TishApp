@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:TishApp/TishApp/Components/Widgets.dart';
 import 'package:TishApp/TishApp/Services/Place/UserFavoritePlacesRepository.dart';
+import 'package:TishApp/TishApp/Services/User/UserRepository.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,28 +12,16 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage();
 
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  late User user;
   late SharedPreferences prefs;
   String name = "";
-
-  Future<List<Place>> getPlace() async {
-    await Provider.of<PlaceViewModel>(context, listen: false).fetchAll();
-    var _placeList =
-        await Provider.of<PlaceViewModel>(context, listen: false).placeList;
-    return _placeList;
-  }
-
-  Future<List<UserFavoritePlaces>> getFavoritePlaces() async {
-    var list =
-        await User_Favorite_PlacesRepository().fetchAllUser_Favorite_Places();
-    return list;
-  }
 
   Widget AboutText(double width, double height) {
     return Column(
@@ -125,6 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
   init() async {
     prefs = await SharedPreferences.getInstance();
     name = prefs.getString('name')!.toString();
+    // user = await UserRepository().fetchUserByEmail();
     setState(() {});
   }
 
@@ -136,22 +127,10 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       body: Center(
         child: Container(
-          width: width * 0.95,
+          // width: width * 0.95,
           child: SingleChildScrollView(
             child: Column(
               children: [
-                // SizedBox(
-                //   height: width * 0.05,
-                // ),
-                // ProfilePicture(
-                //     width: width,
-                //     height: height,
-                //     context: context,
-                //     file: image),
-                // SizedBox(
-                //   height: width * 0.05,
-                // ),
-                // UpgradeToProButton(width: width),
                 Center(
                   child: Text(name),
                 ),
@@ -162,7 +141,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 SizedBox(
                   height: width * 0.05,
                 ),
-                AboutText(width, height),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AboutText(width, height),
+                ),
                 SizedBox(
                   height: width * 0.05,
                 ),
@@ -171,39 +153,130 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                 ),
                 FutureBuilder(
-                    future: getFavoritePlaces(),
-                    builder: (context,
-                        AsyncSnapshot<List<UserFavoritePlaces>> snapshot) {
-                      if (!snapshot.data!.isEmpty) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          if (snapshot.hasError) {
-                            return Text(
-                                '${snapshot.error}' + "CHECK YOUR INTERNET");
-                          }
-                          return Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60)),
-                            height: 250,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 1,
-                                itemBuilder: (context, index) {
-                                  return HorizontalRowPlace(
-                                      context, snapshot.data!);
-                                }),
-                          );
-                        } else {
-                          return Center(
-                              child: const CircularProgressIndicator());
+                    future: UserRepository().fetchUserByEmail(),
+                    builder: (context, AsyncSnapshot<User> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          return Text(
+                              '${snapshot.error}' + "CHECK YOUR INTERNET");
                         }
+                        List<UserFavoritePlaces> userFavoritePlacesList = [];
+                        List<Review> reviewsList = [];
+                        for (var item in snapshot.data!.favorite_Places) {
+                          userFavoritePlacesList.add(item);
+                        }
+                        for (var item in snapshot.data!.reviews) {
+                          reviewsList.add(item);
+                        }
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: 1,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  HorizontalRowPlace(
+                                      context, userFavoritePlacesList),
+                                  reviewsList.length != 0
+                                      ? ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          itemCount: reviewsList.length,
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding:
+                                                  const EdgeInsets.all(12.0),
+                                              child: Container(
+                                                child: Row(
+                                                  children: [
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Row(
+                                                          children: [
+                                                            CircleAvatar(),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      left:
+                                                                          12.0),
+                                                              child: Text(
+                                                                snapshot.data!
+                                                                    .Username,
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 8.0),
+                                                          child: Row(
+                                                            children: [
+                                                              totalRatting(
+                                                                  reviewsList
+                                                                      .elementAt(
+                                                                          index)
+                                                                      .Rating),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        left:
+                                                                            8.0),
+                                                                child: Text(reviewsList
+                                                                    .elementAt(
+                                                                        index)
+                                                                    .Updated_At
+                                                                    .toString()
+                                                                    .split(
+                                                                        "T")[0]),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 12.0),
+                                                          child: Container(
+                                                            width: width - 24,
+                                                            child: Text(
+                                                              reviewsList
+                                                                  .elementAt(
+                                                                      index)
+                                                                  .Message
+                                                                  .toString()
+                                                                  .trim(),
+                                                              maxLines: 5,
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          })
+                                      : Center(
+                                          child: Text("No Reviews Available"))
+                                ],
+                              );
+                            });
                       } else {
-                        return Row(
-                          children: [
-                            Spacer(),
-                            Text("No Favorite places"),
-                            Spacer()
-                          ],
-                        );
+                        return Center(child: const CircularProgressIndicator());
                       }
                     })
               ],

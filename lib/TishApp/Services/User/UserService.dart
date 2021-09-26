@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class User_Favorite_PlacesService {
+class UserService {
   Settings settings = Settings();
   final String _baseUrl = Settings().backend_url;
 
@@ -15,7 +15,7 @@ class User_Favorite_PlacesService {
     var responseJson;
     Dio dio = await DioSettings.getDio();
     try {
-      final response = await dio.get((_baseUrl + '/User_Favorite_Places'));
+      final response = await dio.get((_baseUrl + '/Users'));
       print(response.statusCode);
       responseJson = returnResponse(response);
     } on Exception catch (e) {
@@ -28,7 +28,7 @@ class User_Favorite_PlacesService {
     dynamic responseJson;
     try {
       Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/User_Favorite_Places/$id'));
+      final response = await dio.get((_baseUrl + '/Users/$id'));
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());
@@ -37,13 +37,12 @@ class User_Favorite_PlacesService {
   }
 
   Future<dynamic> getByEmail() async {
+    dynamic responseJson;
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var responseJson;
-    Dio dio = await DioSettings.getDio();
     try {
+      Dio dio = await DioSettings.getDio();
       final response = await dio
           .get((_baseUrl + '/users/email/${prefs.getString('email')}'));
-      print(response.statusCode);
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());
@@ -51,12 +50,11 @@ class User_Favorite_PlacesService {
     return responseJson;
   }
 
-  Future<dynamic> insertFavoritePlace() async {
-    var responseJson;
-    Dio dio = await DioSettings.getDio();
+  Future<dynamic> getByType(String type) async {
+    dynamic responseJson;
     try {
-      final response = await dio.post((_baseUrl + '/User_Favorite_Places'));
-      print(response.statusCode);
+      Dio dio = await DioSettings.getDio();
+      final response = await dio.get((_baseUrl + '/Users/Type/$type'));
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());
@@ -68,10 +66,6 @@ class User_Favorite_PlacesService {
   dynamic returnResponse(var response) {
     switch (response.statusCode) {
       case 200:
-      case 201:
-      case 202:
-      case 203:
-      case 204:
         dynamic responseJson = (response.data);
         return responseJson;
       case 400:

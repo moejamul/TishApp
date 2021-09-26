@@ -117,12 +117,13 @@ class User_Badge {
 
 class UserFavoritePlaces {
   var User_ID;
-  var place;
+  Place place;
 
   UserFavoritePlaces({this.User_ID, required this.place});
 
   factory UserFavoritePlaces.fromJson(Map<String, dynamic> json) {
-    return UserFavoritePlaces(User_ID: json['user'], place: json['place']);
+    return UserFavoritePlaces(
+        User_ID: json['user'], place: Place.fromJson(json['place']));
   }
 }
 
@@ -130,14 +131,28 @@ class User {
   var Username;
   var Email;
   var User_ID;
+  List<dynamic> favorite_Places;
+  var places;
+  List<dynamic> reviews;
 
-  User({this.Username, this.Email, this.User_ID});
+  User(
+      {this.Username,
+      this.Email,
+      this.User_ID,
+      required this.favorite_Places,
+      this.places,
+      required this.reviews});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-        Username: json['BadUsernamege_ID'],
+        Username: json['username'],
         Email: json['Email'],
-        User_ID: json['User_ID']);
+        User_ID: json['User_ID'],
+        favorite_Places: json['favorite_Places']
+            .map((e) => UserFavoritePlaces.fromJson(e))
+            .toList(),
+        places: json['places'],
+        reviews: json['reviews'].map((e) => Review.fromJson(e)).toList());
   }
 }
 

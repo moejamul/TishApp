@@ -81,13 +81,12 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                 centerTitle: true,
                 titleSpacing: 0,
                 leading: IconButton(
-                    icon: Icon(Icons.arrow_back,
-                        color: innerBoxIsScrolled ? blackColor : white),
+                    icon: Icon(Icons.arrow_back, color: white),
                     onPressed: () {
                       finish(context);
                     }),
-                backgroundColor:
-                    innerBoxIsScrolled ? TishApp_white : TishApp_colorPrimary,
+                // backgroundColor:
+                //     innerBoxIsScrolled ? TishApp_white : TishApp_colorPrimary,
                 actionsIconTheme: IconThemeData(opacity: 0.0),
                 title: Container(
                   height: 60,
@@ -97,6 +96,11 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(this.widget.place.Name),
+                        IconButton(
+                            onPressed: () {
+                              print("Pressed");
+                            },
+                            icon: Icon(Icons.star_border))
                       ],
                     ),
                   ),

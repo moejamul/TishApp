@@ -131,11 +131,8 @@ Widget HorizontalRow() {
 }
 
 Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
-  print(list.length);
   return Container(
-      height: 150,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(vertical: 20.0),
+      height: 230,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: 1,
@@ -145,9 +142,8 @@ Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
               Widget temp = Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: 250,
                   color: Colors.grey,
-                  child: Center(child: Text(item.place['name'])),
+                  child: Center(child: Text(item.place.Name)),
                 ),
               );
               WidgetList.add(temp);
@@ -158,13 +154,5 @@ Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
               enlargeCenterPage: false,
               viewportFraction: 0.7,
             );
-            // return Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Container(
-            //     width: 250,
-            //     color: Colors.grey,
-            //     child: Text(list[index].Name),
-            //   ),
-            // );
           }));
 }
