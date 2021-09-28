@@ -11,6 +11,8 @@ class Place {
   var averageReviews;
   List<dynamic> reviews;
   var medias;
+  var user;
+  List<dynamic> earnedBadges;
 
   Place(
       {this.Place_ID,
@@ -21,7 +23,8 @@ class Place {
       this.Updated_at,
       required this.place_type,
       this.averageReviews,
-      // this.reviews,
+      required this.earnedBadges,
+      this.user,
       required this.reviews,
       this.medias});
 
@@ -40,7 +43,10 @@ class Place {
         Updated_at: json['updated_at'],
         place_type: Place_Type.fromJson(json['place_Type']),
         reviews: (json['reviews'].map((e) => Review.fromJson(e))).toList(),
+        user: json['user'],
         averageReviews: rating,
+        earnedBadges:
+            json['earned_Badges'].map((e) => Place_Badge.fromJson(e)).toList(),
         // reviews: json['reviews'],
         medias: json['medias']);
     return temp;
@@ -62,15 +68,13 @@ class Place_Type {
 
 class Place_Badge {
   var Badge_ID;
-  var Place_ID;
-  var Earned_at;
-  Place_Badge({this.Badge_ID, this.Place_ID, this.Earned_at});
+  var path;
+  var title;
+  Place_Badge({this.Badge_ID, this.path, this.title});
 
   factory Place_Badge.fromJson(Map<String, dynamic> json) {
     return Place_Badge(
-        Badge_ID: json['badge_ID'],
-        Place_ID: json['place_ID'],
-        Earned_at: json['earned_at']);
+        Badge_ID: json['badge_ID'], path: json['path'], title: json['title']);
   }
 }
 
@@ -146,13 +150,17 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
         Username: json['username'],
-        Email: json['Email'],
-        User_ID: json['User_ID'],
-        favorite_Places: json['favorite_Places']
-            .map((e) => UserFavoritePlaces.fromJson(e))
-            .toList(),
-        places: json['places'],
-        reviews: json['reviews'].map((e) => Review.fromJson(e)).toList());
+        Email: json['email'],
+        User_ID: json['user_ID'],
+        favorite_Places: json['favorite_Places'] != null
+            ? json['favorite_Places']
+                .map((e) => UserFavoritePlaces.fromJson(e))
+                .toList()
+            : [],
+        places: json['places'] == null ? null : json['places'],
+        reviews: json['reviews'] != null
+            ? json['reviews'].map((e) => Review.fromJson(e)).toList()
+            : []);
   }
 }
 
@@ -163,7 +171,7 @@ class Review {
   var Created_At;
   var Updated_At;
   var Reviewed_Place_ID;
-  var User_ID;
+  dynamic user;
 
   Review(
       {this.Review_ID,
@@ -172,7 +180,7 @@ class Review {
       this.Created_At,
       this.Updated_At,
       this.Reviewed_Place_ID,
-      this.User_ID});
+      required this.user});
 
   factory Review.fromJson(Map<String, dynamic> json) {
     Review temp = Review(
@@ -182,7 +190,7 @@ class Review {
         Created_At: json['created_at'].toString(),
         Updated_At: json['updated_at'].toString(),
         Reviewed_Place_ID: json['reviewed_Place_ID'],
-        User_ID: json['user_ID']);
+        user: json['user'] == null ? null : User.fromJson(json['user']));
     return temp;
   }
 }

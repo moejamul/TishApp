@@ -11,16 +11,19 @@ class PlaceViewModel with ChangeNotifier {
       Name: 'null',
       Place_ID: 'null',
       reviews: [],
+      earnedBadges: [],
       place_type: Place_Type(Place_Type_ID: 'null', Type: 'null'));
 
-  Future<void> fetchAll() async {
+  Future<List<Place>> fetchAll() async {
     try {
       List<Place> response = await PlaceRepository().fetchAllPlace();
       setSelectedPlaceList(response);
+      return response;
     } catch (e) {
       print(e);
     }
     notifyListeners();
+    return [];
   }
 
   Future<void> fetchOne(int id) async {

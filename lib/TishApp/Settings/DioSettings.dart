@@ -16,30 +16,32 @@ class DioSettings {
 
     dio.interceptors.add(
         InterceptorsWrapper(onRequest: (RequestOptions options, handler) async {
-      // DateTime now = new DateTime.now();
-      // int current = now.millisecondsSinceEpoch ~/ 1000;
-      // if ((current - prefs.getInt('tokenStartTime')!.toInt()) >
-      //     prefs.getInt('refreshDuration')!.toInt()) {
-      //   Fluttertoast.showToast(
-      //       msg: "Session Expired",
-      //       toastLength: Toast.LENGTH_SHORT,
-      //       gravity: ToastGravity.BOTTOM,
-      //       timeInSecForIosWeb: 1,
-      //       textColor: Colors.black87,
-      //       fontSize: 16.0);
-      //   await LogoutRepository().LogoutRepo();
-      // } else if ((current - prefs.getInt('tokenStartTime')!.toInt()) >
-      //     prefs.getInt('tokenDuration')!.toInt()) {
-      //   if (await RefreshToken(prefs.getString("refreshToken").toString())) {
-      //     return handler.next(response);
-      //   }
-      // } else {
-      //   return handler.next(response);
-      // }
-      options.headers["Authorization"] =
-          "Bearer ${prefs.getString("access_token")}";
-      options.headers["Content-Type"] = "application/json";
-      return handler.next(options);
+      DateTime now = new DateTime.now();
+      int current = now.millisecondsSinceEpoch ~/ 1000;
+      if ((current - prefs.getInt('tokenStartTime')!.toInt()) >
+          prefs.getInt('refreshDuration')!.toInt()) {
+        Fluttertoast.showToast(
+            msg: "Session Expired",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            textColor: Colors.black87,
+            fontSize: 16.0);
+        await LogoutRepository().LogoutRepo();
+      } else if ((current - prefs.getInt('tokenStartTime')!.toInt()) >
+          prefs.getInt('tokenDuration')!.toInt()) {
+        if (await RefreshToken(prefs.getString("refreshToken").toString())) {
+          options.headers["Authorization"] =
+              "Bearer ${prefs.getString("accessToken")}";
+          options.headers["Content-Type"] = "application/json";
+          return handler.next(options);
+        }
+      } else {
+        options.headers["Authorization"] =
+            "Bearer ${prefs.getString("accessToken")}";
+        options.headers["Content-Type"] = "application/json";
+        return handler.next(options);
+      }
     }, onResponse: (response, handler) async {
       return handler.next(response);
     }, onError: (error, handler) {

@@ -57,10 +57,11 @@ class TishAppDescriptionState extends State<TishAppDescription> {
           ));
     }
 
-    Widget BadgeWidget(var value, var iconColor) {
+    Widget BadgeWidget(var value, var iconColor, var imagePath) {
       return Row(
         children: <Widget>[
-          Image.asset('images/imageTest.jpeg', width: 18, height: 18),
+          // Image.asset('images/imageTest.jpeg', width: 18, height: 18),
+          Image.network(imagePath, width: 18, height: 18),
           SizedBox(width: 8),
           Text(value, style: primaryTextStyle()),
         ],
@@ -121,7 +122,6 @@ class TishAppDescriptionState extends State<TishAppDescription> {
           body: Stack(
             children: <Widget>[
               SingleChildScrollView(
-                padding: EdgeInsets.only(bottom: 150),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -172,45 +172,60 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                               ),
                             ],
                           ),
-                          // totalRatting(TishApp_order_rating),
                           totalRatting(this.widget.place.averageReviews),
-                          SizedBox(height: 8),
-                          Row(
-                            children: <Widget>[
-                              Container(
-                                decoration: gradientBoxDecoration(
-                                    gradientColor1:
-                                        TishApp_color_blue_gradient1,
-                                    gradientColor2:
-                                        TishApp_color_blue_gradient2),
-                                padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-                                margin: EdgeInsets.only(right: 10),
-                                child: Text(TishApp_offer,
-                                    style: primaryTextStyle(
-                                        size: 14, color: white)),
-                              ),
-                              Text(TishApp_save_14_on_each_night,
-                                  style: primaryTextStyle(
-                                      color: TishApp_textColorSecondary))
-                            ],
-                          ),
                           SizedBox(height: 8),
                           Divider(height: 0.5, color: TishApp_view_color),
                           SizedBox(height: 8),
                           SizedBox(
                             height: 20,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: 4,
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 12.0, right: 12.0),
-                                  child: BadgeWidget(
-                                      "Badge $index", TishApp_view_color),
-                                );
-                              },
-                            ),
+                            child: this.widget.place.earnedBadges.length != 0
+                                ? ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        this.widget.place.earnedBadges.length,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 12.0, right: 12.0),
+                                        child: BadgeWidget(
+                                            this
+                                                .widget
+                                                .place
+                                                .earnedBadges
+                                                .elementAt(index)
+                                                .title
+                                                .toString(),
+                                            TishApp_view_color,
+                                            this
+                                                .widget
+                                                .place
+                                                .earnedBadges
+                                                .elementAt(index)
+                                                .path
+                                                .toString()),
+                                      );
+                                    },
+                                  )
+                                : Center(
+                                    child: Text('No Badges Earned Yet'),
+                                  ),
+                            // child: FutureBuilder(
+                            //   future: ,
+                            //   builder: (context, snapshot) {
+                            //     return ListView.builder(
+                            //       scrollDirection: Axis.horizontal,
+                            //       itemCount: 4,
+                            //       itemBuilder: (context, index) {
+                            //         return Padding(
+                            //           padding: const EdgeInsets.only(
+                            //               left: 12.0, right: 12.0),
+                            //           child: BadgeWidget(
+                            //               "Badge $index", TishApp_view_color),
+                            //         );
+                            //       },
+                            //     );
+                            //   },
+                            // ),
                           )
                         ],
                       ),
@@ -232,10 +247,6 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                                             .medias[index]
                                             .toString(),
                                         placeholder: placeholderWidgetFn()));
-                                // child: Image.network(
-                                //   this.widget.place.medias[index].toString(),
-                                //   height: 250,
-                                // ),                                );
                               })
                           : Center(child: Text("No images available")),
                     ),
@@ -316,7 +327,13 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                                                           const EdgeInsets.only(
                                                               left: 12.0),
                                                       child: Text(
-                                                        "Joseph",
+                                                        this
+                                                            .widget
+                                                            .place
+                                                            .reviews
+                                                            .elementAt(index)
+                                                            .user
+                                                            .Username,
                                                         style: TextStyle(
                                                             fontWeight:
                                                                 FontWeight
@@ -387,44 +404,44 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                   ],
                 ),
               ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                left: 0,
-                child: Container(
-                  alignment: Alignment.bottomCenter,
-                  //height: width * 0.38,
-                  child: Column(
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => CustomDialog(),
-                          );
-                        },
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 10),
-                          padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
-                          decoration: gradientBoxDecoration(
-                              gradientColor1: TishApp_color_blue_gradient1,
-                              gradientColor2: TishApp_color_blue_gradient2,
-                              radius: 40),
-                          child: Text(TishApp_view_menu,
-                              style: primaryTextStyle(color: white)),
-                        ),
-                      ),
-                      bottomBillDetail(
-                          context,
-                          TishApp_color_green_gradient1,
-                          TishApp_color_green_gradient2,
-                          TishApp_order_now, onTap: () {
-                        TishAppBookCart().launch(context);
-                      }),
-                    ],
-                  ),
-                ),
-              )
+              // Positioned(
+              //   bottom: 0,
+              //   right: 0,
+              //   left: 0,
+              //   child: Container(
+              //     alignment: Alignment.bottomCenter,
+              //     //height: width * 0.38,
+              //     child: Column(
+              //       children: <Widget>[
+              //         GestureDetector(
+              //           onTap: () {
+              //             showDialog(
+              //               context: context,
+              //               builder: (BuildContext context) => CustomDialog(),
+              //             );
+              //           },
+              //           child: Container(
+              //             margin: EdgeInsets.only(bottom: 10),
+              //             padding: EdgeInsets.fromLTRB(16, 8, 16, 8),
+              //             decoration: gradientBoxDecoration(
+              //                 gradientColor1: TishApp_color_blue_gradient1,
+              //                 gradientColor2: TishApp_color_blue_gradient2,
+              //                 radius: 40),
+              //             child: Text(TishApp_view_menu,
+              //                 style: primaryTextStyle(color: white)),
+              //           ),
+              //         ),
+              //         bottomBillDetail(
+              //             context,
+              //             TishApp_color_green_gradient1,
+              //             TishApp_color_green_gradient2,
+              //             TishApp_order_now, onTap: () {
+              //           TishAppBookCart().launch(context);
+              //         }),
+              //       ],
+              //     ),
+              //   ),
+              // )
             ],
           ),
         ),

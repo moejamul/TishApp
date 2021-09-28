@@ -37,8 +37,6 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
     var _placeList = Provider.of<Place_TypeViewModel>(context, listen: false)
         .place_type_List;
     return _placeList;
-    // placeTypeList.addAll(_placeList);
-    // setState(() {});
   }
 
   @override
@@ -77,7 +75,8 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
             ),
           ),
           FutureBuilder(
-              future: getPlace(),
+              future: Provider.of<PlaceViewModel>(context, listen: false)
+                  .fetchAll(),
               builder: (context, AsyncSnapshot<List<Place>?> snapshot) {
                 if (snapshot.data != null) {
                   for (Place item in snapshot.data!) {
