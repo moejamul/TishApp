@@ -36,4 +36,11 @@ class User_Favorite_PlacesRepository {
         UserFavoritePlaces.fromJson(response);
     return UserFavoritePlace;
   }
+
+  Future<UserFavoritePlaces> LikePlace(int id) async {
+    dynamic response = await _User_Favorite_PlacesService.getOne(id);
+    UserFavoritePlaces UserFavoritePlace =
+        UserFavoritePlaces.fromJson(response);
+    return UserFavoritePlace;
+  }
 }

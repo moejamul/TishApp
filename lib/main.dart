@@ -19,6 +19,8 @@ import 'TishApp/viewmodel/Place_TypeViewModel.dart';
 import 'TishApp/viewmodel/authViewModel.dart';
 import 'TishApp/viewmodel/PlaceViewModel.dart';
 
+final GlobalKey<NavigatorState> navigator =
+    GlobalKey<NavigatorState>(); //Create a key for navigator
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool isIos = UniversalPlatform.isIOS;
@@ -36,7 +38,6 @@ void main() async {
 }
 
 class TishApp extends StatelessWidget {
-  final GlobalKey<NavigatorState> navigator = new GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -64,10 +65,9 @@ class TishApp extends StatelessWidget {
           '/TishAppCart': (context) => TishAppBookCart(),
         },
         title: 'TishApp',
-        home: WelcomePage(),
-        // home: TishAppMainPage(),
-        // home: SearchPage(),
-        // home: ProfilePage(),
+        // home: WelcomePage(),
+        home: TishAppMainPage(),
+
         builder: scrollBehaviour(),
         navigatorKey: navigator,
       ),
