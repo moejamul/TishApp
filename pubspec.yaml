@@ -17,6 +17,7 @@ dependencies:
   http_interceptor: ^1.0.1
   jwt_decode: ^0.3.1
   dio: ^4.0.0-prev2
+  rating_dialog: ^2.0.1
 
   # connectivity: ^3.0.6
 

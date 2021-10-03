@@ -1,21 +1,15 @@
-import 'package:TishApp/TishApp/Components/Widgets.dart';
+import 'package:TishApp/TishApp/Services/Place/ReviewRepository.dart';
 import 'package:TishApp/TishApp/Services/Place/UserFavoritePlacesRepository.dart';
 import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
-import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:TishApp/TishApp/model/FoodModel.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:TishApp/TishApp/utils/TishAppColors.dart';
-import 'package:TishApp/TishApp/utils/TishAppDataGenerator.dart';
-import 'package:TishApp/TishApp/utils/TishAppImages.dart';
 import 'package:TishApp/TishApp/utils/TishAppString.dart';
-import 'package:provider/provider.dart';
-
-import 'FoodBookCart.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
 class TishAppDescription extends StatefulWidget {
   Place place;
@@ -34,7 +28,20 @@ class TishAppDescriptionState extends State<TishAppDescription> {
   Icon likedIcon = Icon(Icons.star);
   Icon notlikedIcon = Icon(Icons.star_border);
 
+  var _dialog;
+
   void init() async {
+    _dialog = RatingDialog(
+      title: 'Review Dialog',
+      message:
+          'Tap a star to set your rating. Add more description here if you want.',
+      image: Icon(Icons.reviews),
+      submitButton: 'Submit',
+      onSubmitted: (response) {
+        ReviewRepository().AddReviewToPlace(prefs.getString('email').toString(),
+            this.widget.place.Place_ID, response.rating, response.comment);
+      },
+    );
     prefs = await SharedPreferences.getInstance();
     liked = await User_Favorite_PlacesRepository().ifalreadyLiked(
         prefs.getString('email').toString(), this.widget.place.Place_ID);
@@ -233,23 +240,6 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                                 : Center(
                                     child: Text('No Badges Earned Yet'),
                                   ),
-                            // child: FutureBuilder(
-                            //   future: ,
-                            //   builder: (context, snapshot) {
-                            //     return ListView.builder(
-                            //       scrollDirection: Axis.horizontal,
-                            //       itemCount: 4,
-                            //       itemBuilder: (context, index) {
-                            //         return Padding(
-                            //           padding: const EdgeInsets.only(
-                            //               left: 12.0, right: 12.0),
-                            //           child: BadgeWidget(
-                            //               "Badge $index", TishApp_view_color),
-                            //         );
-                            //       },
-                            //     );
-                            //   },
-                            // ),
                           )
                         ],
                       ),
@@ -309,28 +299,39 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           mHeading("Comments"),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 12.0, left: 12.0, right: 12.0),
-                            child: Row(
-                              children: [
-                                CircleAvatar(),
-                                Expanded(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(12.0),
-                                  child: TextField(
-                                    maxLines: null,
-                                    maxLength: 255,
-                                    decoration:
-                                        InputDecoration(hintText: 'Comment'),
-                                  ),
-                                ))
-                              ],
-                            ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(
+                          //       top: 12.0, left: 12.0, right: 12.0),
+                          //   child: Row(
+                          //     children: [
+                          //       CircleAvatar(),
+                          //       Expanded(
+                          //           child: Padding(
+                          //         padding: const EdgeInsets.all(12.0),
+                          //         child: TextField(
+                          //           maxLines: null,
+                          //           maxLength: 255,
+                          //           decoration:
+                          //               InputDecoration(hintText: 'Comment'),
+                          //         ),
+                          //       ))
+                          //     ],
+                          //   ),
+                          // ),
+                          Center(
+                            child: IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => _dialog,
+                                  );
+                                },
+                                icon: Icon(Icons.add)),
                           ),
                           this.widget.place.reviews.length != 0
                               ? ListView.builder(
                                   shrinkWrap: true,
+                                  
                                   physics: NeverScrollableScrollPhysics(),
                                   itemCount: this.widget.place.reviews.length,
                                   itemBuilder: (context, index) {
