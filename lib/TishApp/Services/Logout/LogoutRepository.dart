@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:TishApp/TishApp/screen/TishAppSignUp.dart';
+import 'package:TishApp/TishApp/screen/TishAppLogin.dart';
 import 'package:TishApp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
@@ -19,7 +17,7 @@ class LogoutRepository {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setBool('IsLoggedIn', false);
     navigator.currentState!.pushReplacement(
-      MaterialPageRoute(builder: (context) => SignUpPage()),
+      MaterialPageRoute(builder: (context) => LoginPage()),
     );
     return response;
   }

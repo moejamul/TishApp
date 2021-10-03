@@ -51,17 +51,50 @@ class User_Favorite_PlacesService {
     return responseJson;
   }
 
-  Future<dynamic> insertFavoritePlace() async {
-    var responseJson;
+  Future<bool> insertFavoritePlace(String email, int PlaceID) async {
     Dio dio = await DioSettings.getDio();
     try {
-      final response = await dio.post((_baseUrl + '/User_Favorite_Places'));
+      final response =
+          await dio.post((_baseUrl + '/User_Favorite_Places/$email/$PlaceID'));
       print(response.statusCode);
-      responseJson = returnResponse(response);
+      if (response.statusCode == 201) {
+        return true;
+      }
     } on Exception catch (e) {
       print(e.toString());
     }
-    return responseJson;
+    return false;
+  }
+
+  Future<bool> deleteFavoritePlace(String email, int PlaceID) async {
+    Dio dio = await DioSettings.getDio();
+    try {
+      final response = await dio
+          .delete((_baseUrl + '/User_Favorite_Places/$email/$PlaceID'));
+      print(response.statusCode);
+      if (response.statusCode == 200) {
+        return true;
+      }
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+    return false;
+  }
+
+  Future<bool> ifFavoritePlaceExists(String email, int PlaceID) async {
+    Dio dio = await DioSettings.getDio();
+    try {
+      final response = await dio
+          .get((_baseUrl + '/User_Favorite_Places/Exists/$email/$PlaceID'));
+      print(response.statusCode);
+      print(response.data);
+      if (response.statusCode == 200) {
+        return response.data.toString() == "true" ? true : false;
+      }
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+    return false;
   }
 
   @visibleForTesting
@@ -72,8 +105,7 @@ class User_Favorite_PlacesService {
       case 202:
       case 203:
       case 204:
-        dynamic responseJson = (response.data);
-        return responseJson;
+        return response.data;
       case 400:
         throw Exception(response.body.toString());
       case 401:

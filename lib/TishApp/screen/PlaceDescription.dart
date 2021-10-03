@@ -1,4 +1,5 @@
 import 'package:TishApp/TishApp/Components/Widgets.dart';
+import 'package:TishApp/TishApp/Services/Place/UserFavoritePlacesRepository.dart';
 import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -28,10 +29,22 @@ class TishAppDescription extends StatefulWidget {
 
 class TishAppDescriptionState extends State<TishAppDescription> {
   double rating = 0;
+  late SharedPreferences prefs;
+  bool liked = false;
+  Icon likedIcon = Icon(Icons.star);
+  Icon notlikedIcon = Icon(Icons.star_border);
+
+  void init() async {
+    prefs = await SharedPreferences.getInstance();
+    liked = await User_Favorite_PlacesRepository().ifalreadyLiked(
+        prefs.getString('email').toString(), this.widget.place.Place_ID);
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
-
+    init();
     for (var item in this.widget.place.reviews) {
       rating += double.parse(item.Rating.toString());
     }
@@ -86,8 +99,6 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                     onPressed: () {
                       finish(context);
                     }),
-                // backgroundColor:
-                //     innerBoxIsScrolled ? TishApp_white : TishApp_colorPrimary,
                 actionsIconTheme: IconThemeData(opacity: 0.0),
                 title: Container(
                   height: 60,
@@ -98,10 +109,23 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                       children: <Widget>[
                         Text(this.widget.place.Name),
                         IconButton(
-                            onPressed: () {
-                              print("Pressed");
+                            onPressed: () async {
+                              if (!liked) {
+                                await User_Favorite_PlacesRepository()
+                                    .LikePlace(
+                                        prefs.getString('email').toString(),
+                                        this.widget.place.Place_ID);
+                              } else {
+                                await User_Favorite_PlacesRepository()
+                                    .DislikePlace(
+                                        prefs.getString('email').toString(),
+                                        this.widget.place.Place_ID);
+                              }
+
+                              liked = !liked;
+                              setState(() {});
                             },
-                            icon: Icon(Icons.star_border))
+                            icon: liked ? likedIcon : notlikedIcon)
                       ],
                     ),
                   ),

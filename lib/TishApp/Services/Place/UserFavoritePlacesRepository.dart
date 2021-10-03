@@ -37,10 +37,21 @@ class User_Favorite_PlacesRepository {
     return UserFavoritePlace;
   }
 
-  Future<UserFavoritePlaces> LikePlace(int id) async {
-    dynamic response = await _User_Favorite_PlacesService.getOne(id);
-    UserFavoritePlaces UserFavoritePlace =
-        UserFavoritePlaces.fromJson(response);
-    return UserFavoritePlace;
+  Future<bool> LikePlace(String email, int PlaceID) async {
+    bool response =
+        await _User_Favorite_PlacesService.insertFavoritePlace(email, PlaceID);
+    return response;
+  }
+
+  Future<bool> DislikePlace(String email, int PlaceID) async {
+    bool response =
+        await _User_Favorite_PlacesService.deleteFavoritePlace(email, PlaceID);
+    return response;
+  }
+
+  Future<bool> ifalreadyLiked(String email, int PlaceID) async {
+    bool response = await _User_Favorite_PlacesService.ifFavoritePlaceExists(
+        email, PlaceID);
+    return response;
   }
 }
