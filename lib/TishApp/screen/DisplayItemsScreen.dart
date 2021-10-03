@@ -32,7 +32,7 @@ class _DisplayItemScreenState extends State<DisplayItemScreen> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TishAppDescription(
-                                      place: snapshot.data!.elementAt(index),
+                                      PlaceID: snapshot.data!.elementAt(index).Place_ID,
                                     )));
                       },
                       child: Padding(

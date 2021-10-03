@@ -86,7 +86,7 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => TishAppDescription(
-                                      place: item,
+                                      PlaceID: item.Place_ID,
                                     )));
                       },
                       child: Padding(
@@ -303,8 +303,8 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => TishAppDescription(
-                                          place:
-                                              snapshot.data!.elementAt(index),
+                                          PlaceID:
+                                              snapshot.data!.elementAt(index).Place_ID,
                                         )));
                           },
                           child: Padding(

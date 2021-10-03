@@ -65,8 +65,8 @@ class TishApp extends StatelessWidget {
           '/TishAppCart': (context) => TishAppBookCart(),
         },
         title: 'TishApp',
-        // home: WelcomePage(),
-        home: TishAppMainPage(),
+        home: WelcomePage(),
+        // home: TishAppMainPage(),
 
         builder: scrollBehaviour(),
         navigatorKey: navigator,

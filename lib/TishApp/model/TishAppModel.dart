@@ -45,8 +45,8 @@ class Place {
         reviews: (json['reviews'].map((e) => Review.fromJson(e))).toList(),
         user: json['user'],
         averageReviews: rating,
-        earnedBadges:
-            json['earned_Badges'].map((e) => Place_Badge.fromJson(e)).toList(),
+        earnedBadges: json['earned_Badges'] != null?
+            json['earned_Badges'].map((e) => Place_Badge.fromJson(e)).toList():[],
         // reviews: json['reviews'],
         medias: json['medias']);
     return temp;
