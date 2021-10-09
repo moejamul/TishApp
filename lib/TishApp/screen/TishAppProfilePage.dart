@@ -7,6 +7,7 @@ import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:TishApp/TishApp/utils/TishAppWidget.dart';
 import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,6 +22,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late User user;
   late SharedPreferences prefs;
+  int likedPlacesNum = 0;
+  int reviewsNum = 0;
+  int AvgRating = 0;
   String name = "";
 
   Widget AboutText(double width, double height) {
@@ -95,13 +99,41 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget ProfileRow() {
+    return                FutureBuilder(
+                    future: UserRepository().fetchUserByEmail(),
+                    builder: (context, AsyncSnapshot<User> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        if (snapshot.hasError) {
+                          return Text(
+                              '${snapshot.error}' + "CHECK YOUR INTERNET");
+                        }
+                        List<UserFavoritePlaces> userFavoritePlacesList = [];
+                        List<Review> reviewsList = [];
+                        for (var item in snapshot.data!.favorite_Places) {
+                          userFavoritePlacesList.add(item);
+                        }
+                        likedPlacesNum = userFavoritePlacesList.length;
+                        for (var item in snapshot.data!.reviews) {
+                          reviewsList.add(item);
+                        }
+                        int avgrating = 0;
+                        for (var item in reviewsList) {
+                          avgrating += int.parse(item.Rating.toString());
+                        }
+                        reviewsNum = reviewsList.length;
+                        AvgRating = avgrating~/reviewsNum;
     return Row(
       children: [
-        ProfileRowButton(number: '30', text: 'Followers'),
-        ProfileRowButton(number: '300', text: 'Followings'),
-        ProfileRowButton(number: '300', text: 'Followings', last: true),
+        ProfileRowButton(number: likedPlacesNum.toString(), text: 'Liked Places'),
+        ProfileRowButton(number: reviewsNum.toString(), text: 'Number of Reviews'),
+        ProfileRowButton(number: AvgRating.toString(), text: 'Avg. Rating', last: true),
       ],
     );
+                      } else {
+                        return Center(child: const CircularProgressIndicator());
+                      }
+
+                    });
   }
 
   var image = '';
@@ -165,9 +197,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         for (var item in snapshot.data!.favorite_Places) {
                           userFavoritePlacesList.add(item);
                         }
+                        likedPlacesNum = userFavoritePlacesList.length;
                         for (var item in snapshot.data!.reviews) {
                           reviewsList.add(item);
                         }
+                        int avgrating = 0;
+                        for (var item in reviewsList) {
+                          avgrating += int.parse(item.Rating.toString());
+                        }
+                        reviewsNum = reviewsList.length;
+                        AvgRating = avgrating~/reviewsNum;
                         return ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
@@ -206,8 +245,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                                                       left:
                                                                           12.0),
                                                               child: Text(
-                                                                snapshot.data!
-                                                                    .Username,
+                                                                "${snapshot.data!
+                                                                    .Username} on ${snapshot.data!.reviews
+                                                                      .elementAt(
+                                                                          index).Reviewed_Place['name']}",
                                                                 style: TextStyle(
                                                                     fontWeight:
                                                                         FontWeight
@@ -278,6 +319,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       } else {
                         return Center(child: const CircularProgressIndicator());
                       }
+
                     })
               ],
             ),

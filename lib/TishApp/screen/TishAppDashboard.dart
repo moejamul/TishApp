@@ -418,7 +418,7 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                                                               .spaceEvenly,
                                                       children: [
                                                         Text(
-                                                          '${snapshot.data![index].averageReviews == 0 ? '-' : snapshot.data![index].averageReviews}',
+                                                          '${snapshot.data![index].averageReviews == 0 ? '-' : snapshot.data![index].averageReviews.toStringAsFixed(1)}',
                                                           style: TextStyle(
                                                               color:
                                                                   Colors.white,

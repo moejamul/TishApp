@@ -92,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     return GestureDetector(
       onTap: () async {
+        FocusScope.of(context).unfocus();
         setState(() {
           busy = true;
         });

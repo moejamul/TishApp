@@ -170,7 +170,7 @@ class Review {
   var Rating;
   var Created_At;
   var Updated_At;
-  var Reviewed_Place_ID;
+  var Reviewed_Place;
   dynamic user;
 
   Review(
@@ -179,7 +179,7 @@ class Review {
       this.Rating,
       this.Created_At,
       this.Updated_At,
-      this.Reviewed_Place_ID,
+      this.Reviewed_Place,
       required this.user});
 
   factory Review.fromJson(Map<String, dynamic> json) {
@@ -189,7 +189,7 @@ class Review {
         Rating: json['rating'],
         Created_At: json['created_at'].toString(),
         Updated_At: json['updated_at'].toString(),
-        Reviewed_Place_ID: json['reviewed_Place_ID'],
+        Reviewed_Place: json['reviewed_Place'],
         user: json['user'] == null ? null : User.fromJson(json['user']));
     return temp;
   }

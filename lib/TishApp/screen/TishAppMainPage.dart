@@ -41,13 +41,13 @@ class TishAppMainPageState extends State<TishAppMainPage> {
               }
             },
             icon: Icon(Icons.logout)),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/search');
-              },
-              icon: Icon(Icons.search))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {
+        //         Navigator.of(context).pushNamed('/search');
+        //       },
+        //       icon: Icon(Icons.search))
+        // ],
       ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex:

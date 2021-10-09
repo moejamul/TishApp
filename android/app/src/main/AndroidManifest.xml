@@ -14,7 +14,7 @@
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="ProKit Flutter"
+        android:label="TishApp"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
