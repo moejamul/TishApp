@@ -1,5 +1,6 @@
 import 'package:TishApp/TishApp/Components/T5SliderWidget.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
+import 'package:TishApp/TishApp/screen/PlaceDescription.dart';
 import 'package:flutter/material.dart';
 
 Widget ProfilePicture(
@@ -139,13 +140,24 @@ Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
           itemBuilder: (context, index) {
             List<Widget> WidgetList = [];
             for (var item in list) {
-              Widget temp = Padding(
+              Widget temp = 
+              GestureDetector(
+                onDoubleTap: (){},
+                onTap: (){
+                                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => TishAppDescription(
+                                      PlaceID: item.place.Place_ID,
+                                    )));
+                },
+              child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
                   color: Colors.grey,
                   child: Center(child: Text(item.place.Name)),
                 ),
-              );
+              ));
               WidgetList.add(temp);
             }
             return T5CarouselSlider(

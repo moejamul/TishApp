@@ -9,6 +9,7 @@ import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -207,6 +208,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         }
                         reviewsNum = reviewsList.length;
                         AvgRating = avgrating~/reviewsNum;
+                          reviewsList.sort((a,b) => b.Updated_At.toString().compareTo(a.Updated_At.toString()));
                         return ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
@@ -217,12 +219,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   HorizontalRowPlace(
                                       context, userFavoritePlacesList),
+                                                      Text(
+                  'Latest comments',
+                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                ),
                                   reviewsList.length != 0
                                       ? ListView.builder(
                                           shrinkWrap: true,
                                           physics:
                                               NeverScrollableScrollPhysics(),
-                                          itemCount: reviewsList.length,
+                                          itemCount: 5,
                                           itemBuilder: (context, index) {
                                             return Padding(
                                               padding:

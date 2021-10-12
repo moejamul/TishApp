@@ -348,7 +348,7 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                             snapshot.data!.reviews.length != 0
                                 ? ListView.builder(
                                     shrinkWrap: true,
-                                    
+                                    reverse: true,
                                     physics: NeverScrollableScrollPhysics(),
                                     itemCount: snapshot.data!.reviews.length,
                                     itemBuilder: (context, index) {

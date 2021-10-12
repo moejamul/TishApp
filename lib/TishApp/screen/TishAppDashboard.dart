@@ -289,14 +289,6 @@ class _TishAppDashboardState extends State<TishAppDashboard> {
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
-                        // double rating = 0;
-                        // for (var item
-                        //     in snapshot.data!.elementAt(index).reviews) {
-                        //   rating += double.parse(item.Rating.toString());
-                        // }
-                        // if (rating != 0)
-                        //   rating /=
-                        //       snapshot.data!.elementAt(index).reviews.length;
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
