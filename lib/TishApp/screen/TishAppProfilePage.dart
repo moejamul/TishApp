@@ -219,6 +219,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                 children: [
                                   HorizontalRowPlace(
                                       context, userFavoritePlacesList),
+                                                      SizedBox(
+                  height: width * 0.05,
+                ),
                                                       Text(
                   'Latest comments',
                   style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),

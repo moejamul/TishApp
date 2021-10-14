@@ -23,31 +23,35 @@ class _DisplayItemScreenState extends State<DisplayItemScreen> {
         body: FutureBuilder(
             future: PlaceViewModel().fetchByType(this.widget.type),
             builder: (context, AsyncSnapshot<List<Place>> snapshot) {
-              return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => TishAppDescription(
-                                      PlaceID: snapshot.data!.elementAt(index).Place_ID,
-                                    )));
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Container(
-                            child: Row(
-                          children: [
-                            Text(snapshot.data!.elementAt(index).Name),
-                            Spacer(),
-                            Icon(Icons.arrow_right)
-                          ],
-                        )),
-                      ),
-                    );
-                  });
+              if(snapshot.connectionState == ConnectionState.done)
+                return ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TishAppDescription(
+                                        PlaceID: snapshot.data!.elementAt(index).Place_ID,
+                                      )));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Container(
+                              child: Row(
+                            children: [
+                              Text(snapshot.data!.elementAt(index).Name),
+                              Spacer(),
+                              Icon(Icons.arrow_right)
+                            ],
+                          )),
+                        ),
+                      );
+                    });
+                else {
+                  return Center(child: CircularProgressIndicator(),);
+                }
             }));
   }
 }

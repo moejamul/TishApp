@@ -26,27 +26,34 @@ class TishAppDescription extends StatefulWidget {
 
 class TishAppDescriptionState extends State<TishAppDescription> {
   double rating = 0;
-  late SharedPreferences prefs;
+  var prefs;
   bool liked = false;
   Icon likedIcon = Icon(Icons.star);
   Icon notlikedIcon = Icon(Icons.star_border);
 
   var _dialog;
 
+  void setup() async {
+    prefs = await SharedPreferences.getInstance();
+
+  }
+
   void init(Place? place) async {
     // this.widget.place = await PlaceRepository().fetchOnePlace(this.widget.PlaceID);
-    prefs = await SharedPreferences.getInstance();
-    liked = await User_Favorite_PlacesRepository().ifalreadyLiked(
-        prefs.getString('email').toString(), place!.Place_ID);
-            for (var item in place.reviews) {
+    // liked = await User_Favorite_PlacesRepository().ifalreadyLiked(
+    //     prefs.getString('email').toString(), place!.Place_ID);
+            for (var item in place!.reviews) {
       rating += double.parse(item.Rating.toString());
     }
     if (rating != 0) rating /= place.reviews.length;
+    // setState(() {
+      
+    // });
   }
 
   @override
   void initState() {
-    // init();
+    setup();
 
         super.initState();
   }
@@ -118,7 +125,13 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(snapshot.data!.Name),
-                          IconButton(
+                          FutureBuilder(
+                            future: User_Favorite_PlacesRepository().ifalreadyLiked(
+        prefs.getString('email').toString(), snapshot.data!.Place_ID),
+                            builder: (context,AsyncSnapshot<bool> snapshot1){
+                              if(snapshot.connectionState == ConnectionState.done){
+                                liked = snapshot1.data.toString() == 'true';
+                          return IconButton(
                               onPressed: () async {
                                 if (!liked) {
                                   await User_Favorite_PlacesRepository()
@@ -135,7 +148,28 @@ class TishAppDescriptionState extends State<TishAppDescription> {
                                 liked = !liked;
                                 setState(() {});
                               },
-                              icon: liked ? likedIcon : notlikedIcon)
+                              icon: liked ? likedIcon : notlikedIcon);
+                              } else {
+                                return IconButton(
+                                  onPressed: () async {
+                                                                    if (!liked) {
+                                  await User_Favorite_PlacesRepository()
+                                      .LikePlace(
+                                          prefs.getString('email').toString(),
+                                          snapshot.data!.Place_ID);
+                                } else {
+                                  await User_Favorite_PlacesRepository()
+                                      .DislikePlace(
+                                          prefs.getString('email').toString(),
+                                          snapshot.data!.Place_ID);
+                                }
+    
+                                liked = !liked;
+                                setState(() {});
+                                  },
+                                  icon: Icon(Icons.star_border),);
+                              }
+                            })
                         ],
                       ),
                     ),
