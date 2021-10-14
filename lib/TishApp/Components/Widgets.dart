@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:TishApp/TishApp/Components/T5SliderWidget.dart';
 import 'package:TishApp/TishApp/model/TishAppModel.dart';
 import 'package:TishApp/TishApp/screen/PlaceDescription.dart';
+import 'package:TishApp/TishApp/viewmodel/PlaceViewModel.dart';
 import 'package:flutter/material.dart';
 
 Widget ProfilePicture(
@@ -131,6 +134,12 @@ Widget HorizontalRow() {
           children: List.generate(10, (index) => HorizontalRowItem())));
 }
 
+  int generateRandomNumber(int lower, int higher) {
+    Random random = new Random();
+    int temp = random.nextInt(higher);
+    return temp;
+  }
+
 Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
   return Container(
       height: 230,
@@ -139,7 +148,11 @@ Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
           itemCount: 1,
           itemBuilder: (context, index) {
             List<Widget> WidgetList = [];
+            
             for (var item in list) {
+                String bucketName = item.place.medias.length!=0?item.place.medias[generateRandomNumber(0,item.place.medias.length)]['bucketName']:'null';
+                String objectName = item.place.medias.length!=0?item.place.medias[generateRandomNumber(0,item.place.medias.length-1)]['objectName']:'null';
+
               Widget temp = 
               GestureDetector(
                 onDoubleTap: (){},
@@ -153,9 +166,51 @@ Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
                 },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  color: Colors.grey,
-                  child: Center(child: Text(item.place.Name)),
+                child: Stack(
+                  children: [Container(
+                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                    child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(30),
+                                          child: bucketName != 'null'?FutureBuilder(
+                                            future: PlaceViewModel().fetchPlaceImage(bucketName,objectName),
+                                            builder: (context,AsyncSnapshot<String> snapshot){
+                                              // return Text("data");
+                                              return Image.network(
+                                              snapshot.data.toString(),
+                                              height: 250,
+                                              width: double.infinity,
+                                              fit: BoxFit.cover,
+                                            );
+                                            },
+                                          ):Image.asset(
+                                              "images/imageTest.jpeg",
+                                              height: 250,
+                                              width: double.infinity,
+                                              fit: BoxFit.cover,
+                                            ),
+                                        ),
+                  ),
+                                                Container(
+                                decoration: BoxDecoration(
+                                    gradient: LinearGradient(colors: [
+                                      Colors.transparent.withOpacity(0.6),
+                                      Colors.black.withOpacity(0.1),
+                                      Colors.transparent.withOpacity(0.6),
+                                    ]),
+                                    borderRadius: BorderRadius.circular(30)),
+                              ),
+                              Container(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Text(
+                                      '${item.place.Name}',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 22.0),
+                                    ),
+                                  )),],
                 ),
               ));
               WidgetList.add(temp);
@@ -164,7 +219,7 @@ Widget HorizontalRowPlace(BuildContext context, List<UserFavoritePlaces> list) {
               items: WidgetList,
               enableInfiniteScroll: false,
               enlargeCenterPage: false,
-              viewportFraction: 0.7,
+              viewportFraction: 0.85,
             );
           }));
 }

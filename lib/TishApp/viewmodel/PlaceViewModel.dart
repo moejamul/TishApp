@@ -37,6 +37,17 @@ class PlaceViewModel with ChangeNotifier {
     notifyListeners();
   }
 
+    Future<String> fetchPlaceImage(String bucketName, String imageName) async {
+      String response = 'false';
+    try {
+      response = await PlaceRepository().fetchOnePlaceImage(bucketName, imageName);
+      print("response =>>>> $response");
+    } catch (e) {
+      print(e);
+    }
+    return response;
+  }
+
   Future<List<Place>> fetchByType(String type) async {
     try {
       List<Place> response = await PlaceRepository().fetchPlaceByType(type);

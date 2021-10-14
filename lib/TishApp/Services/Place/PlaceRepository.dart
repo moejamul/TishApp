@@ -23,6 +23,11 @@ class PlaceRepository {
     return place;
   }
 
+  Future<String> fetchOnePlaceImage(String bucketName, String imageName) async {
+    String response = await _placeService.getOneImage(bucketName, imageName);
+    return response;
+  }
+
   Future<List<Place>> fetchPlaceByType(String type) async {
     List<Place> list = [];
     dynamic response = await _placeService.getByType(type);

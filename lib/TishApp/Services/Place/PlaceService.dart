@@ -35,6 +35,18 @@ class PlaceService {
     return responseJson;
   }
 
+    Future<String> getOneImage(String bucketName, String imageName) async {
+    dynamic responseJson;
+    try {
+      Dio dio = await DioSettings.getDio();
+      final response = await dio.get((_baseUrl + '/Places/$bucketName/$imageName'));
+      responseJson = returnResponse(response);
+    } on Exception catch (e) {
+      print(e.toString());
+    }
+    return responseJson.toString();
+  }
+
   Future<dynamic> getByType(String type) async {
     dynamic responseJson;
     try {
