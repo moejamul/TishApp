@@ -1,18 +1,13 @@
-import 'dart:convert';
-import 'dart:io';
-
+import 'package:TishApp/TishApp/screen/TishAppDashboard.dart';
+import 'package:TishApp/TishApp/screen/TishAppMainPage.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:TishApp/TishApp/viewmodel/authViewModel.dart';
 import 'package:provider/provider.dart';
 
 import 'TishAppSignUp.dart';
-
-LocalStorage _localStorage = LocalStorage('UserInfo');
 
 class LoginPage extends StatefulWidget {
   LoginPage();
@@ -26,7 +21,25 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController passwordController = TextEditingController();
   bool busy = false;
   bool done = false;
-  bool? _rememberMeVal = false;
+
+  @override
+  void initState() {
+    init();
+    super.initState();
+  }
+
+  init() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.getBool('IsLoggedIn') == true
+        ? Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => TishAppMainPage()),
+          )
+        // ignore: unnecessary_statements
+        : null;
+    print(
+        "prefs.getBool('IsLoggedIn') ====>>>> ${prefs.getBool('IsLoggedIn')}");
+  }
 
   Widget _backButton() {
     return InkWell(
@@ -65,13 +78,6 @@ class _LoginPageState extends State<LoginPage> {
             height: 10,
           ),
           TextField(
-              onChanged: (value) {
-                // if (_rememberMeVal.toString() == 'true') {
-                //   title == 'Password'
-                //       ? null
-                //       : _localStorage.setItem('username', value);
-                // }
-              },
               controller: controller,
               obscureText: isPassword,
               decoration: InputDecoration(
@@ -86,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget _submitButton() {
     return GestureDetector(
       onTap: () async {
+        FocusScope.of(context).unfocus();
         setState(() {
           busy = true;
         });
@@ -185,21 +192,21 @@ class _LoginPageState extends State<LoginPage> {
     return GestureDetector(
       onTap: () async {
         print('pressed');
-        final LoginResult result = await FacebookAuth.instance.login();
-        if (result.status == LoginStatus.success) {
-          // you are logged
-          final AccessToken accessToken = result.accessToken!;
-          print(accessToken.toJson());
-          print(accessToken.token);
-          dynamic UserInfo = await http.get(Uri.parse(
-              'https://graph.facebook.com/me?fields=id,name,first_name,last_name,email,picture,name_format,middle_name,short_name&access_token=' +
-                  accessToken.token +
-                  ''));
-          dynamic temp = jsonDecode(UserInfo.body);
-          _localStorage.setItem('email', temp['email']);
-          _localStorage.setItem('name', temp['name']);
-          Navigator.pushReplacementNamed(context, '/dashboard');
-        }
+        // final LoginResult result = await FacebookAuth.instance.login();
+        // if (result.status == LoginStatus.success) {
+        //   // you are logged
+        //   final AccessToken accessToken = result.accessToken!;
+        //   print(accessToken.toJson());
+        //   print(accessToken.token);
+        //   dynamic UserInfo = await http.get(Uri.parse(
+        //       'https://graph.facebook.com/me?fields=id,name,first_name,last_name,email,picture,name_format,middle_name,short_name&access_token=' +
+        //           accessToken.token +
+        //           ''));
+        //   dynamic temp = jsonDecode(UserInfo.body);
+        //   _localStorage.setItem('email', temp['email']);
+        //   _localStorage.setItem('name', temp['name']);
+        //   Navigator.pushReplacementNamed(context, '/dashboard');
+        // }
       },
       child: Container(
         constraints: BoxConstraints(maxWidth: 550),
@@ -317,15 +324,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // void fillFields() async {
-  //   await _localStorage.ready;
-  //   nameController.text = await _localStorage.getItem('username') != null
-  //       ? _localStorage.getItem('username')
-  //       : '';
-  //   // _rememberMeVal = await _localStorage.getItem('checkBoxVal');
-  //   setState(() {});
-  // }
-
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -348,34 +346,15 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 50),
                   _emailPasswordWidget(),
                   SizedBox(height: 20),
-                  Container(
-                    constraints: BoxConstraints(maxWidth: 550),
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.centerLeft,
-                    child: Row(
-                      children: [
-                        Checkbox(
-                            value: _rememberMeVal,
-                            onChanged: (value) {
-                              setState(() {
-                                _rememberMeVal = value;
-                              });
-                              _localStorage.setItem('checkBoxVal', value);
-                            }),
-                        Text('Remember Me')
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 20),
                   _submitButton(),
-                  Container(
-                    constraints: BoxConstraints(maxWidth: 550),
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.centerRight,
-                    child: Text('Forgot Password ?',
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w500)),
-                  ),
+                  // Container(
+                  //   constraints: BoxConstraints(maxWidth: 550),
+                  //   padding: EdgeInsets.symmetric(vertical: 10),
+                  //   alignment: Alignment.centerRight,
+                  //   child: Text('Forgot Password ?',
+                  //       style: TextStyle(
+                  //           fontSize: 14, fontWeight: FontWeight.w500)),
+                  // ),
                   _divider(),
                   _facebookButton(),
                   Center(
@@ -388,7 +367,7 @@ class _LoginPageState extends State<LoginPage> {
                               )
                             : Text(''),
                   ),
-                  SizedBox(height: height * .005),
+                  SizedBox(height: height * .003),
                   _createAccountLabel(),
                 ],
               ),

@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:TishApp/TishApp/Settings/AppSettings.dart';
 import 'package:TishApp/TishApp/Settings/DioSettings.dart';
 import 'package:dio/dio.dart';
-import 'package:http/http.dart';
 import 'package:meta/meta.dart';
 
-class PlaceService {
+class ReviewService {
   Settings settings = Settings();
   final String _baseUrl = Settings().backend_url;
 
@@ -14,7 +11,7 @@ class PlaceService {
     var responseJson;
     Dio dio = await DioSettings.getDio();
     try {
-      final response = await dio.get((_baseUrl + '/Places'));
+      final response = await dio.get((_baseUrl + '/reviews'));
       print(response.statusCode);
       responseJson = returnResponse(response);
     } on Exception catch (e) {
@@ -23,40 +20,20 @@ class PlaceService {
     return responseJson;
   }
 
-  Future<dynamic> getOne(int id) async {
-    dynamic responseJson;
+  Future<bool> AddReview(
+      String email, int PlaceID, int Rating, String Message) async {
+    Dio dio = await DioSettings.getDio();
     try {
-      Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/Places/$id'));
-      responseJson = returnResponse(response);
+      final response = await dio.post((_baseUrl + '/reviews/$email/$PlaceID'),
+          data: {"Message": Message, "Rating": Rating});
+      print(response.statusCode);
+      if (response.statusCode == 201) {
+        return true;
+      }
     } on Exception catch (e) {
       print(e.toString());
     }
-    return responseJson;
-  }
-
-    Future<String> getOneImage(String bucketName, String imageName) async {
-    dynamic responseJson;
-    try {
-      Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/Places/$bucketName/$imageName'));
-      responseJson = returnResponse(response);
-    } on Exception catch (e) {
-      print(e.toString());
-    }
-    return responseJson.toString();
-  }
-
-  Future<dynamic> getByType(String type) async {
-    dynamic responseJson;
-    try {
-      Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/Places/Type/$type'));
-      responseJson = returnResponse(response);
-    } on Exception catch (e) {
-      print(e.toString());
-    }
-    return responseJson;
+    return true;
   }
 
   @visibleForTesting

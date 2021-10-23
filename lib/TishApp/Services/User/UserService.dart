@@ -5,8 +5,9 @@ import 'package:TishApp/TishApp/Settings/DioSettings.dart';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart';
 import 'package:meta/meta.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class PlaceService {
+class UserService {
   Settings settings = Settings();
   final String _baseUrl = Settings().backend_url;
 
@@ -14,7 +15,7 @@ class PlaceService {
     var responseJson;
     Dio dio = await DioSettings.getDio();
     try {
-      final response = await dio.get((_baseUrl + '/Places'));
+      final response = await dio.get((_baseUrl + '/Users'));
       print(response.statusCode);
       responseJson = returnResponse(response);
     } on Exception catch (e) {
@@ -27,7 +28,7 @@ class PlaceService {
     dynamic responseJson;
     try {
       Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/Places/$id'));
+      final response = await dio.get((_baseUrl + '/Users/$id'));
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());
@@ -35,23 +36,25 @@ class PlaceService {
     return responseJson;
   }
 
-    Future<String> getOneImage(String bucketName, String imageName) async {
+  Future<dynamic> getByEmail() async {
     dynamic responseJson;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/Places/$bucketName/$imageName'));
+      final response = await dio
+          .get((_baseUrl + '/users/email/${prefs.getString('email')}'));
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());
     }
-    return responseJson.toString();
+    return responseJson;
   }
 
   Future<dynamic> getByType(String type) async {
     dynamic responseJson;
     try {
       Dio dio = await DioSettings.getDio();
-      final response = await dio.get((_baseUrl + '/Places/Type/$type'));
+      final response = await dio.get((_baseUrl + '/Users/Type/$type'));
       responseJson = returnResponse(response);
     } on Exception catch (e) {
       print(e.toString());

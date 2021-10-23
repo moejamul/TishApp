@@ -1,41 +1,35 @@
 import 'dart:convert';
-
-import 'package:localstorage/localstorage.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 import 'LoginService.dart';
 
 class LoginRepository {
-  LocalStorage localStorage = LocalStorage('UserInfo');
   LoginService _loginService = LoginService();
 
   // ignore: non_constant_identifier_names
   Future<bool> LoginRepo(String username, String password) async {
-    dynamic response = await _loginService.loginService(username, password);
-    final jsonData = jsonDecode(response);
-    await localStorage.ready
-        ? await localStorage.setItem(
-            'access_token', jsonData['access_token'].toString())
-        // ignore: unnecessary_statements
-        : null;
-    Map<String, dynamic> jwtData = {};
-
-    JwtDecoder.decode(jsonData['access_token'].toString())!
-        .forEach((key, value) {
-      jwtData[key] = value;
-    });
-    var refreshToken = jsonData['refresh_token'];
-    print(refreshToken);
-    await localStorage.setItem('jwt', jsonData);
-    await localStorage.setItem('name', jwtData['name'].toString());
-    await localStorage.setItem(
-        'refresh_token', jwtData['refresh-token'].toString());
-    await localStorage.setItem('email', jwtData['email'].toString());
-    await localStorage.setItem(
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var response = await _loginService.loginService(username, password);
+    final jsonData = (response);
+    Map<String, dynamic>? jwtData = {};
+    print(jsonData['access_token']);
+    jwtData = Jwt.parseJwt(jsonData['access_token'].toString());
+    await prefs.setString("accessToken", jsonData['access_token']);
+    await prefs.setString("refreshToken", jsonData['refresh_token']);
+    await prefs.setString("UserID", jwtData['sub']);
+    await prefs.setInt("tokenDuration", jsonData['expires_in']);
+    await prefs.setInt("refreshDuration", jsonData['refresh_expires_in']);
+    await prefs.setInt("tokenStartTime", jwtData['iat']);
+    await prefs.setString('name', jwtData['name'].toString());
+    await prefs.setString('refresh_token', jwtData['refresh-token'].toString());
+    await prefs.setString('email', jwtData['email'].toString());
+    await prefs.setString(
         'email_verified', jwtData['email_verified'].toString());
-    await localStorage.setItem('given_name', jwtData['given_name'].toString());
-    await localStorage.setItem(
-        'family_name', jwtData['family_name'].toString());
+    await prefs.setString('given_name', jwtData['given_name'].toString());
+    await prefs.setString('family_name', jwtData['family_name'].toString());
+
+    await prefs.setBool('IsLoggedIn', true);
     return true;
   }
 }

@@ -1,5 +1,6 @@
-import 'dart:convert';
-
+import 'package:TishApp/TishApp/screen/TishAppLogin.dart';
+import 'package:TishApp/main.dart';
+import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';
 import 'package:nb_utils/nb_utils.dart';
 
@@ -13,6 +14,11 @@ class LogoutRepository {
   Future<bool> LogoutRepo() async {
     bool response = await _LogoutService.logoutService();
     response ? _localStorage.clear() : null;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('IsLoggedIn', false);
+    navigator.currentState!.pushReplacement(
+      MaterialPageRoute(builder: (context) => LoginPage()),
+    );
     return response;
   }
 }
